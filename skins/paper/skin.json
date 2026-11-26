@@ -1,0 +1,88 @@
+{
+  "format": 1,
+  "id": "paper",
+  "name": "Papercut",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "about": "Layers of cut coloured paper, light and soft",
+  "tags": ["paper", "light", "soft"],
+
+  "style": {
+    "shape": "orb", "material": "solid", "base": "#FFF4E2", "accent": "#E5533D", "accent2": "#F2A900", "text": "#3B2A2E", "border": "#E9D7BE",
+    "opacity": 1, "corner": 14, "font": "Candara", "open": "bloom", "speed": 1, "hoverGrow": 4, "iconZoom": 1.10, "glow": 0,
+    "tilt": 0.5, "pointer": false, "burst": false, "shadow": 0.45, "dim": 0.22
+  },
+  "wheel": { "hub": 92, "thickness": 90, "gap": 5, "ringgap": 44, "rim": 44, "icon": 46, "crowd": 1.42, "area": 1.22, "hubkeep": 0.78 },
+  "colors": { "ink": "#3B2A2E", "coral": "#E5533D", "sun": "#F2A900", "leaf": "#2F8F83" },
+  "fonts": { "title": "Candara, Trebuchet MS, Segoe UI" },
+
+  "images": {
+    "disc1": { "file": "disc1.jpg", "mask": "disc1-mask.png" },
+    "disc2": { "file": "disc2.jpg", "mask": "disc2-mask.png" },
+    "plate": { "file": "plate.jpg", "mask": "plate-mask.png" },
+    "slot": { "file": "slot.jpg", "mask": "slot-mask.png" },
+    "petals": { "file": "petals.jpg", "mask": "petals-mask.png" },
+    "petals2": { "file": "petals2.jpg", "mask": "petals2-mask.png" },
+    "flower": { "file": "flower.jpg", "mask": "flower-mask.png" },
+    "face": { "file": "face.jpg", "mask": "face-mask.png" },
+    "panel": { "file": "panel.jpg", "mask": "panel-mask.png" },
+    "arrow": "arrow.png", "dot": "dot.png", "star": "star.png",
+    "confetti": { "file": "confetti.png", "cols": 4 }
+  },
+
+  // the two discs behind turn slowly against each other and float at different depths
+  "ring": [
+    { "image": "disc1", "size": 1.245, "rotate": "time*-1.6 + ring*9", "depth": -1.0, "intro": { "time": 0.42, "ease": "back", "scale": 0.5, "rotate": 50 } },
+    { "image": "disc2", "size": 1.155, "rotate": "time*2.2", "depth": -0.65, "intro": { "delay": 0.04, "time": 0.42, "ease": "back", "scale": 0.5, "rotate": -70 } },
+    { "image": "plate", "size": 1.06, "depth": -0.3, "intro": { "delay": 0.08, "time": 0.40, "ease": "back", "scale": 0.55, "rotate": 25 } }
+  ],
+
+  "slot": {
+    "intro": { "delay": 0.10, "time": 0.38, "ease": "back", "scale": 0.1, "rotate": -60, "stagger": 0.018, "order": "both" },
+    "under": [
+      { "image": "petals2", "size": "(0.80+0.56*hot)*1.12", "rotate": "i*11 + 34*hot", "when": "hot>0.01 && !active", "opacity": "sat(hot*3)" },
+      { "image": "petals", "size": "(0.92+0.44*hot)*1.12", "rotate": "i*11 + 34*hot + time*6", "when": "active || hot>0.01 && kid", "opacity": "active ? 1 : sat(hot*3)" },
+      { "image": "petals", "size": "(0.72+0.54*hot)*1.12", "rotate": "i*17 - 40*hot", "when": "hot>0.01", "opacity": "sat(hot*3)" },
+      { "image": "slot", "size": "1.16*(0.96+0.05*hot-0.04*press+launch*0.3)", "detail": 1.06 }
+    ],
+    "icon": { "size": 1.14, "zoom": 1.16, "shadow": { "x": 1, "y": 3, "blur": 3, "color": "#1B1420/45" } },
+    "over": [
+      { "image": "dot", "size": 0.24, "x": "0.02+0.015*sin(time*2+seed*6)", "y": 0.92, "when": "running && !active" },
+      { "image": "star", "size": 0.34, "y": 0.90, "rotate": "12*sin(time*1.4)", "when": "active" },
+      { "shape": "circle", "x": 0.70, "y": -0.70, "size": 0.24, "fill": "sun", "when": "numbers && number<10 && !kid" },
+      { "text": "{number}", "x": 0.70, "y": -0.71, "em": 0.30, "color": "white", "font": "title", "weight": 700, "when": "numbers && number<10 && !kid" },
+      { "shape": "poly", "points": [[-0.13, -0.86], [0, -1.02], [0.13, -0.86]], "closed": true, "fill": "coral", "when": "group" }
+    ],
+    "marks": false, "chevron": false, "badge": false, "names": 0.98
+  },
+
+  "over": [
+    { "image": "arrow", "in": "hub", "size": 0.18, "angle": "sel", "radius": 0.99, "turns": true, "opacity": "on", "scale": "0.5+0.5*on" }
+  ],
+  "hub": [
+    { "image": "flower", "size": 1.16, "rotate": "sel*0.5 + time*1.5", "depth": 0.35, "intro": { "delay": 0.05, "time": 0.42, "ease": "back", "scale": 0.2, "rotate": -120 } },
+    { "image": "face", "size": 0.88, "depth": 0.6, "intro": { "delay": 0.09, "time": 0.40, "ease": "back", "scale": 0.2 } },
+    { "text": "{title}", "y": -0.05, "depth": 0.6, "box": [1.20, 0.52], "px": 18, "color": "ink", "font": "title", "weight": 700, "wrap": true },
+    { "text": "{sub}", "y": 0.28, "depth": 0.6, "box": [1.10, 0.18], "px": 11.5, "color": "coral", "font": "title", "weight": 700 },
+    { "text": "{hh}:{mm}", "y": -0.08, "depth": 0.6, "px": 31, "color": "ink", "font": "title", "weight": 700, "opacity": "idle" },
+    { "text": "{date}", "y": 0.22, "depth": 0.6, "px": 12, "color": "coral", "font": "title", "weight": 700, "opacity": "idle" }
+  ],
+
+  "draw": { "clock": false, "text": "ink" },
+  "tabs": { "inset": 8, "text": "ink", "fill": "#E9C8A4/70", "on": "#E5533D" },
+
+  "panel": { "image": "panel", "cut": 70, "scale": 0.42, "pad": 12, "text": "ink" },
+  "tag": { "image": "panel", "cut": 70, "scale": 0.30, "pad": 8, "text": "ink" },
+  "tile": { "image": "panel", "cut": 70, "scale": 0.34, "pad": 8, "text": "ink" },
+
+  "particles": [
+    { "image": "confetti", "rate": 1.2, "max": 10, "area": "stage", "life": [2.5, 4.5], "size": [5, 9], "speed": [4, 14], "dir": [140, 220], "gravity": 10, "spin": [-90, 90], "sway": 16, "swayhz": 0.5, "opacity": 0.9, "fadein": 0.2, "fadeout": 0.4 }
+  ],
+  "onlaunch": [
+    { "image": "confetti", "count": 46, "area": "slot", "life": [0.4, 0.9], "size": [6, 13], "speed": [160, 620], "outward": true, "dir": [-80, 80], "gravity": 700, "drag": 2.4, "spin": [-600, 600], "fadeout": 0.5, "fadein": 0 }
+  ],
+  "onhover": [
+    { "image": "confetti", "count": 5, "area": "slot", "life": [0.3, 0.6], "size": [4, 8], "speed": [60, 170], "outward": true, "dir": [-60, 60], "gravity": 300, "drag": 2, "spin": [-400, 400], "fadeout": 0.5, "fadein": 0 }
+  ],
+  "sounds": { "open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav" }
+}

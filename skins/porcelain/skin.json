@@ -1,0 +1,77 @@
+{
+  "format": 1,
+  "id": "porcelain",
+  "name": "Porcelain",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "about": "White glaze, cobalt painting, and cracks mended with gold",
+  "tags": ["porcelain", "elegant", "light"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#F4F7FB", "accent": "#2A57B8", "accent2": "#C9A24A", "text": "#17357F", "border": "#C9A24A", "opacity": 0.98, "corner": 12, "font": "Constantia", "open": "bloom", "speed": 1, "hoverGrow": 4, "iconZoom": 1.12, "glow": 0.2, "tilt": 0.4, "pointer": false, "burst": false, "shadow": 0.5, "dim": 0.26},
+  "wheel": {"hub": 94, "thickness": 90, "gap": 5, "ringgap": 30, "rim": 30, "icon": 44, "crowd": 1.45, "area": 1.14, "hubkeep": 0.68},
+  "colors": {"ink": "#17357F", "cobalt": "#2A57B8", "gold": "#C9A24A", "white": "#FFFFFF"},
+  "fonts": {"title": "Constantia, Cambria, Georgia"},
+  "images": {
+    "crackglow": {"file": "crackglow.jpg", "light": true},
+    "dish": {"file": "dish.jpg", "mask": "dish-mask.png"},
+    "drop": "drop.png",
+    "halo": {"file": "halo.jpg", "light": true},
+    "hub": {"file": "hub.jpg", "mask": "hub-mask.png"},
+    "petals": {"file": "petals.png", "cols": 4},
+    "plate": {"file": "plate.jpg", "mask": "plate-mask.png"},
+    "wash": {"file": "wash.jpg", "mask": "wash-mask.png"}
+  },
+  "ring": [
+    {"shape": "circle", "x": 0.0, "y": 0.025, "size": 1.1, "fill": {"type": "radial", "stops": [[0, "black/60"], [0.86, "black/51"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "plate", "size": 1, "rotate": "(1-open)*-30", "intro": {"time": 0.36, "ease": "out", "scale": 0.86}},
+    {"image": "crackglow", "size": 1, "opacity": "0.08*wave(time*0.15)+0.30*on*(0.7+0.3*wave(time*0.9))+launch"}
+  ],
+  "slot": {
+    "intro": {"time": 0.36, "ease": "back", "delay": 0.05, "scale": 0.2, "radius": -0.2, "stagger": 0.02, "order": "both"},
+    "under": [
+      {"image": "wash", "size": 1.54, "opacity": "0.85*sat(hot)", "rotate": "i*47+time*4", "scale": "(1.2+0.34*outcubic(sat(hot)))/1.54"},
+      {"shape": "circle", "x": 0.0, "y": 0.07, "size": 1.14, "fill": {"type": "radial", "stops": [[0, "black/46"], [0.82, "black/39"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+      {"image": "dish", "size": "1.06*(1+0.05*hot-0.04*press+0.2*launch)", "detail": 1.06},
+      {"image": "halo", "size": 1.7, "opacity": "launch*2"}
+    ],
+    "icon": {"size": 1.06, "zoom": 1.14, "tone": "duo", "hot": "original", "ink": "#14318A", "paper": "#FFFFFF"},
+    "over": [
+      {"shape": "arc", "r": 0.985, "from": 0, "to": "360*sat(hot)", "stroke": {"type": "linear", "stops": [[0, "#FFF0C0"], [0.5, "#C9942E"], [1, "#FFE3A0"]]}, "width": 2.6, "when": "hot>0.01", "caps": true, "glow": 4, "glowcolor": "#FFCC66"},
+      {"shape": "circle", "y": 0.9, "size": 0.16, "fill": "#C9A24A", "when": "running", "opacity": "active ? 1 : 0.75", "glow": 4, "glowcolor": "#FFF3CF"},
+      {"shape": "circle", "y": 0.9, "size": 0.08800000000000001, "fill": "#FFF3CF", "when": "running", "opacity": "active ? 1 : 0.35+0.35*wave(time*0.5+seed)"},
+      {"shape": "circle", "x": 0.7, "y": -0.7, "size": 0.25, "fill": "#17357F", "when": "numbers && number<10 && !kid"},
+      {"text": "{number}", "x": 0.7, "y": -0.71, "em": 0.3, "color": "white", "font": "title", "weight": 700, "when": "numbers && number<10 && !kid"},
+      {"shape": "poly", "points": [[-0.14, -0.741], [0, -0.86], [0.14, -0.741]], "stroke": "#2A57B8", "width": 2.2, "caps": true, "when": "group"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "over": [
+    {"shape": "circle", "x": 0.0, "y": 0.04, "size": 1.2, "fill": {"type": "radial", "stops": [[0, "black/55"], [0.8, "black/47"], [1, "black/0"]]}, "opacity": "sat(open)*0.95", "in": "hub"},
+    {"image": "drop", "size": 0.11, "in": "hub", "angle": "sel", "radius": 1.06, "opacity": "on", "scale": "0.4+0.6*on"}
+  ],
+  "hub": [
+    {"image": "hub", "size": 1.0, "intro": {"time": 0.34, "ease": "back", "scale": 0.4, "rotate": -40}, "rotate": "sel*0.15"},
+    {"text": "{title}", "y": -0.05, "box": [1.16, 0.46], "px": 17, "color": "ink", "font": "title", "weight": 700, "wrap": true},
+    {"text": "{sub}", "y": 0.28, "box": [1.1019999999999999, 0.2], "px": 11.5, "color": "cobalt", "font": "title", "weight": 700},
+    {"text": "{hh}:{mm}", "y": -0.08, "box": [1.16, 0.55], "px": 29, "color": "ink", "font": "title", "weight": 700, "opacity": "idle"},
+    {"text": "{date}", "y": 0.21, "box": [1.1019999999999999, 0.2], "px": 12, "color": "cobalt", "font": "title", "weight": 700, "opacity": "idle"}
+  ],
+  "draw": {"clock": false, "shadow": false, "text": "ink"},
+  "tabs": {"inset": 12, "text": "ink", "fill": "#C7D6F2/85", "on": "#2A57B8"},
+  "panel": {"fill": {"type": "linear", "stops": [[0, "#FFFFFF"], [1, "#E9EFF8"]]}, "stroke": {"type": "linear", "stops": [[0, "#F3D992"], [0.5, "#A87B22"], [1, "#E9C877"]]}, "width": 2.4, "corner": 14, "text": "ink"},
+  "tag": {"fill": {"type": "linear", "stops": [[0, "#FFFFFF"], [1, "#E9EFF8"]]}, "stroke": "#B98A2E", "width": 1.6, "corner": 9, "text": "ink"},
+  "tile": {"fill": {"type": "linear", "stops": [[0, "#FFFFFF"], [1, "#E3EBF7"]]}, "stroke": "#2A57B8", "width": 2, "corner": 9, "text": "ink"},
+  "particles": [
+    {"image": "petals", "rate": 0.8, "max": 7, "area": "stage", "life": [3, 5], "size": [6, 11], "speed": [4, 12], "dir": [130, 230], "gravity": 8, "spin": [-60, 60], "sway": 18, "swayhz": 0.4, "opacity": 0.85, "fadein": 0.2, "fadeout": 0.4}
+  ],
+  "onhover": [
+    {"color": "#E9C877", "count": 4, "area": "slot", "life": [0.3, 0.5], "size": [2, 3], "speed": [30, 100], "outward": true, "dir": [-60, 60], "drag": 2, "fadein": 0, "fadeout": 0.6}
+  ],
+  "onlaunch": [
+    {"image": "petals", "count": 30, "area": "slot", "life": [0.5, 1.0], "size": [7, 15], "speed": [90, 380], "outward": true, "dir": [-90, 90], "gravity": 240, "drag": 2.2, "spin": [-300, 300], "fadein": 0, "fadeout": 0.5},
+    {"color": "#FFD27A", "light": true, "count": 24, "area": "slot", "life": [0.3, 0.7], "size": [2, 4], "speed": [120, 460], "outward": true, "dir": [-80, 80], "gravity": 300, "drag": 2.5, "fadeout": 0.6}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"}
+}

@@ -1,0 +1,94 @@
+{
+  "format": 1,
+  "id": "neon",
+  "name": "Neon",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "license": "Fonts Pacifico and Tilt Neon: SIL Open Font License, see OFL.txt",
+  "about": "A bar sign at night: bent glass tubes on a round brick wall",
+  "tags": ["neon", "night", "glow"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#12101C", "accent": "#FF2D86", "accent2": "#18E6FF", "text": "#FFE9F6", "border": "#7C4DFF", "opacity": 0.97, "corner": 10, "font": "Tilt Neon", "open": "fade", "speed": 1.1, "hoverGrow": 3, "iconZoom": 1.12, "glow": 0.8, "tilt": 0.5, "pointer": false, "burst": false, "shadow": 0.75, "dim": 0.46},
+  "wheel": {"hub": 94, "thickness": 92, "gap": 6, "ringgap": 10, "rim": 40, "icon": 42, "crowd": 1.5, "area": 1.14, "hubkeep": 0.72},
+  "colors": {"pink": "#FF8FC2", "cyan": "#9AF4FF", "white": "#FFF4FB"},
+  "fonts": {"sign": {"file": "Pacifico-Regular.ttf", "family": "Pacifico"}, "small": {"file": "TiltNeon.ttf", "family": "Tilt Neon"}},
+  "images": {
+    "arrow": "arrow.png",
+    "arrowlit": {"file": "arrowlit.jpg", "light": true},
+    "cup": {"file": "cup.jpg", "mask": "cup-mask.png"},
+    "dash": {"file": "dash.jpg", "light": true},
+    "dashp": {"file": "dashp.jpg", "light": true},
+    "hublit": {"file": "hublit.jpg", "light": true},
+    "hubplate": {"file": "hubplate.jpg", "mask": "hubplate-mask.png"},
+    "hubtube": {"file": "hubtube.jpg", "mask": "hubtube-mask.png"},
+    "lit1": {"file": "lit1.jpg", "light": true},
+    "lit2": {"file": "lit2.jpg", "light": true},
+    "lit3": {"file": "lit3.jpg", "light": true},
+    "ringv": {"file": "ringv.jpg", "light": true},
+    "ringy": {"file": "ringy.jpg", "light": true},
+    "spark": {"file": "spark.png", "light": true},
+    "spill": {"file": "spill.jpg", "light": true},
+    "spillin": {"file": "spillin.jpg", "light": true},
+    "swoosh": "swoosh.png",
+    "swooshlit": {"file": "swooshlit.jpg", "light": true},
+    "tubes": {"file": "tubes.jpg", "mask": "tubes-mask.png"},
+    "wall": {"file": "wall.jpg", "mask": "wall-mask.png"}
+  },
+  "back": [
+    {"shape": "circle", "x": 0.0, "y": 0.03, "size": 1.1, "fill": {"type": "radial", "stops": [[0, "black/72"], [0.86, "black/61"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "wall", "size": 1.09, "intro": {"time": 0.22, "ease": "out", "scale": 0.94}},
+    {"image": "spill", "size": 1.09, "opacity": "0.95*((time>0.05)*(time<0.3 ? step(0.45,fract(time*13)) : 1)*(0.94+0.06*noise(time*27)))"},
+    {"image": "tubes", "size": 1.09, "intro": {"time": 0.22, "ease": "out", "scale": 0.94}},
+    {"image": "lit1", "size": 1.09, "opacity": "(time>0.05)*(time<0.3 ? step(0.45,fract(time*13)) : 1)*(0.94+0.06*noise(time*27))"},
+    {"image": "lit2", "size": 1.09, "opacity": "(time>0.1)*(time<0.42 ? step(0.45,fract(time*11)) : 1)*(1-0.75*step(0.965,noise(time*5+3))*step(0.45,noise(time*43)))"},
+    {"image": "lit3", "size": 1.09, "opacity": "(time>0.08)*(time<0.36 ? step(0.45,fract(time*9)) : 1)*(0.94+0.06*noise(time*31+9))"}
+  ],
+  "slot": {
+    "intro": {"time": 0.24, "ease": "out", "delay": 0.06, "scale": 0.85, "stagger": 0.02, "order": "random"},
+    "under": [
+      {"shape": "circle", "x": 0.0, "y": 0.07, "size": 1.1, "fill": {"type": "radial", "stops": [[0, "black/60"], [0.8, "black/51"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+      {"image": "cup", "size": "1.06*(1-0.03*press)", "rotate": "0"},
+      {"image": "ringv", "size": "1.60*(1-0.03*press)", "opacity": "(1-sat(hot))*(0.62+0.10*near)*smooth(0.15,0.3,time-0.02*i)*(0.94+0.06*noise(time*23+i*7))"},
+      {"image": "ringy", "size": "1.60*(1-0.03*press)", "opacity": "sat(hot*1.3)*(0.95+0.05*noise(time*33+i))+launch*1.5"}
+    ],
+    "icon": {"size": 0.98, "zoom": 1.12, "tone": "neon", "hot": "original", "ink": "item", "paper": "#FFFFFF", "glow": "0.5*hot", "glowcolor": "#FFC42E"},
+    "over": [
+      {"image": "dash", "size": [0.36, 0.18], "y": 0.905, "opacity": "active ? 1.1 : 0.75", "when": "running"},
+      {"image": "dashp", "size": [0.36, 0.18], "y": -0.905, "opacity": 0.9, "when": "group"},
+      {"shape": "circle", "x": 0.7, "y": -0.7, "size": 0.25, "fill": "#12101C", "when": "numbers && number<10 && !kid", "stroke": "#FF2D86", "width": 1.2},
+      {"text": "{number}", "x": 0.7, "y": -0.71, "em": 0.3, "color": "white", "font": "small", "weight": 700, "when": "numbers && number<10 && !kid"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "over": [
+    {"shape": "circle", "x": 0.0, "y": 0.05, "size": 1.14, "fill": {"type": "radial", "stops": [[0, "black/66"], [0.8, "black/56"], [1, "black/0"]]}, "opacity": "sat(open)*0.95", "in": "hub"},
+    {"image": "spillin", "size": 1.48, "in": "hub", "opacity": "0.85*((time>0.12)*(time<0.34 ? step(0.45,fract(time*15)) : 1)*(0.95+0.05*noise(time*29+4)))"}
+  ],
+  "hub": [
+    {"image": "hubplate", "size": 1.0},
+    {"image": "hubtube", "size": 1.0},
+    {"image": "hublit", "size": 1.45, "opacity": "(time>0.12)*(time<0.34 ? step(0.45,fract(time*15)) : 1)*(0.95+0.05*noise(time*29+4))"},
+    {"image": "arrow", "size": 0.2, "angle": "sel", "radius": 0.7, "turns": true, "opacity": "on"},
+    {"image": "arrowlit", "size": 0.2, "angle": "sel", "radius": 0.7, "turns": true, "opacity": "on*(0.9+0.1*noise(time*30))"},
+    {"text": "{title}", "y": -0.08, "box": [1.06, 0.66], "px": 19, "color": "#FFD6EA", "font": "sign", "weight": 400, "wrap": true, "shadow": {"x": 0, "y": 0, "blur": 7, "color": "#FF2D86"}},
+    {"text": "{sub}", "y": 0.33, "box": [1.007, 0.2], "px": 11.5, "color": "cyan", "font": "small", "weight": 400, "shadow": {"x": 0, "y": 0, "blur": 7, "color": "#FF2D86"}},
+    {"text": "{hh}:{mm}", "y": -0.08, "box": [1.06, 0.55], "px": 33, "color": "#FFD6EA", "font": "small", "weight": 400, "opacity": "idle", "shadow": {"x": 0, "y": 0, "blur": 7, "color": "#FF2D86"}},
+    {"text": "{date}", "y": 0.2, "box": [1.007, 0.2], "px": 12, "color": "cyan", "font": "small", "weight": 400, "opacity": "idle", "shadow": {"x": 0, "y": 0, "blur": 7, "color": "#FF2D86"}},
+    {"image": "swoosh", "size": [0.46, 0.1725], "y": 0.53},
+    {"image": "swooshlit", "size": [0.46, 0.1725], "y": 0.53, "opacity": "(0.25+0.75*on)*((time>0.12)*(time<0.34 ? step(0.45,fract(time*15)) : 1)*(0.95+0.05*noise(time*29+4)))"}
+  ],
+  "draw": {"clock": false, "shadow": false, "text": "#FFD6EA"},
+  "tabs": {"inset": 24, "text": "#FFE9F6", "fill": "#7C4DFF/22", "on": "#D81CFF/70"},
+  "panel": {"fill": {"type": "linear", "stops": [[0, "#221A2E"], [1, "#100C18"]]}, "stroke": "#FF2D86", "width": 2, "corner": 12, "text": "white"},
+  "tag": {"fill": "#12101C", "stroke": "#18E6FF", "width": 1.6, "corner": 10, "text": "white"},
+  "tile": {"fill": {"type": "linear", "stops": [[0, "#2A2038"], [1, "#12101C"]]}, "stroke": "#7C4DFF", "width": 2, "corner": 10, "text": "white"},
+  "onhover": [
+    {"image": "spark", "light": true, "count": 3, "area": "slot", "life": [0.2, 0.4], "size": [2, 4], "speed": [50, 140], "outward": true, "dir": [-70, 70], "gravity": 500, "fadein": 0, "fadeout": 0.6}
+  ],
+  "onlaunch": [
+    {"image": "spark", "light": true, "count": 34, "area": "slot", "life": [0.25, 0.6], "size": [4, 9], "speed": [140, 480], "outward": true, "dir": [-90, 90], "gravity": 620, "drag": 1.8, "fadein": 0, "fadeout": 0.5}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"}
+}

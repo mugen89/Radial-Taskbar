@@ -1,0 +1,87 @@
+{
+  "format": 1,
+  "id": "coral",
+  "name": "Coral Reef",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "about": "Blue water in a ring of corals, small fish, and a pearl in the middle",
+  "tags": ["nature", "sea", "colourful"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#0C4A78", "accent": "#FF7A9A", "accent2": "#4FE0E6", "text": "#F0FCFF", "border": "#8FE6F4", "opacity": 0.96, "corner": 16, "font": "Candara", "open": "bloom", "speed": 0.95, "hoverGrow": 4, "iconZoom": 1.14, "glow": 0.3, "tilt": 0.7, "pointer": false, "burst": false, "shadow": 0.55, "dim": 0.32},
+  "wheel": {"hub": 88, "thickness": 94, "gap": 5, "ringgap": 10, "rim": 46, "icon": 43, "crowd": 1.48, "area": 1.16, "hubkeep": 0.78},
+  "colors": {"deep": "#0A3A66", "teal": "#1E7A9A", "pale": "#F0FCFF"},
+  "fonts": {"title": "Candara, Segoe UI"},
+  "images": {
+    "anemone": {"file": "anemone.jpg", "mask": "anemone-mask.png", "cols": 1},
+    "bubble": "bubble.png",
+    "caustic": {"file": "caustic.jpg", "light": true},
+    "drop": {"file": "drop.jpg", "light": true},
+    "fish1": {"file": "fish1.png", "cols": 2},
+    "fish2": {"file": "fish2.png", "cols": 2},
+    "halo": {"file": "halo.jpg", "light": true},
+    "pearl": {"file": "pearl.jpg", "mask": "pearl-mask.png"},
+    "reef": {"file": "reef.jpg", "mask": "reef-mask.png"},
+    "shell": {"file": "shell.jpg", "mask": "shell-mask.png"},
+    "water": {"file": "water.jpg", "mask": "water-mask.png"}
+  },
+  "back": [
+    {"shape": "circle", "x": 0.0, "y": 0.03, "size": 1.12, "fill": {"type": "radial", "stops": [[0, "black/60"], [0.86, "black/51"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "water", "size": 0.985, "intro": {"time": 0.3, "ease": "out", "scale": 0.5}},
+    {"image": "caustic", "size": 0.98, "rotate": "time*3", "opacity": "0.40", "scale": "1.02+0.03*sin(time*0.8)"},
+    {"image": "caustic", "size": 0.98, "rotate": "-time*4+60", "opacity": "0.28", "scale": "1.05+0.03*sin(time*0.7+2)"},
+    {"image": "fish1", "size": [0.085, 0.052700000000000004], "angle": "time*9+20", "radius": "0.46+0.05*sin(time*0.9+20)+0.10*on*sin(time*3+20)", "rotate": "time*9+20+0+8*sin(time*1.7+20)", "frame": "floor(time*6+20)%2", "opacity": "smooth(0.25,0.6,time)"},
+    {"image": "fish1", "size": [0.065, 0.0403], "angle": "time*9+2", "radius": "0.5+0.05*sin(time*0.9+2)+0.10*on*sin(time*3+2)", "rotate": "time*9+2+0+8*sin(time*1.7+2)", "frame": "floor(time*6+2)%2", "opacity": "smooth(0.25,0.6,time)"},
+    {"image": "fish2", "size": [0.06, 0.0372], "angle": "time*-12+200", "radius": "0.8+0.05*sin(time*0.9+200)+0.10*on*sin(time*3+200)", "rotate": "time*-12+200+180+8*sin(time*1.7+200)", "frame": "floor(time*6+200)%2", "opacity": "smooth(0.25,0.6,time)"},
+    {"image": "fish2", "size": [0.05, 0.031], "angle": "time*-12+214", "radius": "0.83+0.05*sin(time*0.9+214)+0.10*on*sin(time*3+214)", "rotate": "time*-12+214+180+8*sin(time*1.7+214)", "frame": "floor(time*6+214)%2", "opacity": "smooth(0.25,0.6,time)"},
+    {"image": "fish2", "size": [0.046, 0.02852], "angle": "time*-12+226", "radius": "0.78+0.05*sin(time*0.9+226)+0.10*on*sin(time*3+226)", "rotate": "time*-12+226+180+8*sin(time*1.7+226)", "frame": "floor(time*6+226)%2", "opacity": "smooth(0.25,0.6,time)"},
+    {"image": "reef", "size": 1.1, "rotate": "(1-open)*12", "intro": {"time": 0.34, "ease": "out", "scale": 0.86}}
+  ],
+  "slot": {
+    "intro": {"time": 0.45, "ease": "out", "delay": 0.06, "scale": 0.2, "y": 0.9, "stagger": 0.02, "order": "random"},
+    "under": [
+      {"image": "anemone", "size": 1.46, "rotate": "8*sin(time*1.6+seed*6)", "opacity": "sat(hot*3)", "when": "hot>0.01", "scale": "(1.46*(0.30+0.70*outback(sat(hot))))/1.46"},
+      {"image": "anemone", "size": 1.1, "rotate": "-10*sin(time*1.9+seed*6)+9", "opacity": "sat(hot*3)", "when": "hot>0.01", "scale": "(1.10*(0.30+0.70*outback(sat(hot))))/1.1"},
+      {"shape": "circle", "size": 0.92, "y": "0.03*sin(time*1.6+seed*6)", "fill": {"type": "radial", "from": [-0.2, -0.3], "radius": 1.2, "stops": [[0, "#6AE0F4/30"], [1, "#0A3A66/55"]]}}
+    ],
+    "icon": {"size": 1.0, "zoom": 1.14, "y": "0.03*sin(time*1.6+seed*6)", "shadow": {"y": 2, "blur": 3, "color": "#04203A/60"}},
+    "over": [
+      {"image": "bubble", "size": "1.0*(1+0.05*hot-0.05*press+launch*0.5)", "y": "0.03*sin(time*1.6+seed*6)", "scale": ["1+0.012*sin(time*3+seed*9)", "1-0.012*sin(time*3+seed*9)"], "opacity": "1-launch", "detail": 1.06},
+      {"shape": "circle", "y": 0.94, "size": 0.15, "fill": "#FF7A9A", "when": "running", "opacity": "active ? 1 : 0.75", "glow": 4, "glowcolor": "#FFE3EA"},
+      {"shape": "circle", "y": 0.94, "size": 0.0825, "fill": "#FFE3EA", "when": "running", "opacity": "active ? 1 : 0.35+0.35*wave(time*0.5+seed)"},
+      {"shape": "circle", "x": 0.7, "y": -0.7, "size": 0.25, "fill": "#0A3A66", "when": "numbers && number<10 && !kid", "stroke": "#8FE6F4", "width": 1.2},
+      {"text": "{number}", "x": 0.7, "y": -0.71, "em": 0.3, "color": "pale", "font": "title", "weight": 700, "when": "numbers && number<10 && !kid"},
+      {"shape": "poly", "points": [[-0.12, -0.858], [0, -0.96], [0.12, -0.858]], "stroke": "pale", "width": 2.2, "caps": true, "when": "group"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "over": [
+    {"shape": "circle", "x": 0.0, "y": 0.06, "size": 1.22, "fill": {"type": "radial", "stops": [[0, "black/55"], [0.8, "black/47"], [1, "black/0"]]}, "opacity": "sat(open)*0.95", "in": "hub"},
+    {"image": "drop", "size": 0.22, "in": "hub", "angle": "sel", "radius": 1.14, "opacity": "on", "scale": "0.6+0.4*on+0.06*sin(time*6)"}
+  ],
+  "hub": [
+    {"image": "shell", "size": 1.14, "rotate": "sel*0.2+4*sin(time*0.6)", "intro": {"time": 0.42, "ease": "back", "scale": 0.3, "rotate": -90}},
+    {"shape": "circle", "x": 0.0, "y": 0.05, "size": 0.92, "fill": {"type": "radial", "stops": [[0, "black/40"], [0.8, "black/34"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "pearl", "size": 0.84, "intro": {"time": 0.4, "ease": "back", "delay": 0.06, "scale": 0.2}},
+    {"text": "{title}", "y": -0.04, "box": [1.18, 0.48], "px": 17, "color": "deep", "font": "title", "weight": 700, "wrap": true},
+    {"text": "{sub}", "y": 0.26, "box": [1.121, 0.2], "px": 11, "color": "teal", "font": "title", "weight": 700},
+    {"text": "{hh}:{mm}", "y": -0.07, "box": [1.18, 0.55], "px": 30, "color": "deep", "font": "title", "weight": 700, "opacity": "idle"},
+    {"text": "{date}", "y": 0.21, "box": [1.121, 0.2], "px": 12, "color": "teal", "font": "title", "weight": 700, "opacity": "idle"}
+  ],
+  "draw": {"clock": false, "shadow": false, "text": "deep"},
+  "tabs": {"inset": 18, "text": "deep", "fill": "#1E7A9A/22", "on": "#FF7A9A"},
+  "panel": {"fill": {"type": "linear", "stops": [[0, "#1E8FB8"], [1, "#0A3A66"]]}, "stroke": {"type": "linear", "stops": [[0, "#FFD6C4"], [0.5, "#F08A7A"], [1, "#FFD6C4"]]}, "width": 4, "corner": 18, "text": "pale"},
+  "tag": {"fill": {"type": "linear", "stops": [[0, "#1E7AA0"], [1, "#0C4A78"]]}, "stroke": "#8FE6F4", "width": 1.4, "corner": 13, "text": "pale"},
+  "tile": {"fill": {"type": "linear", "stops": [[0, "#2AA0C8"], [1, "#0C4A78"]]}, "stroke": "#FFD6C4", "width": 2.4, "corner": 13, "text": "pale"},
+  "particles": [
+    {"image": "drop", "light": true, "rate": 3.5, "max": 22, "area": "wheel", "life": [1.6, 3.2], "size": [3, 8], "speed": [14, 34], "dir": [-12, 12], "gravity": -16, "sway": 10, "swayhz": 1.1, "fadein": 0.2, "fadeout": 0.3, "opacity": 0.7}
+  ],
+  "onhover": [
+    {"image": "drop", "light": true, "count": 5, "area": "slot", "life": [0.5, 0.9], "size": [2, 5], "speed": [20, 60], "dir": [-40, 40], "gravity": -60, "sway": 8, "swayhz": 2, "fadein": 0.1, "fadeout": 0.4}
+  ],
+  "onlaunch": [
+    {"image": "drop", "light": true, "count": 40, "area": "slot", "life": [0.5, 1.1], "size": [4, 13], "speed": [60, 300], "outward": true, "dir": [-120, 120], "drag": 2.4, "gravity": -160, "sway": 14, "swayhz": 2, "fadein": 0, "fadeout": 0.4}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"}
+}

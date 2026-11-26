@@ -1,0 +1,88 @@
+{
+  "format": 1,
+  "id": "fireworks",
+  "name": "Fireworks",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "license": "Font Righteous: SIL Open Font License, see OFL.txt",
+  "about": "A city by the water at night, where every launch is a rocket",
+  "tags": ["season", "night", "festive"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#0A0E2E", "accent": "#FFD27A", "accent2": "#FF5A8A", "text": "#FFF6E0", "border": "#C99A45", "opacity": 0.97, "corner": 10, "font": "Righteous", "open": "bloom", "speed": 1.05, "hoverGrow": 3, "iconZoom": 1.14, "glow": 0.6, "tilt": 0.6, "pointer": false, "burst": false, "shadow": 0.65, "dim": 0.42},
+  "wheel": {"hub": 88, "thickness": 94, "gap": 6, "ringgap": 10, "rim": 30, "icon": 43, "crowd": 1.5, "area": 1.14, "hubkeep": 0.74},
+  "colors": {"pale": "#FFF6E0", "gold": "#FFD27A"},
+  "fonts": {"title": {"file": "Righteous-Regular.ttf", "family": "Righteous"}},
+  "images": {
+    "burst1": {"file": "burst1.jpg", "light": true},
+    "burst2": {"file": "burst2.jpg", "light": true},
+    "burst3": {"file": "burst3.jpg", "light": true},
+    "city": {"file": "city.jpg", "mask": "city-mask.png"},
+    "halo": {"file": "halo.jpg", "light": true},
+    "hub": {"file": "hub.jpg", "mask": "hub-mask.png"},
+    "slot": {"file": "slot.jpg", "mask": "slot-mask.png"},
+    "sparkler": {"file": "sparkler.jpg", "light": true},
+    "twinkle": {"file": "twinkle.jpg", "light": true}
+  },
+  "back": [
+    {"shape": "circle", "x": 0.0, "y": 0.025, "size": 1.09, "fill": {"type": "radial", "stops": [[0, "black/68"], [0.86, "black/58"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "city", "size": 1, "intro": {"time": 0.28, "ease": "out", "scale": 0.88}},
+    {"image": "burst1", "size": 0.34, "x": "(1.3*(rnd(floor(time*0.42+0.45)*3+0)-0.5))", "y": "(-0.80+0.75*rnd(floor(time*0.42+0.45)*7+30))+0.06*fract(time*0.42+0.45)*fract(time*0.42+0.45)", "tint": "#FF5A6A", "opacity": "1.15*smooth(0,0.04,fract(time*0.42+0.45))*(1-smooth(0.32,0.72,fract(time*0.42+0.45)))*motion", "rotate": "360*rnd(floor(time*0.42+0.45))", "scale": "(0.34*(0.08+0.92*outcubic(sat(fract(time*0.42+0.45)*2.2)))*(0.75+0.5*rnd(floor(time*0.42+0.45)+0)))/0.34"},
+    {"image": "halo", "size": 0.8, "x": "0", "y": "0.75", "tint": "#FF5A6A", "opacity": "0.10*(1-smooth(0,0.25,fract(time*0.42+0.45)))*motion"},
+    {"image": "burst2", "size": 0.42, "x": "(1.3*(rnd(floor(time*0.36+0.82)*3+1)-0.5))", "y": "(-0.80+0.75*rnd(floor(time*0.36+0.82)*7+31))+0.06*fract(time*0.36+0.82)*fract(time*0.36+0.82)", "tint": "#FFD24A", "opacity": "1.15*smooth(0,0.04,fract(time*0.36+0.82))*(1-smooth(0.32,0.72,fract(time*0.36+0.82)))*motion", "rotate": "360*rnd(floor(time*0.36+0.82))", "scale": "(0.42*(0.08+0.92*outcubic(sat(fract(time*0.36+0.82)*2.2)))*(0.75+0.5*rnd(floor(time*0.36+0.82)+1)))/0.42"},
+    {"image": "halo", "size": 0.8, "x": "0", "y": "0.75", "tint": "#FFD24A", "opacity": "0.10*(1-smooth(0,0.25,fract(time*0.36+0.82)))*motion"},
+    {"image": "burst3", "size": 0.28, "x": "(1.3*(rnd(floor(time*0.46+1.19)*3+2)-0.5))", "y": "(-0.80+0.75*rnd(floor(time*0.46+1.19)*7+32))+0.06*fract(time*0.46+1.19)*fract(time*0.46+1.19)", "tint": "#5AD0FF", "opacity": "1.15*smooth(0,0.04,fract(time*0.46+1.19))*(1-smooth(0.32,0.72,fract(time*0.46+1.19)))*motion", "rotate": "360*rnd(floor(time*0.46+1.19))", "scale": "(0.28*(0.08+0.92*outcubic(sat(fract(time*0.46+1.19)*2.2)))*(0.75+0.5*rnd(floor(time*0.46+1.19)+2)))/0.28"},
+    {"image": "halo", "size": 0.8, "x": "0", "y": "0.75", "tint": "#5AD0FF", "opacity": "0.10*(1-smooth(0,0.25,fract(time*0.46+1.19)))*motion"},
+    {"image": "burst1", "size": 0.36, "x": "(1.3*(rnd(floor(time*0.39+1.56)*3+3)-0.5))", "y": "(-0.80+0.75*rnd(floor(time*0.39+1.56)*7+33))+0.06*fract(time*0.39+1.56)*fract(time*0.39+1.56)", "tint": "#B46AFF", "opacity": "1.15*smooth(0,0.04,fract(time*0.39+1.56))*(1-smooth(0.32,0.72,fract(time*0.39+1.56)))*motion", "rotate": "360*rnd(floor(time*0.39+1.56))", "scale": "(0.36*(0.08+0.92*outcubic(sat(fract(time*0.39+1.56)*2.2)))*(0.75+0.5*rnd(floor(time*0.39+1.56)+3)))/0.36"},
+    {"image": "halo", "size": 0.8, "x": "0", "y": "0.75", "tint": "#B46AFF", "opacity": "0.10*(1-smooth(0,0.25,fract(time*0.39+1.56)))*motion"},
+    {"image": "burst2", "size": 0.38, "x": "(1.3*(rnd(floor(time*0.33+1.93)*3+4)-0.5))", "y": "(-0.80+0.75*rnd(floor(time*0.33+1.93)*7+34))+0.06*fract(time*0.33+1.93)*fract(time*0.33+1.93)", "tint": "#6AFF9A", "opacity": "1.15*smooth(0,0.04,fract(time*0.33+1.93))*(1-smooth(0.32,0.72,fract(time*0.33+1.93)))*motion", "rotate": "360*rnd(floor(time*0.33+1.93))", "scale": "(0.38*(0.08+0.92*outcubic(sat(fract(time*0.33+1.93)*2.2)))*(0.75+0.5*rnd(floor(time*0.33+1.93)+4)))/0.38"},
+    {"image": "halo", "size": 0.8, "x": "0", "y": "0.75", "tint": "#6AFF9A", "opacity": "0.10*(1-smooth(0,0.25,fract(time*0.33+1.93)))*motion"},
+    {"image": "burst3", "size": 0.24, "x": "(1.3*(rnd(floor(time*0.44+2.3)*3+5)-0.5))", "y": "(-0.80+0.75*rnd(floor(time*0.44+2.3)*7+35))+0.06*fract(time*0.44+2.3)*fract(time*0.44+2.3)", "tint": "#FF9A3A", "opacity": "1.15*smooth(0,0.04,fract(time*0.44+2.3))*(1-smooth(0.32,0.72,fract(time*0.44+2.3)))*motion", "rotate": "360*rnd(floor(time*0.44+2.3))", "scale": "(0.24*(0.08+0.92*outcubic(sat(fract(time*0.44+2.3)*2.2)))*(0.75+0.5*rnd(floor(time*0.44+2.3)+5)))/0.24"},
+    {"image": "halo", "size": 0.8, "x": "0", "y": "0.75", "tint": "#FF9A3A", "opacity": "0.10*(1-smooth(0,0.25,fract(time*0.44+2.3)))*motion"}
+  ],
+  "slot": {
+    "intro": {"time": 0.36, "ease": "out", "delay": 0.05, "scale": 0.1, "y": 1.4, "stagger": 0.02, "order": "random"},
+    "under": [
+      {"image": "halo", "size": 1.8, "opacity": "0.35*hot+launch*2", "tint": "#FFD27A"},
+      {"image": "sparkler", "size": "1.55+0.10*noise(time*9)", "rotate": "time*50+120*rnd(floor(time*16))", "opacity": "sat(hot)*(0.75+0.35*noise(time*22+i))"},
+      {"image": "slot", "size": "1.04*(1+0.04*hot-0.03*press)", "detail": 1.06}
+    ],
+    "icon": {"size": 1.04, "zoom": 1.16, "shadow": {"y": 2, "blur": 3, "color": "black/60"}},
+    "over": [
+      {"image": "burst1", "size": "0.4+3.2*outcubic(sat(launch*1.4))", "tint": "#FFD27A", "opacity": "launch*(1.2-launch)*3", "when": "launch>0.01"},
+      {"image": "burst3", "size": "0.3+2.4*outcubic(sat(launch*1.4))", "tint": "#FF6AB0", "opacity": "launch*(1.2-launch)*3", "when": "launch>0.01"},
+      {"shape": "circle", "y": 0.92, "size": 0.15, "fill": "#FFD27A", "when": "running", "opacity": "active ? 1 : 0.75", "glow": 4, "glowcolor": "#FFFFFF"},
+      {"shape": "circle", "y": 0.92, "size": 0.0825, "fill": "#FFFFFF", "when": "running", "opacity": "active ? 1 : 0.35+0.35*wave(time*0.5+seed)"},
+      {"shape": "circle", "x": 0.7, "y": -0.7, "size": 0.25, "fill": "#0A0E2E", "when": "numbers && number<10 && !kid", "stroke": "#C99A45", "width": 1.2},
+      {"text": "{number}", "x": 0.7, "y": -0.71, "em": 0.3, "color": "pale", "font": "title", "weight": 700, "when": "numbers && number<10 && !kid"},
+      {"shape": "poly", "points": [[-0.12, -0.838], [0, -0.94], [0.12, -0.838]], "stroke": "gold", "width": 2.2, "caps": true, "when": "group"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "over": [
+    {"shape": "circle", "x": 0.0, "y": 0.05, "size": 1.18, "fill": {"type": "radial", "stops": [[0, "black/66"], [0.8, "black/56"], [1, "black/0"]]}, "opacity": "sat(open)*0.95", "in": "hub"},
+    {"image": "twinkle", "size": 0.46, "in": "hub", "angle": "sel", "radius": 1.08, "opacity": "on*(0.7+0.4*noise(time*14))", "rotate": "time*90"}
+  ],
+  "hub": [
+    {"image": "hub", "size": 1.0, "intro": {"time": 0.34, "ease": "back", "scale": 0.4}},
+    {"text": "{title}", "y": -0.05, "box": [1.3, 0.52], "px": 17, "color": "pale", "font": "title", "weight": 400, "wrap": true, "shadow": {"x": 0, "y": 0, "blur": 5, "color": "#FF9A2A/70"}},
+    {"text": "{sub}", "y": 0.28, "box": [1.2349999999999999, 0.2], "px": 11.5, "color": "gold", "font": "title", "weight": 400, "shadow": {"x": 0, "y": 0, "blur": 5, "color": "#FF9A2A/70"}},
+    {"text": "{hh}:{mm}", "y": -0.08, "box": [1.3, 0.55], "px": 31, "color": "pale", "font": "title", "weight": 400, "opacity": "idle", "shadow": {"x": 0, "y": 0, "blur": 5, "color": "#FF9A2A/70"}},
+    {"text": "{date}", "y": 0.21, "box": [1.2349999999999999, 0.2], "px": 12, "color": "gold", "font": "title", "weight": 400, "opacity": "idle", "shadow": {"x": 0, "y": 0, "blur": 5, "color": "#FF9A2A/70"}}
+  ],
+  "draw": {"clock": false, "shadow": false, "text": "pale"},
+  "tabs": {"inset": 19, "text": "pale", "fill": "#FFFFFF/12", "on": "#FF5A8A/85"},
+  "panel": {"fill": {"type": "linear", "stops": [[0, "#1E2260"], [1, "#0A0E2E"]]}, "stroke": {"type": "linear", "stops": [[0, "#FFE9B0"], [0.5, "#8A6427"], [1, "#E0B565"]]}, "width": 2.4, "corner": 12, "text": "pale"},
+  "tag": {"fill": {"type": "linear", "stops": [[0, "#1E2260"], [1, "#0A0E2E"]]}, "stroke": "#C99A45", "width": 1.6, "corner": 10, "text": "pale"},
+  "tile": {"fill": {"type": "linear", "stops": [[0, "#2A2E7A"], [1, "#0A0E2E"]]}, "stroke": "#C99A45", "width": 2, "corner": 10, "text": "pale"},
+  "onhover": [
+    {"color": "#FFE2A0", "light": true, "count": 7, "area": "slot", "life": [0.3, 0.6], "size": [1.2, 2.4], "speed": [60, 180], "outward": true, "dir": [-90, 90], "gravity": 260, "drag": 1.5, "stretch": 0.6, "fadein": 0, "fadeout": 0.6}
+  ],
+  "onlaunch": [
+    {"color": "#FFD27A", "light": true, "count": 26, "area": "slot", "life": [0.6, 1.2], "size": [1.8, 3.6], "speed": [160, 560], "dir": [0, 360], "gravity": 260, "drag": 2.2, "stretch": 0.8, "fadein": 0, "fadeout": 0.6},
+    {"color": "#FF5A8A", "light": true, "count": 26, "area": "slot", "life": [0.6, 1.2], "size": [1.8, 3.6], "speed": [160, 560], "dir": [0, 360], "gravity": 260, "drag": 2.2, "stretch": 0.8, "fadein": 0, "fadeout": 0.6},
+    {"color": "#7AE0FF", "light": true, "count": 26, "area": "slot", "life": [0.6, 1.2], "size": [1.8, 3.6], "speed": [160, 560], "dir": [0, 360], "gravity": 260, "drag": 2.2, "stretch": 0.8, "fadein": 0, "fadeout": 0.6}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"}
+}

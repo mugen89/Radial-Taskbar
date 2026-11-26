@@ -1,0 +1,94 @@
+{
+  "format": 1,
+  "id": "blueprint",
+  "name": "Blueprint",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "about": "White lines on blue paper; circles and dimensions draw themselves",
+  "tags": ["technical", "minimal", "blue"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#15417F", "accent": "#FFFFFF", "accent2": "#8FC0FF", "text": "#EAF3FF", "border": "#BFD8FF", "opacity": 0.98, "corner": 2, "font": "Segoe Print", "open": "fade", "speed": 1.1, "hoverGrow": 0, "iconZoom": 1.1, "glow": 0, "tilt": 0.15, "pointer": false, "burst": false, "shadow": 0, "dim": 0.28},
+  "wheel": {"hub": 92, "thickness": 88, "gap": 6, "ringgap": 12, "rim": 26, "icon": 44, "crowd": 1.5, "area": 1.32, "hubkeep": 0.82},
+  "colors": {"chalk": "#EAF3FF", "blue": "#15417F", "red": "#E02B35"},
+  "fonts": {"title": "Segoe Print, Ink Free, Segoe UI", "digits": "Bahnschrift, Segoe UI"},
+  "images": {
+    "pencil": "pencil.png",
+    "shadow": "shadow.png",
+    "sheet": {"file": "sheet.jpg", "mask": "sheet-mask.png"},
+    "stamp": "stamp.png"
+  },
+  "back": [
+    {"image": "shadow", "size": 1.4, "x": 0.02, "y": 0.035, "opacity": "sat(open)", "rotate": -1.2},
+    {"image": "sheet", "size": 1.16, "rotate": -1.2, "intro": {"time": 0.26, "ease": "out", "scale": 0.94, "rotate": -5}},
+    {"shape": "line", "points": [["-1.02*outcubic(sat(time*2.4))", 0], ["1.02*outcubic(sat(time*2.4))", 0]], "stroke": "#EAF3FF/35", "width": 1, "dash": [14, 6]},
+    {"shape": "line", "points": [[0, "-1.02*outcubic(sat(time*2.4))"], [0, "1.02*outcubic(sat(time*2.4))"]], "stroke": "#EAF3FF/35", "width": 1, "dash": [14, 6]},
+    {"text": "{profile}", "x": 0.82, "y": 0.965, "box": [0.46, 0.06], "px": 12, "color": "#EAF3FF", "font": "title", "opacity": "smooth(0.25,0.5,time)"},
+    {"text": "{date}", "x": 0.685, "y": 1.035, "box": [0.24, 0.06], "px": 9.5, "color": "#EAF3FF/85", "font": "title", "opacity": "smooth(0.3,0.55,time)"},
+    {"text": "{hh}:{mm}", "x": 0.945, "y": 1.03, "box": [0.2, 0.06], "px": 10.5, "color": "#EAF3FF/85", "font": "title", "opacity": "smooth(0.3,0.55,time)"}
+  ],
+  "ring": [
+    {"shape": "arc", "in": "px", "r": "ringout+3", "from": 0, "to": "360*outcubic(sat((time-0.02)*2.2))", "stroke": "#EAF3FF/92", "width": 2.0},
+    {"shape": "arc", "in": "px", "r": "ringout+9", "from": 0, "to": "360*outcubic(sat((time-0.06)*2.2))", "stroke": "#EAF3FF/60", "width": 0.9},
+    {"shape": "arc", "in": "px", "r": "(ringin+ringout)/2", "from": 0, "to": "360*outcubic(sat((time-0.1)*2.2))", "stroke": "#EAF3FF/45", "width": 0.9, "dash": [12, 4]},
+    {"shape": "arc", "in": "px", "r": "ringin-3", "from": 0, "to": "360*outcubic(sat((time-0.04)*2.2))", "stroke": "#EAF3FF/70", "width": 1.2},
+    {"shape": "ticks", "in": "px", "inner": "ringout+11", "outer": "ringout+17", "count": 72, "major": 6, "stroke": "#EAF3FF/55", "width": 1, "opacity": "smooth(0.2,0.45,time)"},
+    {"shape": "line", "in": "px", "points": [["sin(rad(a+j*span))*(ringin-2)", "-cos(rad(a+j*span))*(ringin-2)"], ["sin(rad(a+j*span))*(ringout+12)", "-cos(rad(a+j*span))*(ringout+12)"]], "copies": "n", "stroke": "#EAF3FF/30", "width": 1, "dash": [9, 4], "opacity": "outcubic(sat(time*2.4))"}
+  ],
+  "slot": {
+    "intro": {"time": 0.24, "ease": "out", "delay": 0.1, "scale": 0.75, "stagger": 0.02, "order": "ring"},
+    "under": [
+      {"shape": "circle", "size": "0.94+0.06*hot", "fill": "#F4F8FF", "opacity": "sat(hot)*0.96"},
+      {"shape": "circle", "size": 0.94, "fill": "#15417F/55", "opacity": "1-sat(hot)"},
+      {"shape": "arc", "r": "0.94+0.04*hot", "from": 0, "to": "360*in", "stroke": "#EAF3FF", "width": "1.6+0.9*hot"},
+      {"shape": "arc", "r": 1.06, "from": "-30+time*40", "to": "30+time*40", "stroke": "#EAF3FF", "width": 1.6, "opacity": "sat(hot)", "copies": 4, "angle": "j*90", "turns": true},
+      {"shape": "line", "points": [[1.02, 0.0], [1.2, 0.0]], "stroke": "#EAF3FF/70", "width": 1.2},
+      {"shape": "line", "points": [[-1.02, 0.0], [-1.2, 0.0]], "stroke": "#EAF3FF/70", "width": 1.2},
+      {"shape": "line", "points": [[0.0, 1.02], [0.0, 1.2]], "stroke": "#EAF3FF/70", "width": 1.2},
+      {"shape": "line", "points": [[0.0, -1.02], [0.0, -1.2]], "stroke": "#EAF3FF/70", "width": 1.2}
+    ],
+    "icon": {"size": 1.1, "zoom": 1.1, "tone": "duo", "hot": "original", "ink": "#123A78", "paper": "#F2F8FF"},
+    "over": [
+      {"image": "stamp", "size": [1.9, 0.95], "rotate": "-14+seed*8", "opacity": "step(0.02,launch)", "scale": "mix(1.7,1,outcubic(sat(launch*4)))"},
+      {"shape": "circle", "y": 0.94, "size": 0.13, "fill": "#15417F", "stroke": "#EAF3FF", "width": 1.4, "when": "running"},
+      {"shape": "circle", "y": 0.94, "size": 0.07, "fill": "#EAF3FF", "when": "active"},
+      {"shape": "circle", "x": 0.7, "y": -0.7, "size": 0.25, "fill": "#15417F", "when": "numbers && number<10 && !kid", "stroke": "#EAF3FF", "width": 1.2},
+      {"text": "{number}", "x": 0.7, "y": -0.71, "em": 0.3, "color": "#EAF3FF", "font": "digits", "weight": 700, "when": "numbers && number<10 && !kid"},
+      {"shape": "poly", "points": [[0.52, -0.78], [0.8, -0.78], [0.8, -0.5]], "stroke": "#EAF3FF", "width": 1.8, "when": "group && !numbers"},
+      {"text": "+", "x": 0, "y": -0.95, "em": 0.4, "color": "#EAF3FF", "font": "digits", "when": "group"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "over": [
+    {"shape": "line", "in": "px", "points": [["sin(rad(sel))*(hub+3)", "-cos(rad(sel))*(hub+3)"], ["sin(rad(sel))*(hub+15)", "-cos(rad(sel))*(hub+15)"]], "stroke": "#EAF3FF", "width": 1.6, "opacity": "on*0.9"},
+    {"shape": "poly", "in": "px", "angle": "sel", "radius": "radius-4", "turns": true, "points": [[-4, 9], [0, -2], [4, 9]], "closed": true, "fill": "#EAF3FF", "opacity": "on"},
+    {"image": "pencil", "size": [0.24, 0.0336], "angle": "sel", "radius": 0.93, "rotate": "sel-90+5*sin(time*9)*on", "pivot": [0, 0.5], "opacity": "on", "intro": {"time": 0.2, "ease": "back"}}
+  ],
+  "hub": [
+    {"shape": "circle", "size": 0.97, "fill": "#15417F/70"},
+    {"shape": "arc", "r": 0.97, "from": 0, "to": "360*outcubic(sat(time*2.4))", "stroke": "#EAF3FF", "width": 2},
+    {"shape": "arc", "r": 0.91, "from": 0, "to": "360*outcubic(sat(time*2.4))", "stroke": "#EAF3FF/60", "width": 1},
+    {"shape": "arc", "r": 0.83, "from": 0, "to": "sel", "stroke": "#EAF3FF/80", "width": 1.2, "opacity": "on", "when": "sel>1"},
+    {"shape": "ticks", "inner": 0.91, "outer": 0.97, "count": 60, "major": 5, "stroke": "#EAF3FF/70", "width": 1, "opacity": "outcubic(sat(time*2.4))"},
+    {"text": "{title}", "y": -0.05, "box": [1.36, 0.56], "px": 19, "color": "#EAF3FF", "font": "title", "weight": 600, "wrap": true},
+    {"text": "{sub}", "y": 0.28, "box": [1.292, 0.2], "px": 12, "color": "#A9CCFF", "font": "title", "weight": 600},
+    {"text": "{hh}:{mm}", "y": -0.08, "box": [1.36, 0.55], "px": 31, "color": "#EAF3FF", "font": "title", "weight": 600, "opacity": "idle"},
+    {"text": "{date}", "y": 0.21, "box": [1.292, 0.2], "px": 12.5, "color": "#A9CCFF", "font": "title", "weight": 600, "opacity": "idle"}
+  ],
+  "fan": [
+    {"shape": "ring", "inner": "ringin-2", "outer": "ringout+3", "from": "a-span/2-2", "to": "a+span/2+2", "fill": "#15417F/92", "stroke": "#EAF3FF", "width": 1.6, "in": "px"}
+  ],
+  "draw": {"clock": false, "shadow": false, "text": "#EAF3FF", "fan": false},
+  "tabs": {"inset": 10, "text": "#EAF3FF", "fill": "#FFFFFF/10", "on": "#FFFFFF/35"},
+  "panel": {"fill": "#15417F", "stroke": "#EAF3FF", "width": 1.8, "corner": 2, "text": "#EAF3FF"},
+  "tag": {"fill": "#15417F", "stroke": "#EAF3FF", "width": 1.6, "corner": 2, "text": "#EAF3FF"},
+  "tile": {"fill": "#15417F", "stroke": "#EAF3FF", "width": 1.6, "corner": 2, "text": "#EAF3FF"},
+  "onhover": [
+    {"color": "#EAF3FF", "count": 3, "area": "slot", "life": [0.3, 0.6], "size": [1, 2], "speed": [10, 40], "dir": [90, 270], "gravity": 60, "fadein": 0, "fadeout": 0.6}
+  ],
+  "onlaunch": [
+    {"color": "#E02B35", "count": 14, "area": "slot", "life": [0.25, 0.5], "size": [1.5, 3], "speed": [80, 260], "outward": true, "dir": [-80, 80], "drag": 3, "fadein": 0, "fadeout": 0.6}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"}
+}

@@ -1,0 +1,83 @@
+{
+  "format": 1,
+  "id": "terrarium",
+  "name": "Terrarium",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "about": "Moss, ferns and log slices under glass, with a ladybird and a butterfly",
+  "tags": ["nature", "green", "glass"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#2A3A1A", "accent": "#A8DC5A", "accent2": "#FFD24A", "text": "#F4F9E6", "border": "#86B43E", "opacity": 0.97, "corner": 14, "font": "Candara", "open": "bloom", "speed": 0.95, "hoverGrow": 3, "iconZoom": 1.12, "glow": 0.2, "tilt": 0.5, "pointer": false, "burst": false, "shadow": 0.6, "dim": 0.3},
+  "wheel": {"hub": 92, "thickness": 92, "gap": 5, "ringgap": 10, "rim": 44, "icon": 42, "crowd": 1.48, "area": 1.12, "hubkeep": 0.72},
+  "colors": {"ink": "#3A200E", "bark": "#7A4A1E", "pale": "#F4F9E6"},
+  "fonts": {"title": "Candara, Segoe UI"},
+  "images": {
+    "bug": "bug.png",
+    "fly": {"file": "fly.png", "cols": 2},
+    "glass": {"file": "glass.jpg", "mask": "glass-mask.png"},
+    "ground": {"file": "ground.jpg", "mask": "ground-mask.png"},
+    "halo": {"file": "halo.jpg", "light": true},
+    "leaves": {"file": "leaves.png", "cols": 4},
+    "mote": {"file": "mote.jpg", "light": true},
+    "shaft": {"file": "shaft.jpg", "light": true},
+    "slices": {"file": "slices.jpg", "mask": "slices-mask.png", "cols": 4},
+    "sprout": "sprout.png",
+    "stump": {"file": "stump.jpg", "mask": "stump-mask.png"}
+  },
+  "back": [
+    {"shape": "circle", "x": 0.0, "y": 0.03, "size": 1.09, "fill": {"type": "radial", "stops": [[0, "black/60"], [0.86, "black/51"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "ground", "size": 1, "intro": {"time": 0.3, "ease": "out", "scale": 0.88, "rotate": -8}}
+  ],
+  "slot": {
+    "intro": {"time": 0.38, "ease": "back", "delay": 0.06, "scale": 0.1, "rotate": 60, "stagger": 0.022, "order": "random"},
+    "under": [
+      {"image": "halo", "size": 1.8, "opacity": "0.35*hot+launch"},
+      {"image": "sprout", "size": 1.8, "rotate": "6*sin(time*1.8+seed*6)+a", "opacity": "sat(hot*4)", "when": "hot>0.01", "scale": "(1.80*(0.15+0.85*outback(sat(hot))))/1.8"},
+      {"image": "slices", "size": "1.06*(1+0.05*hot-0.04*press)", "frame": "(i+ring)%4", "rotate": "0", "detail": 1.06}
+    ],
+    "icon": {"size": 1.0, "zoom": 1.14, "shadow": {"x": 1, "y": 2, "blur": 3, "color": "#2A1608/60"}},
+    "over": [
+      {"image": "leaves", "size": 0.3, "x": 0.64, "y": 0.56, "frame": "i%4", "rotate": "seed*80+6*sin(time*1.5)", "when": "running"},
+      {"image": "bug", "size": 0.24, "x": "0.64+0.04*sin(time*2)", "y": "0.52", "rotate": "20*sin(time*1.3)", "when": "active"},
+      {"shape": "circle", "x": -0.64, "y": -0.64, "size": 0.25, "fill": "#2A3A1A", "when": "numbers && number<10 && !kid"},
+      {"text": "{number}", "x": -0.64, "y": -0.65, "em": 0.3, "color": "pale", "font": "title", "weight": 700, "when": "numbers && number<10 && !kid"},
+      {"shape": "poly", "points": [[-0.12, -0.778], [0, -0.88], [0.12, -0.778]], "stroke": "pale", "width": 2.2, "caps": true, "when": "group"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "over": [
+    {"shape": "circle", "x": 0.0, "y": 0.06, "size": 1.16, "fill": {"type": "radial", "stops": [[0, "black/60"], [0.8, "black/51"], [1, "black/0"]]}, "opacity": "sat(open)*0.95", "in": "hub"},
+    {"image": "leaves", "size": 0.26, "in": "hub", "angle": "sel", "radius": 1.1, "frame": 1, "rotate": "sel+180-22+8*sin(time*2)", "opacity": "on", "scale": "0.4+0.6*on"}
+  ],
+  "hub": [
+    {"image": "stump", "size": 1.0, "intro": {"time": 0.36, "ease": "back", "scale": 0.4, "rotate": -60}},
+    {"text": "{title}", "y": -0.04, "box": [1.22, 0.52], "px": 18, "color": "ink", "font": "title", "weight": 700, "wrap": true, "shadow": {"x": 0, "y": 0, "blur": 3, "color": "#F7E9C8"}},
+    {"text": "{sub}", "y": 0.28, "box": [1.159, 0.2], "px": 11.5, "color": "bark", "font": "title", "weight": 700, "shadow": {"x": 0, "y": 0, "blur": 3, "color": "#F7E9C8"}},
+    {"text": "{hh}:{mm}", "y": -0.08, "box": [1.22, 0.55], "px": 31, "color": "ink", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 0, "blur": 3, "color": "#F7E9C8"}},
+    {"text": "{date}", "y": 0.21, "box": [1.159, 0.2], "px": 12.5, "color": "bark", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 0, "blur": 3, "color": "#F7E9C8"}},
+    {"image": "bug", "size": 0.115, "angle": "-time*11", "radius": 0.9, "rotate": "-time*11-90+6*sin(time*9)", "opacity": "smooth(0.3,0.6,time)"}
+  ],
+  "front": [
+    {"image": "shaft", "size": 0.96, "opacity": "0.20+0.06*noise(time*0.7)", "rotate": "3*sin(time*0.2)"},
+    {"image": "glass", "size": 1.0},
+    {"image": "fly", "size": 0.075, "x": "0.62*sin(time*0.55)+0.05*sin(time*3)", "y": "0.50*sin(time*0.83+1)-0.1", "frame": "floor(time*9)%2", "rotate": "35*sin(time*0.55)", "opacity": "smooth(0.6,1.0,time)*(0.55+0.45*idle)"}
+  ],
+  "draw": {"clock": false, "shadow": false, "text": "ink"},
+  "tabs": {"inset": 15, "text": "ink", "fill": "#86B43E/35", "on": "#5A8A2A"},
+  "panel": {"fill": {"type": "linear", "stops": [[0, "#3F5A22"], [1, "#22330F"]]}, "stroke": {"type": "linear", "stops": [[0, "#EAF6E0"], [0.5, "#7A9A5A"], [1, "#D6ECC0"]]}, "width": 2.6, "corner": 16, "text": "pale"},
+  "tag": {"fill": {"type": "linear", "stops": [[0, "#E3C08A"], [1, "#C0925A"]]}, "stroke": "#4A3220", "width": 2, "corner": 9, "text": "ink"},
+  "tile": {"fill": {"type": "linear", "stops": [[0, "#E3C08A"], [1, "#B8884E"]]}, "stroke": "#4A3220", "width": 3, "corner": 11, "text": "ink"},
+  "particles": [
+    {"image": "mote", "light": true, "rate": 3, "max": 20, "area": "wheel", "life": [1.8, 3.4], "size": [2, 4.5], "speed": [3, 10], "dir": [0, 360], "sway": 12, "swayhz": 0.5, "fadein": 0.3, "fadeout": 0.5, "opacity": 0.7}
+  ],
+  "onhover": [
+    {"image": "leaves", "count": 2, "area": "slot", "life": [0.5, 0.9], "size": [4, 7], "speed": [20, 60], "outward": true, "dir": [-80, 80], "gravity": 90, "spin": [-160, 160], "fadein": 0, "fadeout": 0.5}
+  ],
+  "onlaunch": [
+    {"image": "leaves", "count": 26, "area": "slot", "life": [0.6, 1.1], "size": [8, 17], "speed": [90, 340], "outward": true, "dir": [-110, 110], "gravity": 260, "drag": 2, "sway": 16, "swayhz": 1.2, "spin": [-260, 260], "fadein": 0, "fadeout": 0.4},
+    {"image": "fly", "count": 4, "area": "slot", "life": [0.9, 1.4], "size": [12, 20], "speed": [80, 200], "dir": [-70, 70], "gravity": -60, "sway": 30, "swayhz": 1.6, "fadein": 0.05, "fadeout": 0.4}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"}
+}

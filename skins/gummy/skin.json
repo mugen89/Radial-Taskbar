@@ -1,0 +1,72 @@
+{
+  "format": 1,
+  "id": "gummy",
+  "name": "Gummy",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "about": "Glossy jelly sweets on a lollipop; they wobble when you point at them",
+  "tags": ["candy", "playful", "bright"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#FFF4FA", "accent": "#FF4F8B", "accent2": "#6A4CFF", "text": "#5A1E48", "border": "#FFB3D1", "opacity": 0.98, "corner": 20, "font": "Segoe UI", "open": "bloom", "speed": 1, "hoverGrow": 2, "iconZoom": 1.1, "glow": 0, "tilt": 0.6, "pointer": false, "burst": false, "shadow": 0.45, "dim": 0.22},
+  "wheel": {"hub": 90, "thickness": 92, "gap": 5, "ringgap": 14, "rim": 30, "icon": 42, "crowd": 1.45, "area": [1.1, 1.1, 1.1, 1.45], "hubkeep": 0.78},
+  "colors": {"plum": "#5A1E48", "white": "#FFFFFF", "pink": "#FF4F8B"},
+  "fonts": {"title": "Segoe UI Black, Segoe UI"},
+  "images": {
+    "bits": {"file": "bits.png", "cols": 6},
+    "gloss": "gloss.png",
+    "halo": {"file": "halo.jpg", "light": true},
+    "hub": {"file": "hub.jpg", "mask": "hub-mask.png"},
+    "lolly": {"file": "lolly.jpg", "mask": "lolly-mask.png"},
+    "stick": "stick.png",
+    "sugar": "sugar.png",
+    "sweets": {"file": "sweets.png", "cols": 6}
+  },
+  "back": [
+    {"shape": "circle", "x": 0.03, "y": 1.1, "size": 0.2, "fill": {"type": "radial", "stops": [[0, "black/40"], [0.4, "black/34"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "stick", "size": [0.085, 0.51], "y": 1.13, "intro": {"time": 0.3, "ease": "out", "delay": 0.08, "y": -0.35}},
+    {"shape": "circle", "x": 0.0, "y": 0.03, "size": 1.09, "fill": {"type": "radial", "stops": [[0, "black/50"], [0.84, "black/43"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "lolly", "size": 1, "rotate": "time*-5+sel*0.12+(1-open)*-180", "intro": {"time": 0.42, "ease": "elastic", "scale": 0.5}}
+  ],
+  "slot": {
+    "intro": {"time": 0.55, "ease": "elastic", "delay": 0.06, "scale": 0.05, "stagger": 0.025, "order": "both"},
+    "under": [
+      {"image": "sweets", "size": 1.0, "frame": "(i+ring*3)%6", "scale": ["(1+0.035*sin(time*13+seed*6)*hot+0.10*hot-0.16*press+0.5*launch)", "(1-0.035*sin(time*13+seed*6)*hot+0.10*hot-0.10*press+0.5*launch)"], "rotate": "3*sin(time*9+seed*5)*hot", "detail": 1.1}
+    ],
+    "icon": {"size": 0.92, "zoom": 1.12, "opacity": 0.97, "rotate": "3*sin(time*9+seed*5)*hot"},
+    "over": [
+      {"image": "gloss", "size": 1.0, "scale": ["(1+0.035*sin(time*13+seed*6)*hot+0.10*hot-0.16*press+0.5*launch)", "(1-0.035*sin(time*13+seed*6)*hot+0.10*hot-0.10*press+0.5*launch)"], "opacity": 0.85},
+      {"shape": "circle", "y": 0.8, "size": 0.16, "fill": "white", "when": "running", "opacity": "active ? 1 : 0.7"},
+      {"shape": "circle", "y": 0.8, "size": 0.09, "fill": "pink", "when": "active"},
+      {"shape": "circle", "x": 0.64, "y": -0.64, "size": 0.25, "fill": "white", "when": "numbers && number<10 && !kid"},
+      {"text": "{number}", "x": 0.64, "y": -0.65, "em": 0.3, "color": "plum", "font": "title", "weight": 700, "when": "numbers && number<10 && !kid"},
+      {"shape": "poly", "points": [[-0.12, -0.6980000000000001], [0, -0.8], [0.12, -0.6980000000000001]], "stroke": "white", "width": 2.2, "caps": true, "when": "group"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "over": [
+    {"shape": "circle", "x": 0.0, "y": 0.05, "size": 1.16, "fill": {"type": "radial", "stops": [[0, "black/45"], [0.8, "black/38"], [1, "black/0"]]}, "opacity": "sat(open)*0.95", "in": "hub"},
+    {"shape": "circle", "in": "hub", "angle": "sel", "radius": 1.1, "size": "0.20*on*(1+0.08*sin(time*12))", "fill": {"type": "radial", "from": [-0.3, -0.4], "radius": 1.2, "stops": [[0, "#FFE3F0"], [0.4, "#FF5C97"], [1, "#C21E62"]]}}
+  ],
+  "hub": [
+    {"image": "hub", "size": 1.0, "scale": ["1+0.012*sin(time*5)+0.03*on*sin(time*11)", "1-0.012*sin(time*5)-0.03*on*sin(time*11)"], "intro": {"time": 0.5, "ease": "elastic", "scale": 0.2}},
+    {"text": "{title}", "y": -0.05, "box": [1.26, 0.52], "px": 17, "color": "white", "font": "title", "weight": 700, "wrap": true, "shadow": {"x": 0, "y": 1, "blur": 2, "color": "#2A0E6B"}},
+    {"text": "{sub}", "y": 0.28, "box": [1.1969999999999998, 0.2], "px": 11.5, "color": "#FFD9EC", "font": "title", "weight": 700, "shadow": {"x": 0, "y": 1, "blur": 2, "color": "#2A0E6B"}},
+    {"text": "{hh}:{mm}", "y": -0.08, "box": [1.26, 0.55], "px": 31, "color": "white", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 1, "blur": 2, "color": "#2A0E6B"}},
+    {"text": "{date}", "y": 0.21, "box": [1.1969999999999998, 0.2], "px": 12, "color": "#FFD9EC", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 1, "blur": 2, "color": "#2A0E6B"}}
+  ],
+  "draw": {"clock": false, "shadow": false, "text": "white"},
+  "tabs": {"inset": 13, "text": "white", "fill": "#FFFFFF/16", "on": "#FF4F8B"},
+  "panel": {"fill": {"type": "linear", "stops": [[0, "#FFF8FC"], [1, "#FFE0EE"]]}, "stroke": "#FF8FBC", "width": 3, "corner": 24, "text": "plum"},
+  "tag": {"fill": {"type": "linear", "stops": [[0, "#FF7FB2"], [1, "#FF4F8B"]]}, "stroke": "#FFC4DC", "width": 2, "corner": 15, "text": "white"},
+  "tile": {"fill": {"type": "linear", "stops": [[0, "#FFFFFF"], [1, "#FFE0EE"]]}, "stroke": "#FF8FBC", "width": 2.4, "corner": 16, "text": "plum"},
+  "onhover": [
+    {"image": "sugar", "count": 6, "area": "slot", "life": [0.3, 0.6], "size": [1.5, 3], "speed": [30, 110], "outward": true, "dir": [-80, 80], "gravity": 260, "spin": [-200, 200], "fadein": 0, "fadeout": 0.5}
+  ],
+  "onlaunch": [
+    {"image": "bits", "count": 26, "area": "slot", "life": [0.5, 1.0], "size": [7, 15], "speed": [120, 460], "outward": true, "dir": [-90, 90], "gravity": 620, "drag": 1.6, "fadein": 0, "fadeout": 0.3},
+    {"image": "sugar", "count": 26, "area": "slot", "life": [0.4, 0.9], "size": [2, 4], "speed": [100, 420], "outward": true, "dir": [-100, 100], "gravity": 500, "drag": 2, "spin": [-300, 300], "fadein": 0, "fadeout": 0.4}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"}
+}

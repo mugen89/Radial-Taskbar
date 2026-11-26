@@ -1,0 +1,83 @@
+{
+  "format": 1,
+  "id": "orrery",
+  "name": "Orrery",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "license": "Font Cinzel: SIL Open Font License, see OFL.txt",
+  "about": "Planets on brass arms round a glowing sun",
+  "tags": ["space", "brass", "elegant"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#0E1640", "accent": "#FFC94A", "accent2": "#8FD0FF", "text": "#F4EBD2", "border": "#C99A45", "opacity": 0.97, "corner": 10, "font": "Cinzel", "open": "bloom", "speed": 0.95, "hoverGrow": 3, "iconZoom": 1.14, "glow": 0.5, "tilt": 0.6, "pointer": false, "burst": false, "shadow": 0.6, "dim": 0.4},
+  "wheel": {"hub": 90, "thickness": 98, "gap": 5, "ringgap": 10, "rim": 40, "icon": 42, "crowd": 1.5, "area": 1.1, "hubkeep": 0.74},
+  "colors": {"ink": "#4A1E04", "deep": "#8A3A08", "pale": "#F4EBD2", "gold": "#FFC94A"},
+  "fonts": {"title": {"file": "Cinzel[wght].ttf", "family": "Cinzel", "weight": 700}},
+  "images": {
+    "arm": "arm.png",
+    "comet": {"file": "comet.jpg", "light": true},
+    "corona": {"file": "corona.jpg", "light": true},
+    "halo": {"file": "halo.jpg", "light": true},
+    "moon": "moon.png",
+    "planets": {"file": "planets.png", "cols": 4, "rows": 2},
+    "plate": {"file": "plate.jpg", "mask": "plate-mask.png"},
+    "rays": {"file": "rays.jpg", "light": true},
+    "sun": {"file": "sun.jpg", "mask": "sun-mask.png"},
+    "twinkle": {"file": "twinkle.jpg", "light": true}
+  },
+  "back": [
+    {"shape": "circle", "x": 0.0, "y": 0.025, "size": 1.09, "fill": {"type": "radial", "stops": [[0, "black/66"], [0.86, "black/56"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "plate", "size": 1, "rotate": "(1-open)*-20", "intro": {"time": 0.34, "ease": "out", "scale": 0.86}},
+    {"image": "twinkle", "size": 0.05, "copies": 12, "angle": "rnd(j)*360", "radius": "0.45+0.4*rnd(j+50)", "opacity": "smooth(0.6,1,wave(time*0.35+rnd(j+9)))"},
+    {"image": "corona", "size": 1.9, "in": "hub", "only": ["radial", "orbit"], "opacity": "0.42+0.06*noise(time*3)+launch"},
+    {"image": "rays", "size": 2.1, "in": "hub", "only": ["radial", "orbit"], "rotate": "time*5", "opacity": "0.30"},
+    {"image": "rays", "size": 1.9, "in": "hub", "only": ["radial", "orbit"], "rotate": "-time*7+40", "opacity": "0.20"}
+  ],
+  "ring": [
+    {"shape": "arc", "in": "px", "from": 0, "r": "(ringin+ringout)/2", "to": "360*outcubic(sat(time*2))", "stroke": {"type": "linear", "stops": [[0, "#FFE7A6"], [0.5, "#8A6427"], [1, "#E0B565"]]}, "width": 3.2},
+    {"shape": "line", "in": "px", "points": [["sin(rad(a+j*span))*(ringin-16)", "-cos(rad(a+j*span))*(ringin-16)"], ["sin(rad(a+j*span))*((ringin+ringout)/2-20)", "-cos(rad(a+j*span))*((ringin+ringout)/2-20)"]], "copies": "n", "stroke": {"type": "linear", "stops": [[0, "#F0C97A"], [1, "#8A6427"]]}, "width": 4}
+  ],
+  "slot": {
+    "intro": {"time": 0.55, "ease": "out", "delay": 0.04, "angle": -200, "scale": 0.5, "stagger": 0.02, "order": "ring"},
+    "under": [
+      {"image": "halo", "size": 1.8, "opacity": "0.50*hot+launch*1.5", "tint": "item"},
+      {"shape": "circle", "x": 0.07, "y": 0.1, "size": 1.02, "fill": {"type": "radial", "stops": [[0, "black/50"], [0.6, "black/43"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+      {"image": "planets", "size": "1.16*(1+0.05*hot-0.03*press)", "frame": "(i*3+ring*2)%8", "rotate": "0", "detail": 1.06}
+    ],
+    "icon": {"size": 0.84, "zoom": 1.2, "shadow": {"y": 2, "blur": 4, "color": "black/70"}},
+    "over": [
+      {"image": "moon", "size": 0.17, "angle": "time*(40+60*rnd(i+3))+i*70", "radius": "1.02", "opacity": "0.4+0.6*hot", "when": "!kid"},
+      {"shape": "arc", "r": 1.04, "from": "time*30", "to": "time*30+300", "stroke": "gold", "width": 1.6, "opacity": "sat(hot)", "glow": 4, "glowcolor": "gold"},
+      {"image": "comet", "size": [1.6, 1.6], "rotate": "a-60", "radius": "2.0*launch", "angle": "a", "opacity": "launch*(1-launch)*4", "when": "launch>0.01"},
+      {"shape": "circle", "y": 0.94, "size": 0.14, "fill": "#FFC94A", "when": "running", "opacity": "active ? 1 : 0.75", "glow": 4, "glowcolor": "#FFF6D8"},
+      {"shape": "circle", "y": 0.94, "size": 0.07700000000000001, "fill": "#FFF6D8", "when": "running", "opacity": "active ? 1 : 0.35+0.35*wave(time*0.5+seed)"},
+      {"shape": "circle", "x": 0.7, "y": -0.7, "size": 0.25, "fill": "#0E1640", "when": "numbers && number<10 && !kid", "stroke": "#C99A45", "width": 1.2},
+      {"text": "{number}", "x": 0.7, "y": -0.71, "em": 0.3, "color": "pale", "font": "title", "weight": 700, "when": "numbers && number<10 && !kid"},
+      {"shape": "poly", "points": [[-0.12, -0.878], [0, -0.98], [0.12, -0.878]], "stroke": "gold", "width": 2.2, "caps": true, "when": "group"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "over": [
+    {"image": "twinkle", "size": 0.42, "in": "hub", "angle": "sel", "radius": 1.12, "opacity": "on*(0.8+0.2*noise(time*8))", "rotate": "time*30"}
+  ],
+  "hub": [
+    {"image": "sun", "size": 1.02, "only": ["radial", "orbit"], "rotate": "time*2", "intro": {"time": 0.4, "ease": "back", "scale": 0.2}},
+    {"text": "{title}", "y": -0.05, "box": [1.34, 0.52], "px": 16.5, "color": "ink", "font": "title", "weight": 700, "wrap": true},
+    {"text": "{sub}", "y": 0.28, "box": [1.273, 0.2], "px": 10.5, "color": "deep", "font": "title", "weight": 700},
+    {"text": "{hh}:{mm}", "y": -0.08, "box": [1.34, 0.55], "px": 29, "color": "ink", "font": "title", "weight": 700, "opacity": "idle"},
+    {"text": "{date}", "y": 0.21, "box": [1.273, 0.2], "px": 11.5, "color": "deep", "font": "title", "weight": 700, "opacity": "idle"}
+  ],
+  "draw": {"clock": false, "shadow": false, "text": "ink"},
+  "tabs": {"inset": 13, "text": "ink", "fill": "#FFF0B8/40", "on": "#C9480C/80"},
+  "panel": {"fill": {"type": "linear", "stops": [[0, "#1A2968"], [1, "#0A1030"]]}, "stroke": {"type": "linear", "stops": [[0, "#FFE7A6"], [0.5, "#8A6427"], [1, "#E0B565"]]}, "width": 2.6, "corner": 12, "text": "pale"},
+  "tag": {"fill": {"type": "linear", "stops": [[0, "#16225A"], [1, "#0A1030"]]}, "stroke": "#C99A45", "width": 1.6, "corner": 9, "text": "pale"},
+  "tile": {"fill": {"type": "linear", "stops": [[0, "#1C2F78"], [1, "#0A1030"]]}, "stroke": "#C99A45", "width": 2, "corner": 9, "text": "pale"},
+  "particles": [
+    {"color": "#FFE7A6", "light": true, "rate": 2, "max": 16, "area": "wheel", "life": [1.5, 3], "size": [1, 2.2], "speed": [1, 5], "dir": [0, 360], "fadein": 0.4, "fadeout": 0.5}
+  ],
+  "onlaunch": [
+    {"color": "#FFE7A6", "light": true, "count": 40, "area": "slot", "life": [0.3, 0.8], "size": [1.5, 3.5], "speed": [100, 480], "outward": true, "dir": [-100, 100], "drag": 2.5, "fadein": 0, "fadeout": 0.6}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"}
+}

@@ -1,0 +1,77 @@
+{
+  "format": 1,
+  "id": "jukebox",
+  "name": "Jukebox",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "license": "Font Righteous: SIL Open Font License, see OFL.txt",
+  "about": "Chrome, cherry wood and bubbling tubes of coloured light that dance to the sound",
+  "tags": ["retro", "music", "colourful"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#2A0B06", "accent": "#FFB84A", "accent2": "#FF2A5E", "text": "#FFF1D6", "border": "#C9CDD6", "opacity": 0.98, "corner": 14, "font": "Righteous", "open": "bloom", "speed": 1.05, "hoverGrow": 2, "iconZoom": 1.1, "glow": 0.5, "tilt": 0.4, "pointer": false, "burst": false, "shadow": 0.65, "dim": 0.36},
+  "wheel": {"hub": 94, "thickness": 90, "gap": 4, "ringgap": 12, "rim": 70, "icon": 40, "crowd": 1.52, "area": 1.1, "hubkeep": 0.62},
+  "colors": {"pale": "#FFF1D6", "amber": "#FFD27A"},
+  "fonts": {"title": {"file": "Righteous-Regular.ttf", "family": "Righteous"}},
+  "images": {
+    "bubble": {"file": "bubble.jpg", "light": true},
+    "cabinet": {"file": "cabinet.jpg", "mask": "cabinet-mask.png"},
+    "colors": {"file": "colors.jpg", "light": true},
+    "halo": {"file": "halo.jpg", "light": true},
+    "keys": {"file": "keys.jpg", "mask": "keys-mask.png", "cols": 2},
+    "notes": {"file": "notes.png", "cols": 2},
+    "shine": {"file": "shine.jpg", "light": true},
+    "tubeglass": {"file": "tubeglass.jpg", "mask": "tubeglass-mask.png"},
+    "window": {"file": "window.jpg", "mask": "window-mask.png"}
+  },
+  "back": [
+    {"shape": "circle", "x": 0.0, "y": 0.03, "size": 1.07, "fill": {"type": "radial", "stops": [[0, "black/66"], [0.86, "black/56"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "cabinet", "size": 1, "intro": {"time": 0.28, "ease": "out", "scale": 0.88}},
+    {"image": "colors", "size": 1.0, "rotate": "time*14", "opacity": "(0.62+0.75*sound+0.35*beat)*smooth(0.05,0.4,time)"},
+    {"image": "bubble", "size": 0.034, "copies": 26, "angle": "j*13.846+time*(9+5*rnd(j))", "radius": "0.787+0.012*sin(time*2+j*2)", "opacity": "0.75", "scale": "0.5+0.8*rnd(j+3)", "when": "rings<1.5"},
+    {"image": "bubble", "size": 0.034, "copies": 30, "angle": "j*12-time*(7+5*rnd(j+9))", "radius": "0.915+0.012*sin(time*2.3+j)", "opacity": "0.75", "scale": "0.5+0.8*rnd(j+5)"},
+    {"image": "tubeglass", "size": 1.0}
+  ],
+  "slot": {
+    "intro": {"time": 0.34, "ease": "back", "delay": 0.06, "scale": 0.2, "stagger": 0.022, "order": "ring"},
+    "under": [
+      {"image": "halo", "size": 1.8, "opacity": "0.60*hot+launch*1.5"},
+      {"image": "keys", "size": "1.12*(1-0.05*press)", "frame": 0, "detail": 1.04},
+      {"image": "keys", "size": "1.12*(1-0.05*press)", "frame": 1, "opacity": "sat(0.18+0.82*hot)+launch", "detail": 1.04}
+    ],
+    "icon": {"size": 0.92, "zoom": 1.1, "shadow": {"y": 1, "blur": 2, "color": "#3A1606/60"}},
+    "over": [
+      {"shape": "circle", "y": 0.88, "size": 0.14, "fill": "#C81E3A", "stroke": "#FFFFFF", "width": 1.2, "when": "running"},
+      {"shape": "circle", "y": 0.88, "size": 0.08, "fill": "#FFE9B0", "when": "active", "glow": 6, "glowcolor": "#FFB84A"},
+      {"text": "{number}", "x": -0.62, "y": -0.5, "em": 0.26, "color": "#B3122E", "font": "title", "when": "numbers && number<10 && !kid"},
+      {"shape": "poly", "points": [[-0.12, -0.778], [0, -0.88], [0.12, -0.778]], "stroke": "pale", "width": 2.2, "caps": true, "when": "group"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "over": [
+    {"shape": "circle", "x": 0.0, "y": 0.05, "size": 1.18, "fill": {"type": "radial", "stops": [[0, "black/70"], [0.8, "black/60"], [1, "black/0"]]}, "opacity": "sat(open)*0.95", "in": "hub"},
+    {"shape": "rect", "in": "hub", "copies": 40, "angle": "j*9", "radius": "1.045+0.5*(0.02+0.10*sound*noise(time*7+j*1.7))", "turns": true, "size": [0.035, "0.02+0.10*sound*noise(time*7+j*1.7)"], "fill": "amber", "opacity": "0.35+0.65*sound", "when": "sound>0.02"},
+    {"shape": "poly", "in": "hub", "angle": "sel", "radius": 1.09, "turns": true, "points": [[-0.075, 0.05], [0, -0.075], [0.075, 0.05]], "closed": true, "fill": "#FF2A5E", "opacity": "on", "glow": 6, "glowcolor": "#FF2A5E"}
+  ],
+  "hub": [
+    {"image": "window", "size": 1.04, "intro": {"time": 0.34, "ease": "back", "scale": 0.4}},
+    {"text": "{title}", "y": -0.04, "box": [1.16, 0.48], "px": 16.5, "color": "pale", "font": "title", "weight": 400, "wrap": true, "shadow": {"x": 0, "y": 0, "blur": 5, "color": "#FF6A14"}},
+    {"text": "{sub}", "y": 0.26, "box": [1.1019999999999999, 0.2], "px": 10.5, "color": "amber", "font": "title", "weight": 400, "shadow": {"x": 0, "y": 0, "blur": 5, "color": "#FF6A14"}},
+    {"text": "{hh}:{mm}", "y": -0.07, "box": [1.16, 0.55], "px": 30, "color": "pale", "font": "title", "weight": 400, "opacity": "idle", "shadow": {"x": 0, "y": 0, "blur": 5, "color": "#FF6A14"}},
+    {"text": "{date}", "y": 0.22, "box": [1.1019999999999999, 0.2], "px": 11.5, "color": "amber", "font": "title", "weight": 400, "opacity": "idle", "shadow": {"x": 0, "y": 0, "blur": 5, "color": "#FF6A14"}},
+    {"image": "shine", "size": 0.78}
+  ],
+  "draw": {"clock": false, "shadow": false, "text": "pale"},
+  "tabs": {"inset": 24, "text": "pale", "fill": "#FFFFFF/12", "on": "#C81E3A"},
+  "panel": {"fill": {"type": "linear", "stops": [[0, "#7A2412"], [1, "#3A0E06"]]}, "stroke": {"type": "linear", "stops": [[0, "#FFFFFF"], [0.5, "#7E848E"], [1, "#E6E9EE"]]}, "width": 4, "corner": 16, "text": "pale"},
+  "tag": {"fill": {"type": "linear", "stops": [[0, "#FFF6E0"], [1, "#F2DCA8"]]}, "stroke": "#C81E3A", "width": 2, "corner": 11, "text": "#4A1408"},
+  "tile": {"fill": {"type": "linear", "stops": [[0, "#FFF6E0"], [1, "#F2DCA8"]]}, "stroke": "#C81E3A", "width": 2.4, "corner": 12, "text": "#4A1408"},
+  "particles": [
+    {"image": "notes", "rate": "1.2*step(0.05,sound)", "max": 8, "area": "rim", "life": [1.6, 2.6], "size": [9, 15], "speed": [16, 34], "outward": true, "dir": [-30, 30], "sway": 14, "swayhz": 0.8, "gravity": -10, "fadein": 0.15, "fadeout": 0.4, "opacity": 0.85}
+  ],
+  "onlaunch": [
+    {"image": "notes", "count": 18, "area": "slot", "life": [0.6, 1.1], "size": [10, 20], "speed": [100, 340], "outward": true, "dir": [-100, 100], "gravity": -60, "drag": 2, "sway": 18, "swayhz": 1.4, "spin": [-60, 60], "fadein": 0, "fadeout": 0.5}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"}
+}

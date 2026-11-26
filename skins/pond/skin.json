@@ -1,0 +1,167 @@
+{
+  "format": 1,
+  "id": "pond",
+  "name": "Koi Pond",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "about": "A quiet garden pond: lily pads, lotus flowers and koi under moving light",
+  "tags": ["nature", "water", "calm"],
+
+  "style": {
+    "shape": "orb", "material": "solid", "base": "#0D3B42", "accent": "#F29BB8", "accent2": "#8DB84A", "text": "#F3F1E2", "border": "#CFE6D6",
+    "opacity": 0.94, "corner": 14, "font": "Constantia", "open": "bloom", "speed": 1, "hoverGrow": 3, "iconZoom": 1.12, "glow": 0.25,
+    "tilt": 0.35, "pointer": false, "burst": false, "shadow": 0.6, "dim": 0.30
+  },
+  "wheel": { "hub": 100, "thickness": 100, "gap": 8, "ringgap": 12, "rim": 50, "icon": 44, "crowd": 1.55, "area": 1.14, "hubkeep": 0.78 },
+  "colors": { "cream": "#F3F1E2", "deep": "#06303C", "ink": "#24352C" },
+  "fonts": { "title": "Constantia, Cambria, Georgia" },
+
+  "images": {
+    "bed": "bed.jpg",
+    "edge": { "file": "edge.jpg", "mask": "edge-mask.png" },
+    "edge2": { "file": "edge2.jpg", "mask": "edge2-mask.png" },
+    "caustic": { "file": "caustic.jpg", "light": true },
+    "pad": { "file": "pad.jpg", "mask": "pad-mask.png", "cols": 4, "rows": 2 },
+    "padshade": { "file": "padshade.png", "cols": 4, "rows": 2 },
+    "lotus": { "file": "lotus.jpg", "mask": "lotus-mask.png", "cols": 4, "rows": 3 },
+    "bloom": "bloom.png", "bud": "bud.png",
+    "koi1": { "file": "koi1.jpg", "mask": "koi1-mask.png", "cols": 6, "rows": 2 },
+    "koi2": { "file": "koi2.jpg", "mask": "koi1-mask.png", "cols": 6, "rows": 2 },
+    "koi3": { "file": "koi3.jpg", "mask": "koi1-mask.png", "cols": 6, "rows": 2 },
+    "koi4": { "file": "koi4.jpg", "mask": "koi1-mask.png", "cols": 6, "rows": 2 },
+    "koishade": { "file": "koishade.png", "cols": 6, "rows": 2 },
+    "island": { "file": "island.jpg", "mask": "island-mask.png" },
+    "dragonfly": { "file": "dragonfly.jpg", "mask": "dragonfly-mask.png", "cols": 4, "rows": 1 },
+    "maple": { "file": "maple.jpg", "mask": "maple-mask.png" },
+    "ripple": { "file": "ripple.jpg", "mask": "ripple-mask.png" },
+    "petal": { "file": "petal.png", "cols": 4, "rows": 1 },
+    "drop": "drop.png",
+    "glow": { "file": "glow.png", "light": true },
+    "step": { "file": "step.jpg", "mask": "step-mask.png", "cols": 3, "rows": 2 },
+    "moss": { "file": "moss.jpg", "mask": "moss-mask.png", "cols": 4, "rows": 1 },
+    "panel": { "file": "panel.jpg", "mask": "panel-mask.png" },
+    "tag": { "file": "tag.jpg", "mask": "tag-mask.png" }
+  },
+
+  "back": [
+    { "shape": "circle", "size": 0.90, "fill": "#1A2016", "opacity": "sat(open*2)" },
+    // the water rises from the middle
+    { "shape": "circle", "size": "0.89*(motion ? outcubic(time/0.36) : 1)", "fill": { "image": "bed", "zoom": 0.91 }, "depth": -0.35 },
+
+    // shadows of the koi on the bottom, the deeper fish first
+    { "image": "koishade", "x": 0.030, "y": 0.052, "size": "31/radius", "pivot": [0.5, 0.42], "frame": "time*8", "opacity": "0.55*(1-motion+motion*sat(time*3-0.6))",
+      "angle": "80-11*time+20*sin(0.29*time+0.5)", "radius": "0.53+0.10*sin(0.39*time+1)",
+      "rotate": "80-11*time+20*sin(0.29*time+0.5)+deg(atan2((0.53+0.10*sin(0.39*time+1))*(-11+5.8*cos(0.29*time+0.5))*pi/180,0.039*cos(0.39*time+1)))" },
+    { "image": "koishade", "x": 0.040, "y": 0.068, "size": "32/radius", "pivot": [0.5, 0.42], "frame": "time*9+4", "opacity": "0.50*(1-motion+motion*sat(time*3-0.6))",
+      "angle": "150-14*time+18*sin(0.37*time+1)", "radius": "0.58+0.15*sin(0.47*time+2)",
+      "rotate": "150-14*time+18*sin(0.37*time+1)+deg(atan2((0.58+0.15*sin(0.47*time+2))*(-14+6.66*cos(0.37*time+1))*pi/180,0.0705*cos(0.47*time+2)))" },
+    { "image": "koishade", "x": 0.050, "y": 0.085, "size": "33/radius", "pivot": [0.5, 0.42], "frame": "time*10+8", "opacity": "0.45*(1-motion+motion*sat(time*3-0.6))",
+      "angle": "20+17*time+14*sin(0.43*time)", "radius": "0.60+0.14*sin(0.61*time+0.5)",
+      "rotate": "20+17*time+14*sin(0.43*time)+deg(atan2((0.60+0.14*sin(0.61*time+0.5))*(17+6.02*cos(0.43*time))*pi/180,0.0854*cos(0.61*time+0.5)))" },
+    { "image": "koishade", "x": 0.055, "y": 0.094, "size": "29/radius", "pivot": [0.5, 0.42], "frame": "time*11+2", "opacity": "0.42*(1-motion+motion*sat(time*3-0.6))",
+      "angle": "260+20*time+12*sin(0.53*time+2)", "radius": "0.62+0.12*sin(0.71*time+4)",
+      "rotate": "260+20*time+12*sin(0.53*time+2)+deg(atan2((0.62+0.12*sin(0.71*time+4))*(20+6.36*cos(0.53*time+2))*pi/180,0.0852*cos(0.71*time+4)))" },
+
+    { "image": "koi4", "size": "31/radius", "pivot": [0.5, 0.42], "frame": "time*8", "opacity": "0.94*(1-motion+motion*sat(time*3-0.6))", "depth": -0.2,
+      "angle": "80-11*time+20*sin(0.29*time+0.5)", "radius": "0.53+0.10*sin(0.39*time+1)",
+      "rotate": "80-11*time+20*sin(0.29*time+0.5)+deg(atan2((0.53+0.10*sin(0.39*time+1))*(-11+5.8*cos(0.29*time+0.5))*pi/180,0.039*cos(0.39*time+1)))" },
+    { "image": "koi2", "size": "32/radius", "pivot": [0.5, 0.42], "frame": "time*9+4", "opacity": "0.96*(1-motion+motion*sat(time*3-0.6))", "depth": -0.15,
+      "angle": "150-14*time+18*sin(0.37*time+1)", "radius": "0.58+0.15*sin(0.47*time+2)",
+      "rotate": "150-14*time+18*sin(0.37*time+1)+deg(atan2((0.58+0.15*sin(0.47*time+2))*(-14+6.66*cos(0.37*time+1))*pi/180,0.0705*cos(0.47*time+2)))" },
+    // water between the deep and the shallow fish
+    { "shape": "circle", "size": "0.89*(motion ? outcubic(time/0.36) : 1)", "fill": { "type": "radial", "stops": [[0, "#04323E/48"], [0.55, "#0A5560/30"], [1, "#3C9C8C/8"]] } },
+    { "image": "koi1", "size": "33/radius", "pivot": [0.5, 0.42], "frame": "time*10+8", "opacity": "1-motion+motion*sat(time*3-0.6)", "depth": -0.1,
+      "angle": "20+17*time+14*sin(0.43*time)", "radius": "0.60+0.14*sin(0.61*time+0.5)",
+      "rotate": "20+17*time+14*sin(0.43*time)+deg(atan2((0.60+0.14*sin(0.61*time+0.5))*(17+6.02*cos(0.43*time))*pi/180,0.0854*cos(0.61*time+0.5)))" },
+    { "image": "koi3", "size": "29/radius", "pivot": [0.5, 0.42], "frame": "time*11+2", "opacity": "1-motion+motion*sat(time*3-0.6)", "depth": -0.1,
+      "angle": "260+20*time+12*sin(0.53*time+2)", "radius": "0.62+0.12*sin(0.71*time+4)",
+      "rotate": "260+20*time+12*sin(0.53*time+2)+deg(atan2((0.62+0.12*sin(0.71*time+4))*(20+6.36*cos(0.53*time+2))*pi/180,0.0852*cos(0.71*time+4)))" },
+
+    // light on the bottom, and the sky on the surface
+    { "shape": "circle", "size": "0.89*(motion ? outcubic(time/0.36) : 1)", "fill": { "image": "caustic", "tile": true, "zoom": 0.52, "u": "time*0.013", "v": "time*0.009", "turn": 12 }, "opacity": 0.22 },
+    { "shape": "circle", "size": "0.89*(motion ? outcubic(time/0.36) : 1)", "fill": { "image": "caustic", "tile": true, "zoom": 0.37, "u": "time*-0.017", "v": "time*0.012", "turn": -38 }, "opacity": 0.17 },
+    { "shape": "circle", "size": 0.88, "fill": { "type": "radial", "from": [-0.42, -0.52], "radius": 0.85, "stops": [[0, "#E4F6FF/20"], [0.55, "#E4F6FF/6"], [1, "#E4F6FF/0"]] }, "opacity": "open" },
+    { "shape": "circle", "size": "0.89*(motion ? outcubic(time/0.36) : 1)", "stroke": "#E8FFF8/70", "width": 3, "opacity": "motion*(1-sat(time/0.40))" },
+
+    { "image": "edge", "size": 1.10, "opacity": "smooth(315,285,radius)", "when": "radius<315", "intro": { "time": 0.28, "ease": "out", "scale": 0.90 } },
+    { "image": "edge2", "size": 1.10, "opacity": "smooth(285,315,radius)", "when": "radius>285", "intro": { "time": 0.28, "ease": "out", "scale": 0.90 } },
+    { "image": "maple", "x": 0.64, "y": -0.66, "size": "0.19+70/radius", "pivot": [0.62, 0.40], "rotate": "1.6*sin(time*0.7)+0.8*sin(time*1.63)", "depth": 0.35, "intro": { "delay": 0.06, "time": 0.40, "ease": "back", "scale": 0.5, "rotate": 25 } }
+  ],
+
+  "slot": {
+    "intro": { "delay": 0.07, "time": 0.32, "ease": "back", "scale": 0.15, "rotate": -50, "stagger": 0.018, "order": "random" },
+    "under": [
+      // a group is a small family of pads
+      { "image": "padshade", "x": 0.80, "y": -0.56, "size": 0.48, "frame": "i+5", "opacity": 0.55, "when": "group" },
+      { "image": "pad", "x": 0.72, "y": -0.68, "size": 0.48, "frame": "i+5", "rotate": "3*sin(time*0.9+i)", "when": "group" },
+      { "image": "padshade", "x": 0.96, "y": -0.04, "size": 0.40, "frame": "i+6", "opacity": 0.55, "when": "group" },
+      { "image": "pad", "x": 0.90, "y": -0.14, "size": 0.40, "frame": "i+6", "rotate": "4*sin(time*1.1+i)", "when": "group" },
+      { "image": "ripple", "copies": 2, "size": 1.5, "scale": "0.70+0.42*fract(time*0.5+j/2)", "opacity": "0.75*sat(hot)*sin(pi*fract(time*0.5+j/2))", "when": "hot>0.02" },
+      { "image": "padshade", "x": "0.09+0.08*hot+0.10*near*(1-sat(hot))*cos(rad(a))*sign(wrap(a-sel))", "y": "0.15+0.13*hot+0.10*near*(1-sat(hot))*sin(rad(a))*sign(wrap(a-sel))", "size": 1.10, "scale": "1+0.07*hot", "frame": "i*3+ring", "rotate": "(seed-0.5)*40", "opacity": "0.66-0.16*hot" },
+      { "image": "pad", "x": "0.020*sin(time*0.8+seed*40)+0.10*near*(1-sat(hot))*cos(rad(a))*sign(wrap(a-sel))", "y": "0.020*cos(time*0.66+seed*30)-0.03*hot+0.10*near*(1-sat(hot))*sin(rad(a))*sign(wrap(a-sel))",
+        "size": 1.09, "scale": "1+0.085*hot-0.05*press", "frame": "i*3+ring", "rotate": "(seed-0.5)*40+2.5*sin(time*0.5+seed*20)+near*(1-sat(hot))*4*sin(time*5+i*2)", "detail": 1.1 },
+      { "image": "lotus", "y": "-0.03*hot", "size": 1.06, "scale": "0.94+0.06*hot-0.05*press", "frame": "clamp(hot*11.6,0,11)", "opacity": "min(1,hot*2.5)", "rotate": "2*sin(time*0.7+seed*9)", "when": "hot>0.02" }
+    ],
+    "icon": { "size": 1.0, "zoom": 1.16, "shadow": { "x": 2, "y": 3.5, "blur": 3, "color": "#02140A/72" },
+      "x": "0.020*sin(time*0.8+seed*40)+0.10*near*(1-sat(hot))*cos(rad(a))*sign(wrap(a-sel))", "y": "0.020*cos(time*0.66+seed*30)-0.03*hot+0.10*near*(1-sat(hot))*sin(rad(a))*sign(wrap(a-sel))" },
+    "over": [
+      { "image": "glow", "angle": 135, "radius": 0.80, "size": 0.62, "opacity": "0.30+0.22*wave(time*0.35+seed)", "when": "running" },
+      { "image": "bud", "copies": "clamp(windows,1,3)", "angle": "135+(j-(m-1)/2)*26", "radius": 0.78, "rotate": "(135+(j-(m-1)/2)*26)+3*sin(time*0.9+j)", "size": 0.25, "when": "running && !active" },
+      { "image": "bloom", "angle": 135, "radius": 0.76, "size": 0.40, "rotate": "4*sin(time*0.6+seed*9)", "when": "active" },
+      { "shape": "circle", "x": -0.61, "y": -0.58, "size": 0.25, "fill": "black/45", "when": "numbers && number<10 && !kid" },
+      { "shape": "circle", "x": -0.64, "y": -0.64, "size": 0.24, "fill": { "type": "radial", "from": [-0.3, -0.4], "radius": 1.3, "stops": [[0, "#FFFDF2"], [0.6, "#E3DCC6"], [1, "#A99F86"]] }, "when": "numbers && number<10 && !kid" },
+      { "text": "{number}", "x": -0.64, "y": -0.645, "em": 0.30, "color": "ink", "font": "title", "weight": 700, "when": "numbers && number<10 && !kid" }
+    ],
+    "marks": false, "chevron": false, "badge": false, "names": 1.02
+  },
+
+  // members of a group: stepping stones in moss
+  "kid": {
+    "under": [
+      { "image": "step", "size": 1.16, "scale": "1+0.07*hot-0.05*press", "frame": "i", "detail": 1.1 },
+      { "image": "lotus", "size": 1.06, "scale": "0.94+0.06*hot-0.05*press", "frame": "clamp(hot*11.6,0,11)", "opacity": "min(1,hot*2.5)", "when": "hot>0.02" }
+    ],
+    "icon": { "size": 1.0, "zoom": 1.14, "shadow": { "x": 2, "y": 3, "blur": 3, "color": "black/75" } },
+    "over": [
+      { "image": "bud", "angle": 135, "radius": 0.78, "rotate": 135, "size": 0.25, "when": "running && !active" },
+      { "image": "bloom", "angle": 135, "radius": 0.76, "size": 0.40, "when": "active" }
+    ],
+    "marks": false, "chevron": false, "badge": false
+  },
+  "fan": [
+    { "image": "moss", "copies": "n*2+1", "angle": "a-span/2+span*j/(m-1)", "radius": "(ringin+ringout)/2+5*sin(j*2.4+1)", "size": "(ringout-ringin)*1.30+8*sin(j*5)", "frame": "j", "rotate": "j*77", "scale": "0.6+0.4*in" }
+  ],
+
+  "hub": [
+    { "image": "island", "size": 1.00, "depth": 0.25, "intro": { "time": 0.34, "ease": "back", "scale": 0.5 } },
+    { "text": "{time}", "y": -0.07, "px": 31, "color": "cream", "font": "title", "opacity": "idle", "depth": 0.25, "shadow": { "y": 1, "blur": 3, "color": "black/75" } },
+    { "text": "{date}", "y": 0.16, "px": 11.5, "color": "cream/78", "font": "title", "opacity": "idle", "depth": 0.25, "shadow": { "y": 1, "blur": 2, "color": "black/60" } },
+    { "text": "{title}", "y": -0.05, "box": [1.30, 0.62], "px": 19, "color": "cream", "font": "title", "weight": 700, "wrap": true, "depth": 0.25, "shadow": { "y": 1, "blur": 3, "color": "black/80" } },
+    { "text": "{sub}", "y": 0.34, "box": [1.1, 0.16], "px": 11.5, "color": "cream/82", "font": "title", "italic": true, "depth": 0.25, "shadow": { "y": 1, "blur": 2, "color": "black/60" } }
+  ],
+
+  // a dragonfly rests on the moss and flies to what is chosen
+  "front": [
+    { "image": "dragonfly", "in": "hub", "x": 0.05, "y": 0.075, "angle": "222+on*wrap(sel-222)", "radius": "0.86+0.20*on", "size": 0.26, "frame": "on>0.05 ? time*34 : 0", "rotate": "222+on*wrap(sel-222)+(1-on)*150", "tint": "black/30", "depth": 0.7, "opacity": "sat(time*4-0.8)+1-motion" },
+    { "image": "dragonfly", "in": "hub", "x": "0.02*on*sin(time*3.1)", "y": "0.02*on*cos(time*2.3)", "angle": "222+on*wrap(sel-222)", "radius": "0.86+0.20*on", "size": 0.26, "frame": "on>0.05 ? time*34 : 0", "rotate": "222+on*wrap(sel-222)+(1-on)*150", "depth": 0.7, "opacity": "sat(time*4-0.8)+1-motion" }
+  ],
+
+  "draw": { "clock": false, "shadow": false, "fan": false },
+  "tabs": { "inset": 13, "text": "cream", "fill": "#E6EFE0/14", "on": "profile" },
+
+  "panel": { "image": "panel", "cut": 74, "scale": 0.5, "pad": 9, "fill": { "type": "linear", "stops": [[0, "#12545A"], [1, "#082E38"]] }, "stroke": "#B9A66A", "width": 2, "corner": 14, "text": "cream" },
+  "tag": { "image": "tag", "cut": 34, "scale": 0.5, "pad": [4, 3, 4, 6], "text": "cream" },
+  "tile": { "image": "panel", "cut": 74, "scale": 0.27, "pad": 3, "text": "cream" },
+
+  "particles": [
+    { "image": "ripple", "rate": "0.8", "max": 4, "area": "ring", "life": [2.0, 3.0], "size": [16, 26], "grow": 4.2, "speed": [0, 0], "opacity": 0.42, "fadein": 0.10, "fadeout": 0.80 },
+    { "image": "petal", "rate": "0.22", "max": 3, "area": "ring", "life": [9, 14], "size": [13, 19], "speed": [3, 8], "spin": [-9, 9], "sway": 5, "swayhz": 0.12, "drag": 0, "opacity": 0.95, "fadein": 0.12, "fadeout": 0.15 },
+    { "image": "glow", "light": true, "rate": "0.5", "max": 4, "area": "wheel", "life": [4, 7], "size": [12, 20], "speed": [6, 16], "swirl": 0.10, "sway": 9, "swayhz": 0.3, "drag": 0.1, "opacity": 0.55, "fadein": 0.3, "fadeout": 0.5 }
+  ],
+  "onlaunch": [
+    { "image": "ripple", "count": 2, "area": "wheel", "life": [0.30, 0.45], "size": [70, 96], "grow": 2.2, "speed": [0, 0], "opacity": 0.9, "fadein": 0.02, "fadeout": 0.85 },
+    { "image": "drop", "count": 26, "area": "slot", "outward": true, "dir": [-70, 70], "life": [0.22, 0.48], "size": [4, 11], "speed": [90, 420], "gravity": 620, "drag": 1.6, "fadein": 0, "fadeout": 0.45 },
+    { "image": "petal", "count": 7, "area": "slot", "outward": true, "dir": [-80, 80], "life": [0.35, 0.60], "size": [12, 18], "speed": [60, 240], "spin": [-260, 260], "drag": 2.2, "fadein": 0, "fadeout": 0.5 }
+  ],
+  "sounds": { "open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav" }
+}

@@ -1,0 +1,109 @@
+{
+  "format": 1,
+  "id": "terminal",
+  "name": "Phosphor",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "license": "Font VT323: SIL Open Font License, see OFL.txt",
+  "about": "A round green terminal that remembers the eighties",
+  "tags": ["terminal", "crt", "retro"],
+
+  "style": {
+    "shape": "orb", "material": "solid", "base": "#03180C", "accent": "#37FF8C", "accent2": "#B6FFD2", "text": "#7DFFB4", "border": "#1E8F52",
+    "opacity": 0.97, "corner": 2, "font": "term", "open": "fade", "speed": 1.1, "hoverGrow": 0, "iconZoom": 1.06, "glow": 0.6,
+    "tilt": 0.25, "pointer": false, "burst": false, "shadow": 0.6, "dim": 0.38
+  },
+  "wheel": { "hub": 92, "thickness": 84, "gap": 4, "ringgap": 8, "rim": 58, "icon": 42, "crowd": 1.5, "area": [1.16, 1.14, 1.20, 1.26], "hubkeep": 0.9 },
+  "colors": { "lit": "#37FF8C", "pale": "#C9FFDF", "dim": "#1E8F52", "deep": "#03180C" },
+  "fonts": { "term": { "file": "VT323-Regular.ttf", "family": "VT323" } },
+
+  "images": {
+    "housing": { "file": "housing.jpg", "mask": "housing-mask.png", "keep": true },
+    "shadow": { "file": "shadow.png", "keep": true },
+    "screen": { "file": "screen.jpg", "mask": "screen-mask.png" },
+    "lines": { "file": "lines.png", "sharp": true },
+    "glass": "glass.png",
+    "sweep": { "file": "sweep.png", "light": true },
+    "glow": { "file": "glow.png", "light": true },
+    "led": { "file": "led.png", "keep": true }, "led_on": { "file": "led_on.png", "keep": true }
+  },
+
+  "back": [
+    { "image": "shadow", "x": 0.02, "y": 0.055, "size": 1.22, "opacity": "sat(open)" },
+    { "image": "housing", "size": 1.0, "intro": { "time": 0.18, "ease": "out", "scale": 0.97 } },
+    { "image": "screen", "size": 0.845, "round": true },
+    // the picture opens from a bright line, as tubes do
+    { "shape": "rect", "size": ["0.80*outcubic(time*5)", "0.004+0.01*outcubic(time*7)"], "fill": "pale", "opacity": "1-smooth(0.16,0.34,time)", "glow": 10, "glowcolor": "lit" },
+    { "image": "sweep", "size": 0.84, "rotate": "time*70", "opacity": "0.8*smooth(0.15,0.4,time)" }
+  ],
+
+  // the sides of every entry's place
+  "ring": [
+    { "shape": "arc", "in": "px", "r": "ringout+3", "from": 0, "to": 360, "stroke": "dim/70", "width": 1, "dash": [2, 5] },
+    { "shape": "line", "in": "px", "points": [["sin(rad(a+(j+0.5)*span))*(ringin+6)", "-cos(rad(a+(j+0.5)*span))*(ringin+6)"], ["sin(rad(a+(j+0.5)*span))*(ringout-4)", "-cos(rad(a+(j+0.5)*span))*(ringout-4)"]], "copies": "n", "stroke": "dim/55", "width": 1 }
+  ],
+
+  "slot": {
+    "intro": { "delay": 0.12, "time": 0.10, "ease": "linear", "scale": 1, "opacity": 0, "stagger": 0.028, "order": "ring" },
+    "under": [
+      { "image": "glow", "size": 1.5, "opacity": "0.55*hot+0.25*near+launch*2" },
+      // inverse video
+      { "shape": "rect", "size": ["0.74*(0.94+0.06*hot)", "0.74*(0.94+0.06*hot)"], "fill": "lit", "opacity": "sat(hot)*(0.92+0.08*noise(time*20))" },
+      // corner brackets
+      { "shape": "poly", "points": [[-0.82, -0.52], [-0.82, -0.82], [-0.52, -0.82]], "stroke": "lit", "width": 2, "opacity": "0.55+0.45*hot" },
+      { "shape": "poly", "points": [[0.52, -0.82], [0.82, -0.82], [0.82, -0.52]], "stroke": "lit", "width": 2, "opacity": "0.55+0.45*hot" },
+      { "shape": "poly", "points": [[0.82, 0.52], [0.82, 0.82], [0.52, 0.82]], "stroke": "lit", "width": 2, "opacity": "0.55+0.45*hot" },
+      { "shape": "poly", "points": [[-0.52, 0.82], [-0.82, 0.82], [-0.82, 0.52]], "stroke": "lit", "width": 2, "opacity": "0.55+0.45*hot" }
+    ],
+    "icon": { "size": 1.14, "tone": "duo", "hot": "duo", "ink": "#052E17", "paper": "#8BFFBC", "zoom": 1.06 },
+    "over": [
+      { "shape": "rect", "size": [0.74, 0.74], "fill": { "image": "lines", "tile": true, "zoom": 0.06 }, "opacity": 0.45 },
+      { "text": "{number}", "x": -0.62, "y": -0.66, "em": 0.42, "font": "term", "color": "pale", "when": "numbers && number<10 && !kid" },
+      { "text": "*", "x": 0.60, "y": -0.46, "em": 0.62, "font": "term", "color": "pale", "when": "running && !active" },
+      { "text": ">", "x": -1.02, "y": -0.02, "em": 0.62, "font": "term", "color": "pale", "when": "active", "opacity": "step(0.5, fract(time*1.2))" },
+      { "text": "+", "x": 0.62, "y": 0.60, "em": 0.56, "font": "term", "color": "pale", "when": "group" }
+    ],
+    "marks": false, "chevron": false, "badge": false, "names": 0.92
+  },
+
+  "fan": [
+    { "shape": "ring", "inner": "ringin-3", "outer": "ringout+3", "from": "a-span/2-2", "to": "a+span/2+2", "fill": "deep", "stroke": "lit", "width": 1.5 }
+  ],
+
+  "hub": [
+    { "shape": "circle", "size": 0.98, "fill": "deep/85", "stroke": "dim", "width": 1.5 },
+    { "shape": "ticks", "inner": 0.91, "outer": 0.95, "count": 60, "major": 5, "stroke": "dim", "width": 1 },
+    { "shape": "arc", "r": 0.98, "from": "sel-9", "to": "sel+9", "stroke": "lit", "width": 4, "opacity": "on", "glow": 5, "glowcolor": "lit" },
+    { "image": "glow", "size": 0.95, "opacity": "0.30+0.04*noise(time*14)" },
+    { "text": "{title}", "y": -0.12, "box": [1.42, 0.62], "px": 25, "font": "term", "color": "pale", "wrap": true, "shadow": { "x": 0, "y": 0, "blur": 5, "color": "lit" } },
+    { "text": "{sub}", "y": 0.24, "box": [1.3, 0.2], "px": 16, "font": "term", "color": "lit" },
+    { "text": "█", "y": 0.46, "px": 15, "font": "term", "color": "lit", "opacity": "(1-idle)*step(0.5, fract(time*1.6))" },
+    { "text": "{hh}:{mm}:{ss}", "y": -0.16, "px": 35, "font": "term", "color": "pale", "opacity": "idle", "shadow": { "x": 0, "y": 0, "blur": 6, "color": "lit" } },
+    { "text": "CPU {cpu}%  RAM {ram}%", "y": 0.12, "px": 15, "font": "term", "color": "lit", "opacity": "idle" },
+    { "shape": "rect", "x": "-0.5+0.5*cpu", "y": 0.28, "size": ["0.5*cpu", 0.025], "fill": "lit", "opacity": "idle" },
+    { "shape": "rect", "x": "-0.5+0.5*ram", "y": 0.36, "size": ["0.5*ram", 0.025], "fill": "dim", "opacity": "idle" },
+    { "text": "READY.", "y": -0.48, "px": 15, "font": "term", "color": "lit", "opacity": "idle*step(0.3, fract(time*0.8+0.4))" }
+  ],
+
+  "front": [
+    { "shape": "circle", "size": 0.84, "fill": { "image": "lines", "tile": true, "zoom": 0.013 }, "opacity": 0.55 },
+    { "shape": "rect", "y": "-0.84+fract(time*0.16)*1.68", "size": [0.46, 0.03], "fill": { "type": "linear", "stops": [[0, "lit/0"], [0.5, "lit/10"], [1, "lit/0"]] }, "opacity": "motion" },
+    { "image": "glass", "size": 0.85 },
+    { "image": "led", "x": 0.84, "y": 0.60, "size": 0.026 },
+    { "image": "led_on", "x": 0.84, "y": 0.60, "size": 0.026, "opacity": "0.35+0.65*cpu" },
+    { "image": "led", "x": 0.88, "y": 0.50, "size": 0.026 },
+    { "image": "led_on", "x": 0.88, "y": 0.50, "size": 0.026, "opacity": "step(0.5, fract(time*1.1))" }
+  ],
+
+  "pinbutton": { "in": "hub", "x": -0.22, "y": 0.68, "size": 12, "layers": [ { "text": "[+]", "em": 1.5, "font": "term", "color": "lit", "opacity": "0.75+0.25*hot" } ] },
+  "settingsbutton": { "in": "hub", "x": 0.22, "y": 0.68, "size": 12, "layers": [ { "text": "[=]", "em": 1.5, "font": "term", "color": "lit", "opacity": "0.75+0.25*hot" } ] },
+
+  "draw": { "clock": false, "text": "lit", "fan": false },
+  "tabs": { "inset": 2, "text": "lit", "fill": "#1E8F52/45", "on": "#1FBF69" },
+  "panel": { "fill": "#03180C", "stroke": "#1E8F52", "width": 1.5, "corner": 2, "text": "#7DFFB4" },
+  "tile": { "fill": { "type": "linear", "stops": [[0, "#052414"], [1, "#02100A"]] }, "stroke": "#1E8F52", "width": 1.5, "corner": 3, "text": "#7DFFB4" },
+  "onlaunch": [
+    { "color": "pale", "count": 30, "area": "slot", "life": [0.15, 0.4], "size": [2, 4], "speed": [200, 700], "outward": true, "dir": [-60, 60], "drag": 4, "stretch": 1 }
+  ],
+  "sounds": { "open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav" }
+}

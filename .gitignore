@@ -1,0 +1,13 @@
+# build output: build.ps1 makes these
+build/
+dist/
+*.obj
+__pycache__/
+*.pyc
+
+# working notes and an unfinished skin, kept out of the published project
+NEXT.md
+PROJECT-LOG.md
+SKIN-IDEAS.md
+skins-wip/
+tools/art/rose.py

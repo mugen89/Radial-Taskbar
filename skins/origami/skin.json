@@ -1,0 +1,83 @@
+{
+  "format": 1,
+  "id": "origami",
+  "name": "Origami",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "about": "Folded patterned paper that opens like a flower; cranes fly off when you launch",
+  "tags": ["paper", "elegant", "folded"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#FBF6EA", "accent": "#C8202F", "accent2": "#D8A73A", "text": "#20264A", "border": "#D8C49A", "opacity": 0.98, "corner": 4, "font": "Yu Gothic UI", "open": "unfold", "speed": 1, "hoverGrow": 3, "iconZoom": 1.12, "glow": 0, "tilt": 0.6, "pointer": false, "burst": false, "shadow": 0.5, "dim": 0.26},
+  "wheel": {"hub": 92, "thickness": 92, "gap": 5, "ringgap": 14, "rim": 36, "icon": 42, "crowd": 1.5, "area": 1.14, "hubkeep": 0.62},
+  "colors": {"ink": "#20264A", "red": "#C8202F", "cream": "#F7EFDF"},
+  "fonts": {"title": "Yu Gothic UI Semibold, Segoe UI Semibold, Segoe UI"},
+  "images": {
+    "arrow": "arrow.png",
+    "crane": {"file": "crane.png", "cols": 2},
+    "face": {"file": "face.jpg", "mask": "face-mask.png"},
+    "rosette": {"file": "rosette.jpg", "mask": "rosette-mask.png"},
+    "sq1": {"file": "sq1.jpg", "mask": "sq1-mask.png"},
+    "sq2": {"file": "sq2.jpg", "mask": "sq2-mask.png"},
+    "sq3": {"file": "sq3.jpg", "mask": "sq3-mask.png"},
+    "sq4": {"file": "sq4.jpg", "mask": "sq4-mask.png"},
+    "star1": {"file": "star1.jpg", "mask": "star1-mask.png"},
+    "star2": {"file": "star2.jpg", "mask": "star2-mask.png"},
+    "star3": {"file": "star3.jpg", "mask": "star3-mask.png"}
+  },
+  "back": [
+    {"shape": "circle", "x": 0.0, "y": 0.03, "size": 1.1, "fill": {"type": "radial", "stops": [[0, "black/55"], [0.85, "black/47"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "star1", "size": 1.04, "rotate": "time*1.2", "depth": -0.5, "intro": {"time": 0.42, "ease": "back", "scale": 0.15, "rotate": 110}},
+    {"image": "star2", "size": 1.0, "rotate": "time*-1.6", "depth": -0.25, "intro": {"time": 0.42, "ease": "back", "delay": 0.05, "scale": 0.15, "rotate": -130}},
+    {"image": "star3", "size": 1.0, "rotate": "0", "intro": {"time": 0.4, "ease": "back", "delay": 0.1, "scale": 0.15, "rotate": 80}}
+  ],
+  "slot": {
+    "intro": {"time": 0.36, "ease": "back", "delay": 0.12, "scale": 0.05, "rotate": 180, "stagger": 0.02, "order": "both"},
+    "under": [
+      {"image": "sq2", "size": 1.3, "rotate": "45-45*sat(hot)+20*hot", "opacity": "sat(hot*4)", "when": "hot>0.01", "scale": "(1.30*(0.55+0.45*outback(sat(hot*1.2))))/1.3"},
+      {"image": "sq4", "size": 1.3, "rotate": "45*sat(hot)+20*hot", "opacity": "sat(hot*4)", "when": "hot>0.01", "scale": "(1.30*(0.55+0.45*outback(sat(hot*1.2))))/1.3"},
+      {"image": "sq3", "size": 1.1, "rotate": "45", "when": "i%2==1", "opacity": "1-0.0*hot"},
+      {"image": "sq2", "size": 1.1, "rotate": "45", "when": "i%2==0"},
+      {"image": "sq1", "size": "1.06*(1+0.06*hot-0.05*press+launch*0.3)", "rotate": "8*hot", "detail": 1.08}
+    ],
+    "icon": {"size": 1.0, "zoom": 1.14, "shadow": {"x": 1, "y": 3, "blur": 3, "color": "#20264A/45"}},
+    "over": [
+      {"shape": "poly", "points": [[0, -0.12], [0.12, 0.1], [-0.12, 0.1]], "closed": true, "y": 0.82, "fill": "red", "when": "running", "opacity": "active ? 1 : 0.75"},
+      {"shape": "poly", "points": [[0, -0.12], [0.0, 0.1], [-0.12, 0.1]], "closed": true, "y": 0.82, "fill": "#FFD9A0", "when": "active"},
+      {"shape": "circle", "x": 0.66, "y": -0.66, "size": 0.25, "fill": "#20356E", "when": "numbers && number<10 && !kid"},
+      {"text": "{number}", "x": 0.66, "y": -0.67, "em": 0.3, "color": "cream", "font": "title", "weight": 700, "when": "numbers && number<10 && !kid"},
+      {"shape": "poly", "points": [[-0.12, -0.6980000000000001], [0, -0.8], [0.12, -0.6980000000000001]], "stroke": "ink", "width": 2.2, "caps": true, "when": "group"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "over": [
+    {"shape": "circle", "x": 0.0, "y": 0.05, "size": 1.24, "fill": {"type": "radial", "stops": [[0, "black/50"], [0.8, "black/43"], [1, "black/0"]]}, "opacity": "sat(open)*0.95", "in": "hub"},
+    {"image": "arrow", "size": 0.17, "in": "hub", "angle": "sel", "radius": 1.12, "turns": true, "opacity": "on", "scale": "0.3+0.7*on"}
+  ],
+  "hub": [
+    {"image": "rosette", "size": 1.12, "rotate": "sel*0.4+time*2", "intro": {"time": 0.42, "ease": "back", "delay": 0.06, "scale": 0.1, "rotate": -200}},
+    {"shape": "circle", "x": 0.0, "y": 0.03, "size": 0.92, "fill": {"type": "radial", "stops": [[0, "black/35"], [0.86, "black/30"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "face", "size": 0.8, "intro": {"time": 0.36, "ease": "back", "delay": 0.12, "scale": 0.1}},
+    {"text": "{title}", "y": -0.04, "box": [1.1, 0.44], "px": 16, "color": "ink", "font": "title", "weight": 700, "wrap": true},
+    {"text": "{sub}", "y": 0.25, "box": [1.045, 0.2], "px": 10.5, "color": "red", "font": "title", "weight": 700},
+    {"text": "{hh}:{mm}", "y": -0.07, "box": [1.1, 0.55], "px": 28, "color": "ink", "font": "title", "weight": 700, "opacity": "idle"},
+    {"text": "{date}", "y": 0.2, "box": [1.045, 0.2], "px": 11, "color": "red", "font": "title", "weight": 700, "opacity": "idle"}
+  ],
+  "front": [
+    {"image": "crane", "size": 0.1, "angle": "time*-16", "radius": "1.02+0.03*sin(time*1.7)", "frame": "floor(time*5)%2", "scale": ["-1", "1"], "rotate": "6*sin(time*2)", "opacity": "smooth(0.4,0.8,time)"},
+    {"image": "crane", "size": 0.075, "angle": "time*-16+150", "radius": "1.06+0.02*sin(time*2.1)", "frame": "floor(time*6+1)%2", "scale": ["-1", "1"], "rotate": "6*sin(time*2+1)", "opacity": "smooth(0.5,0.9,time)"}
+  ],
+  "draw": {"clock": false, "shadow": false, "text": "ink"},
+  "tabs": {"inset": 24, "text": "ink", "fill": "#E6D3A8/80", "on": "#C8202F"},
+  "panel": {"fill": {"type": "linear", "stops": [[0, "#FFFCF4"], [1, "#F0E5CC"]]}, "stroke": "#C8202F", "width": 2, "corner": 3, "text": "ink"},
+  "tag": {"fill": {"type": "linear", "stops": [[0, "#FFFCF4"], [1, "#F0E5CC"]]}, "stroke": "#C8202F", "width": 1.5, "corner": 2, "text": "ink"},
+  "tile": {"fill": {"type": "linear", "stops": [[0, "#FFFCF4"], [1, "#F0E5CC"]]}, "stroke": "#20356E", "width": 2, "corner": 3, "text": "ink"},
+  "onhover": [
+    {"color": "#D8A73A", "count": 3, "area": "slot", "life": [0.3, 0.6], "size": [1.5, 3], "speed": [30, 90], "outward": true, "dir": [-70, 70], "gravity": 160, "fadein": 0, "fadeout": 0.6}
+  ],
+  "onlaunch": [
+    {"image": "crane", "count": 9, "area": "slot", "life": [0.9, 1.5], "size": [16, 30], "speed": [120, 300], "dir": [-70, 70], "gravity": -60, "drag": 0.6, "sway": 24, "swayhz": 1.2, "fadein": 0.05, "fadeout": 0.4}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"}
+}

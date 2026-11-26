@@ -1,0 +1,152 @@
+{
+  "format": 1,
+  "id": "vinyl",
+  "name": "Vinyl",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "license": "Artwork free with the program; Righteous under the OFL",
+  "about": "A hi-fi turntable with a dot-matrix display and meters that dance to your sound",
+  "tags": ["hi-fi", "turntable", "retro", "music"],
+
+  "style": {
+    "shape": "orb", "material": "solid", "base": "#1B1B1E", "accent": "#FFB347", "accent2": "#FF6A3C", "text": "#F3EDE0", "border": "#B9BDC2",
+    "opacity": 0.97, "corner": 12, "font": "Bahnschrift", "open": "bloom", "speed": 1, "hoverGrow": 4, "iconZoom": 1.12, "glow": 0.35,
+    "tilt": 0.35, "pointer": false, "burst": false, "shadow": 0.6, "dim": 0.30
+  },
+  "wheel": { "hub": 112, "thickness": 88, "gap": 7, "ringgap": 40, "rim": 37, "icon": 44, "crowd": 1.46, "area": [1.32, 1.22, 1.34, 1.40], "hubkeep": 0.9 },
+  "colors": { "amber": "#FFB347", "glow": "#FF7A14", "ink": "#2A1206", "cream": "#FFF1D6", "alu": "#C6CACF" },
+  "fonts": {
+    "title": { "file": "Righteous-Regular.ttf" },
+    "dots": { "file": "dots.ttf" },
+    "segments": { "file": "segments.ttf" },
+    "small": "Bahnschrift, Segoe UI",
+    "glyphs": "Segoe Fluent Icons, Segoe MDL2 Assets"
+  },
+
+  "images": {
+    "shadow": "shadow.png",
+    "plinth": { "file": "plinth.jpg", "mask": "plinth-mask.png" },
+    "platter": "platter.jpg", "dots": "dots.png",
+    "beam": { "file": "beam.jpg", "light": true },
+    "lamp": "lamp.png",
+    "arm": { "file": "arm.jpg", "mask": "arm-mask.png" }, "armshadow": "armshadow.png",
+    "vu": "vu.jpg", "vucover": "vucover.png", "needle": "needle.png",
+    "warm": { "file": "warm.jpg", "light": true },
+    "leds": { "file": "leds.png", "cols": 3, "light": true },
+    "digits": { "file": "digits.png", "cols": 10, "light": true },
+    "key": { "file": "key.jpg", "mask": "key-mask.png" },
+    "keylight": { "file": "keylight.jpg", "light": true }, "keyhalo": { "file": "keyhalo.jpg", "light": true },
+    "barg": { "file": "barg.png", "light": true }, "bara": { "file": "bara.png", "light": true },
+    "record": "record.jpg",
+    "sheen": { "file": "sheen.jpg", "light": true },
+    "grooves": { "file": "grooves.jpg", "mask": "grooves-mask.png" },
+    "label": "label.jpg", "spindle": "spindle.png",
+    "knob": "knob.png",
+    "notes": { "file": "notes.png", "cols": 2 },
+    "panel": { "file": "panel.jpg", "mask": "panel-mask.png" },
+    "sleeve": { "file": "tile.jpg", "mask": "tile-mask.png" }
+  },
+
+  // everything that stands on the deck; the needles and lamps make a short sweep when the power comes on
+  "back": [
+    { "image": "shadow", "x": 0.012, "y": 0.105, "size": [1.44, 1.43], "opacity": "open" },
+    { "image": "plinth", "y": 0.075, "size": [1.30, 1.285], "intro": { "time": 0.28, "ease": "out", "scale": 0.90 } },
+
+    { "shape": "circle", "x": -0.845, "y": -1.0, "size": 0.016, "fill": "profile", "glow": 5, "glowcolor": "profile", "opacity": "open" },
+    { "text": "{profile}", "x": -0.815, "y": -1.0, "em": 0.062, "font": "title", "color": "alu", "align": "left", "opacity": "open", "shadow": { "y": -1, "blur": 0, "color": "black/90" } },
+
+    { "image": "vu", "x": -0.935, "y": 0.995, "size": [0.19, 0.17], "opacity": "motion < 1 ? 1 : step(0.13,time)*(0.55+0.45*step(0.22,time))" },
+    { "image": "vu", "x": 0.935, "y": 0.995, "size": [0.19, 0.17], "opacity": "motion < 1 ? 1 : step(0.17,time)*(0.55+0.45*step(0.26,time))" },
+    { "image": "needle", "x": -0.930, "y": 1.187, "size": [0.02, 0.136], "pivot": [0.5, 1], "rotate": "-38+76*max(soundl,motion*smooth(0.15,0.28,time)*(1-smooth(0.30,0.55,time)))", "tint": "black", "opacity": 0.28 },
+    { "image": "needle", "x": 0.940, "y": 1.187, "size": [0.02, 0.136], "pivot": [0.5, 1], "rotate": "-38+76*max(soundr,motion*smooth(0.15,0.28,time)*(1-smooth(0.30,0.55,time)))", "tint": "black", "opacity": 0.28 },
+    { "image": "needle", "x": -0.935, "y": 1.180, "size": [0.02, 0.136], "pivot": [0.5, 1], "rotate": "-38+76*max(soundl,motion*smooth(0.15,0.28,time)*(1-smooth(0.30,0.55,time)))" },
+    { "image": "needle", "x": 0.935, "y": 1.180, "size": [0.02, 0.136], "pivot": [0.5, 1], "rotate": "-38+76*max(soundr,motion*smooth(0.15,0.28,time)*(1-smooth(0.30,0.55,time)))" },
+    { "image": "vucover", "x": -0.935, "y": 0.995, "size": [0.19, 0.17], "opacity": "open" },
+    { "image": "vucover", "x": 0.935, "y": 0.995, "size": [0.19, 0.17], "opacity": "open" },
+    { "image": "warm", "x": -0.935, "y": 0.995, "size": [0.40, 0.38], "opacity": "step(0.13,time+1-motion)*(0.9+0.35*soundl)" },
+    { "image": "warm", "x": 0.935, "y": 0.995, "size": [0.40, 0.38], "opacity": "step(0.17,time+1-motion)*(0.9+0.35*soundr)" },
+
+    // display: track number, scrolling title over its unlit dots, clock
+    { "image": "digits", "x": "-0.606+j*0.0504", "y": 1.098, "copies": 2, "size": [0.03024, 0.04032], "frame": 8, "opacity": 0.10 },
+    { "image": "digits", "x": "-0.606+j*0.0504", "y": 1.098, "copies": 2, "size": [0.03024, 0.04032], "frame": "floor((idle>0.5 ? items : selindex+1)/(j<1 ? 10 : 1))%10", "opacity": "step(0.16,time+1-motion)" },
+    { "text": "████████████████", "x": -0.054, "y": 1.098, "em": 0.094, "font": "dots", "color": "glow/15", "box": [0.9024, 0.085], "align": "left", "fit": false, "opacity": "open" },
+    { "text": "████████████████", "x": -0.054, "y": 1.098, "em": 0.094, "font": "dots", "color": "amber", "box": [0.9024, 0.085], "align": "left", "fit": false, "opacity": "step(0.12,time)*(1-smooth(0.20,0.36,time))", "when": "motion*(time<0.4)" },
+    { "text": "{title}", "x": -0.054, "y": 1.098, "em": 0.094, "font": "dots", "color": "amber", "box": [0.9024, 0.085], "align": "left", "upper": true, "marquee": true, "shadow": { "y": 0, "blur": 4, "color": "glow" } },
+    { "text": "{weekday} {day} {month}", "x": -0.054, "y": 1.098, "em": 0.094, "font": "dots", "color": "amber", "box": [0.9024, 0.085], "align": "left", "upper": true, "marquee": true, "opacity": "idle*smooth(0.24,0.34,time+1-motion)", "shadow": { "y": 0, "blur": 4, "color": "glow" } },
+    { "text": "88:88", "x": 0.532, "y": 1.099, "em": 0.084, "font": "segments", "color": "glow/12", "opacity": "open" },
+    { "text": "{hh}:{mm}", "x": 0.532, "y": 1.099, "em": 0.084, "font": "segments", "color": "amber", "opacity": "step(0.16,time+1-motion)", "shadow": { "y": 0, "blur": 4, "color": "glow" } },
+
+    { "image": "leds", "copies": 16, "x": "-0.026-j*0.0375", "y": 1.186, "size": 0.0375, "frame": "j<10 ? 0 : (j<14 ? 1 : 2)", "opacity": "clamp(max(soundl,motion*smooth(0.12,0.26,time)*(1-smooth(0.28,0.5,time)))*16-j,0,1)*open" },
+    { "image": "leds", "copies": 16, "x": "0.026+j*0.0375", "y": 1.186, "size": 0.0375, "frame": "j<10 ? 0 : (j<14 ? 1 : 2)", "opacity": "clamp(max(soundr,motion*smooth(0.12,0.26,time)*(1-smooth(0.28,0.5,time)))*16-j,0,1)*open" },
+
+    { "image": "platter", "size": 1, "round": true, "intro": { "time": 0.28, "ease": "out", "scale": 0.90 } },
+    { "image": "dots", "size": 1, "rotate": "200*(time-(1-exp(-time*4))/4)", "intro": { "time": 0.28, "ease": "out", "scale": 0.90 } },
+    { "image": "beam", "size": 1.12, "rotate": "sel", "opacity": "on*(1+0.25*beat)" },
+    { "image": "lamp", "size": 0.034, "angle": "sel", "radius": 1.012, "opacity": "on" },
+    { "image": "armshadow", "x": 1.052, "y": -0.726, "size": [0.185, 0.76], "pivot": [0.5, 0.2138], "rotate": "2.4+on*(1.5-1.2*cos(rad(sel-110)))", "opacity": "open", "depth": 0.15, "intro": { "delay": 0.06, "time": 0.46, "ease": "back", "rotate": -15, "opacity": 1 } },
+    { "image": "arm", "x": 1.030, "y": -0.760, "size": [0.185, 0.76], "pivot": [0.5, 0.2138], "rotate": "2.4+on*(1.5-1.2*cos(rad(sel-110)))", "opacity": "open", "depth": 0.25, "intro": { "delay": 0.06, "time": 0.46, "ease": "back", "rotate": -15, "opacity": 1 } }
+  ],
+
+  "ring": [
+    { "shape": "circle", "size": 0.965, "stroke": "black/70", "width": 2.4, "when": "rings>1 && ring<rings-1", "opacity": "open" },
+    { "shape": "circle", "size": 0.965, "y": 0.004, "stroke": "white/16", "width": 1, "when": "rings>1 && ring<rings-1", "opacity": "open" }
+  ],
+
+  "slot": {
+    "intro": { "time": 0.28, "ease": "back", "scale": 0.4, "radius": -0.15, "stagger": 0.020, "order": "ring" },
+    "under": [
+      { "shape": "circle", "x": 0.04, "y": 0.07, "size": 1.13, "fill": { "type": "radial", "stops": [[0, "black/75"], [0.80, "black/62"], [1, "black/0"]] } },
+      { "image": "key", "size": 1, "scale": "1+0.045*hot-0.07*press", "detail": 1.05 },
+      { "image": "keylight", "size": 1, "scale": "1+0.045*hot-0.07*press", "opacity": "hot*(0.92+0.08*noise(time*7+i))+launch" },
+      { "image": "keyhalo", "size": 1.5, "scale": "1+0.045*hot-0.07*press", "opacity": "0.9*hot+launch" }
+    ],
+    "icon": { "size": 1.02, "y": -0.075, "zoom": 1.10, "shadow": { "y": 2, "blur": 3, "color": "black/70" } },
+    "over": [
+      { "image": "barg", "x": 0, "y": 0.725, "size": [0.36, 0.18], "when": "running", "opacity": "active ? 1.15 : 0.60" },
+      { "shape": "circle", "copies": 3, "x": "(j-1)*0.13", "y": 0.725, "size": 0.034, "fill": "amber", "opacity": "0.55+0.45*hot", "when": "group" },
+      { "shape": "circle", "x": -0.70, "y": -0.70, "size": 0.20, "fill": "#16171A", "stroke": "#8C9096", "width": 1, "when": "numbers && number<10 && !kid" },
+      { "text": "{number}", "x": -0.70, "y": -0.71, "em": 0.25, "color": "amber", "font": "title", "when": "numbers && number<10 && !kid" }
+    ],
+    "marks": false, "chevron": false, "badge": false
+  },
+
+  "fan": [
+    { "shape": "ring", "inner": "ringin-6", "outer": "ringout+8", "from": "a-span/2-2.5", "to": "a+span/2+2.5", "corner": 14, "x": 2, "y": 5, "fill": "black/45" },
+    { "shape": "ring", "inner": "ringin-6", "outer": "ringout+8", "from": "a-span/2-2.5", "to": "a+span/2+2.5", "corner": 14,
+      "fill": { "type": "radial", "stops": [[0, "#2E3035"], [0.82, "#2A2B30"], [0.93, "#202125"], [1, "#18191C"]] }, "stroke": { "type": "linear", "from": [-0.7, -0.9], "to": [0.7, 0.9], "stops": [[0, "#E6E9EC"], [0.5, "#7E8288"], [1, "#C2C6CB"]] }, "width": 2 }
+  ],
+
+  "hub": [
+    { "shape": "circle", "x": 0.02, "y": 0.035, "size": 1.10, "fill": { "type": "radial", "stops": [[0, "black/85"], [0.86, "black/70"], [1, "black/0"]] }, "opacity": "open" },
+    { "image": "record", "size": 0.99, "round": true, "intro": { "time": 0.28, "ease": "out", "scale": 0.6 } },
+    { "image": "sheen", "size": 0.99, "rotate": "px*10", "intro": { "time": 0.28, "ease": "out", "scale": 0.6 } },
+    { "image": "grooves", "size": 0.99, "rotate": "200*(time-(1-exp(-time*4))/4)-150*outcubic(launch)", "intro": { "time": 0.28, "ease": "out", "scale": 0.6 } },
+    { "image": "label", "size": 0.645, "round": true, "rotate": "200*(time-(1-exp(-time*4))/4)-150*outcubic(launch)", "intro": { "time": 0.28, "ease": "out", "scale": 0.6 } },
+    { "image": "spindle", "size": 0.034, "opacity": "open" },
+    { "text": "{time}", "y": -0.20, "em": 0.27, "font": "title", "color": "ink", "opacity": "idle" },
+    { "text": "{date}", "y": 0.18, "em": 0.10, "font": "small", "weight": 600, "color": "ink", "opacity": "0.85*idle" },
+    { "text": "{title}", "y": -0.225, "box": [0.86, 0.36], "px": 17, "font": "title", "color": "ink", "wrap": true },
+    { "text": "{sub}", "y": 0.18, "box": [0.80, 0.14], "px": 11, "font": "small", "weight": 600, "color": "ink", "opacity": 0.8 }
+  ],
+
+  "pinbutton": { "in": "hub", "x": -0.165, "y": 0.80, "size": 13, "layers": [
+    { "image": "knob", "size": 1 },
+    { "shape": "circle", "size": 0.74, "fill": "amber", "opacity": "0.9*hot" },
+    { "text": "", "em": 0.82, "font": "glyphs", "color": "cream", "opacity": "1-hot" }, { "text": "", "em": 0.82, "font": "glyphs", "color": "#1A0E05", "opacity": "hot" } ] },
+  "settingsbutton": { "in": "hub", "x": 0.165, "y": 0.80, "size": 13, "layers": [
+    { "image": "knob", "size": 1 },
+    { "shape": "circle", "size": 0.74, "fill": "amber", "opacity": "0.9*hot" },
+    { "text": "", "em": 0.82, "font": "glyphs", "color": "cream", "opacity": "1-hot" }, { "text": "", "em": 0.82, "font": "glyphs", "color": "#1A0E05", "opacity": "hot" } ] },
+
+  "draw": { "clock": false, "shadow": false, "fan": false },
+  "tabs": { "inset": 3, "text": "cream", "fill": "#3A3A3D/80" },
+
+  "panel": { "image": "panel", "cut": 72, "scale": 0.62, "pad": [26, 26, 26, 28], "fill": { "type": "linear", "stops": [[0, "#2B2C30"], [1, "#17181B"]] }, "stroke": { "type": "linear", "stops": [[0, "#D5D8DC"], [0.5, "#7C8085"], [1, "#B4B8BD"]] }, "width": 2, "corner": 12, "text": "cream" },
+  "tag": { "fill": { "type": "linear", "stops": [[0, "#1A130C"], [0.5, "#0A0806"], [1, "#050404"]] }, "stroke": { "type": "linear", "stops": [[0, "#E6E9EC"], [0.5, "#7E8288"], [1, "#B9BDC2"]] }, "width": 2, "corner": 8, "text": "#FFC069" },
+  "tile": { "image": "sleeve", "cut": [22, 64, 22, 22], "scale": 0.52, "pad": [2, 2, 3, 4], "text": "ink" },
+
+  "onlaunch": [
+    { "image": "notes", "color": "#FFD08A", "count": 7, "area": "slot", "life": [0.45, 0.85], "size": [13, 22], "speed": [60, 170], "outward": true, "dir": [-60, 60], "gravity": -60, "drag": 1.6, "spin": [-70, 70], "fadein": 0.05, "fadeout": 0.5 }
+  ],
+  "sounds": { "open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav" }
+}

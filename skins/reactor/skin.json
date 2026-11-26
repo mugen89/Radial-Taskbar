@@ -1,0 +1,170 @@
+{
+  "format": 1,
+  "id": "reactor",
+  "name": "Reactor",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "license": "Artwork: part of Radial Taskbar. Rajdhani: SIL Open Font License",
+  "about": "A machined weapon wheel around a plasma core",
+  "tags": ["sci-fi", "metal", "plasma", "game"],
+
+  "style": {
+    "shape": "hex", "material": "solid", "base": "#10161E", "accent": "#35E6FF", "accent2": "#2F7BFF", "text": "#E6F6FF", "border": "#5F7486",
+    "opacity": 0.96, "corner": 4, "font": "hud", "open": "bloom", "speed": 1, "hoverGrow": 4, "iconZoom": 1.16, "glow": 0.5,
+    "tilt": 0.5, "pointer": false, "burst": false, "shadow": 0.75, "dim": 0.38, "borderOpacity": 0.5
+  },
+  "wheel": { "hub": 104, "thickness": 90, "gap": 6, "ringgap": 44, "rim": 36, "icon": 46, "crowd": 1.5, "area": [1.12, 1.12, 1.12, 1.12], "hubkeep": 0.66 },
+  "colors": { "cyan": "#35E6FF", "ice": "#E6FBFF", "amber": "#FFB020", "well": "#03070C" },
+  "fonts": { "hud": { "file": "Rajdhani-SemiBold.ttf", "family": "Bahnschrift, Segoe UI", "weight": 600 }, "glyphs": "Segoe Fluent Icons, Segoe MDL2 Assets" },
+
+  "images": {
+    "tray": { "file": "tray.jpg", "mask": "tray-mask.png" },
+    "armour": { "file": "armour.jpg", "mask": "armour-mask.png" },
+    "coupling": { "file": "coupling.jpg", "mask": "coupling-mask.png" },
+    "bay": { "file": "bay.jpg", "mask": "bay-mask.png", "cols": 5, "rows": 4 },
+    "cell": { "file": "cell.jpg", "mask": "cell-mask.png", "cols": 5, "rows": 4 },
+    "collar": { "file": "collar.jpg", "mask": "collar-mask.png" },
+    "iris": { "file": "iris.jpg", "mask": "iris-mask.png", "cols": 3, "rows": 2 },
+    "dome": "dome.png",
+    "emitter": { "file": "emitter.jpg", "mask": "emitter-mask.png", "cols": 6, "rows": 4 },
+    "panel": { "file": "panel.jpg", "mask": "panel-mask.png" },
+    "cursor": "cursor.png",
+    "arrow": "arrow.png", "plate9": "plate9.png", "led": "led.png", "led_on": "led_on.png",
+    "seam": { "file": "seam.jpg", "light": true },
+    "holo": { "file": "holo.jpg", "light": true },
+    "pulse": { "file": "pulse.jpg", "light": true },
+    "column": { "file": "column.jpg", "light": true },
+    "halo": { "file": "halo.jpg", "light": true },
+    "plasma": { "file": "plasma.jpg", "light": true },
+    "filament": { "file": "filament.jpg", "light": true },
+    "heart": { "file": "heart.jpg", "light": true },
+    "data": { "file": "data.jpg", "light": true },
+    "seams": { "file": "seams.jpg", "light": true },
+    "sector": { "file": "sector.jpg", "light": true },
+    "sweep": { "file": "sweep.jpg", "light": true },
+    "beam": { "file": "beam.jpg", "light": true },
+    "shock": { "file": "shock.jpg", "light": true },
+    "flash": { "file": "flash.jpg", "light": true },
+    "spark": { "file": "spark.jpg", "light": true }
+  },
+
+  "ring": [
+    { "shape": "circle", "y": 0.03, "size": 1.09, "fill": { "type": "radial", "stops": [[0, "black/75"], [0.86, "black/66"], [1, "black/0"]] }, "opacity": "open*0.9" },
+    { "image": "tray", "size": "ring>0 ? 1.06 : 1", "intro": { "time": 0.30, "ease": "out", "scale": 0.72, "rotate": -40 } },
+    { "image": "sweep", "size": "ring>0 ? 0.90 : 0.846", "rotate": "time*22", "opacity": "0.34*open" },
+    { "image": "armour", "size": "ring>0 ? 1.06 : 1", "depth": 0.25, "intro": { "delay": 0.04, "time": 0.34, "ease": "quint", "scale": 1.22, "rotate": 34 } },
+    { "image": "coupling", "size": "ring>0 ? 1.06 : 1", "depth": 0.32, "intro": { "delay": 0.12, "time": 0.32, "ease": "back", "scale": 1.30, "rotate": -26 } },
+    { "image": "seams", "size": "ring>0 ? 1.06 : 1", "depth": 0.28, "opacity": "sat(time*5-1)*(0.50+0.13*sin(time*1.7)+0.25*beat)+0.9*smooth(0.16,0.26,time)*(1-smooth(0.26,0.62,time))+launch" },
+    { "image": "sector", "size": [0.64, 0.22], "pivot": [0.5, 2.2727], "depth": 0.28, "rotate": "sel", "scale": "ring>0 ? 1.06 : 1", "opacity": "on*(0.52+0.10*sin(time*5))" }
+  ],
+
+  "slot": {
+    "intro": { "time": 0.32, "ease": "back", "scale": 0.25, "radius": -0.45, "stagger": 0.018, "order": "both" },
+    "under": [
+      { "image": "halo", "size": 1.8, "opacity": "0.42*hot" },
+      { "image": "bay", "size": "1.03+0.05*hot-0.04*press", "frame": "round(mod(a,60)/3)%20", "rotate": "mod(a,60)-3*round(mod(a,60)/3)" },
+      { "image": "holo", "size": "1.03+0.05*hot-0.04*press", "turns": true, "opacity": "0.20+0.10*near+0.55*hot" },
+      { "image": "pulse", "size": "0.62*fract(time*0.9)", "turns": true, "when": "hot>0.2", "opacity": "hot*(1-fract(time*0.9))" },
+      { "image": "seam", "size": "1.03+0.05*hot-0.04*press", "turns": true, "opacity": "0.10+0.05*sin(time*1.7+i)+0.18*near+0.62*hot+0.5*press+launch" },
+      { "image": "beam", "turns": true, "size": [0.22, 0.48], "pivot": [0.5, 1], "y": 0.98, "when": "hot>0.05", "opacity": "hot*(0.8+0.2*noise(time*14))" },
+      { "image": "column", "size": [0.84, 1.40], "pivot": [0.5, 0.80], "y": 0.46, "scale": ["0.75+0.25*hot", "sat(hot)"], "opacity": "hot*(1.25+0.15*noise(time*11+i))" }
+    ],
+    "icon": { "size": 0.96, "zoom": 1.16, "y": "-0.12*hot+0.06*press", "opacity": "0.92+0.08*hot", "shadow": { "y": 3, "blur": 4, "color": "black/65" } },
+    "over": [
+      { "image": "spark", "size": 0.34, "angle": "a+180+(j-(m-1)/2)*14", "radius": "0.745/cos(rad(30-abs((j-(m-1)/2)*14)))", "copies": "min(3,windows)", "when": "running", "opacity": "active ? 0.4 : 0.35+0.15*sin(time*2+seed*6)" },
+      { "image": "led", "size": 0.145, "angle": "a+180+(j-(m-1)/2)*14", "radius": "0.745/cos(rad(30-abs((j-(m-1)/2)*14)))", "copies": "min(3,windows)", "when": "running && !active" },
+      { "image": "led_on", "size": 0.165, "angle": "a+180+(j-(m-1)/2)*14", "radius": "0.745/cos(rad(30-abs((j-(m-1)/2)*14)))", "copies": "min(3,windows)", "when": "active" },
+      { "image": "arrow", "size": 0.235, "turns": true, "y": "-0.93-0.04*hot*sin(time*9)", "when": "group" },
+      { "image": "plate9", "size": 0.25, "x": -0.62, "y": -0.66, "when": "numbers && number<10 && !kid" },
+      { "text": "{number}", "x": -0.62, "y": -0.67, "em": 0.34, "font": "hud", "color": "ice", "when": "numbers && number<10 && !kid" }
+    ],
+    "marks": false, "chevron": false, "badge": false, "names": 0.80
+  },
+
+  // members of an open group: a lighter plate, so the icon has room
+  "kid": {
+    "under": [
+      { "image": "halo", "size": 1.9, "opacity": "0.55*hot" },
+      { "image": "cell", "size": "1.06+0.07*hot-0.04*press", "frame": "round(mod(a,60)/3)%20", "rotate": "mod(a,60)-3*round(mod(a,60)/3)" },
+      { "image": "seam", "size": "1.14+0.07*hot-0.04*press", "turns": true, "opacity": "0.75*hot+0.5*press+launch" },
+      { "image": "column", "size": [0.84, 1.20], "pivot": [0.5, 0.80], "y": 0.46, "scale": ["0.75+0.25*hot", "sat(hot)"], "opacity": "0.8*hot" }
+    ],
+    "icon": { "size": 1.16, "zoom": 1.15, "y": "-0.10*hot+0.06*press", "shadow": { "y": 2, "blur": 3, "color": "black/65" } },
+    "over": [
+      { "image": "led", "size": 0.20, "turns": true, "y": 0.84, "when": "running && !active" },
+      { "image": "led_on", "size": 0.22, "turns": true, "y": 0.84, "when": "active" }
+    ],
+    "marks": false, "chevron": false, "badge": false
+  },
+
+  // the tray that slides out behind them
+  "fan": [
+    { "shape": "ring", "from": "a-span/2-3.5", "to": "a+span/2+3.5", "inner": "ringin-7", "outer": "ringout+9", "corner": 12, "fill": { "type": "radial", "stops": [[0, "#05080C"], [0.55, "#0B1119"], [1, "#1C2631"]] }, "stroke": "#6F8494", "width": 1.6, "opacity": "0.94*sat(in*1.4)" },
+    { "shape": "arc", "r": "ringout+5", "from": "a-span/2-1", "to": "a+span/2+1", "stroke": "cyan/25", "width": 5, "caps": true },
+    { "shape": "arc", "r": "ringout+5", "from": "a-span/2-1", "to": "a+span/2+1", "stroke": "#8FF3FF", "width": 1.4, "caps": true, "opacity": "0.75+0.2*sin(time*3)" }
+  ],
+
+  "over": [
+    // a bay in an outer ring is far from the hub: here the beam has to cross the inner one
+    { "image": "beam", "in": "px", "size": [18, "ringout+50-hub"], "pivot": [0.5, 1], "angle": "sel", "radius": "hub*0.985", "rotate": "sel", "when": "ring>0 && on>0.02", "opacity": "on*(0.55+0.2*noise(time*14))" }
+  ],
+
+  "hub": [
+    { "shape": "circle", "y": 0.04, "size": 1.12, "fill": { "type": "radial", "stops": [[0, "black/80"], [0.84, "black/62"], [1, "black/0"]] }, "opacity": "open" },
+    { "shape": "circle", "size": 0.73, "fill": { "type": "radial", "stops": [[0, "#06223F"], [0.7, "#030B18"], [1, "#010409"]] } },
+    { "image": "plasma", "size": 0.74, "round": true, "rotate": "time*16", "depth": -0.5, "opacity": "open*(0.55+0.30*cpu+0.25*beat)*(0.45+0.55*idle)" },
+    { "image": "plasma", "size": 0.74, "round": true, "rotate": "140-time*10", "scale": 0.86, "depth": -0.35, "opacity": "open*(0.40+0.12*sin(time*1.9))*(0.45+0.55*idle)" },
+    { "image": "filament", "size": 0.74, "round": true, "rotate": "time*31", "depth": -0.2, "opacity": "open*(0.55+0.3*beat+0.15*sin(time*2.6))*(0.5+0.5*idle)" },
+    { "image": "heart", "size": "0.62+0.10*beat+0.03*sin(time*2.2)", "depth": -0.3, "opacity": "open*(0.55+0.35*beat)*(0.25+0.75*idle)+1.3*smooth(0.10,0.18,time)*(1-smooth(0.18,0.5,time))" },
+    { "shape": "circle", "size": 0.66, "fill": { "type": "radial", "stops": [[0, "well/88"], [0.60, "well/72"], [1, "well/0"]] }, "opacity": "0.45*idle+(1-idle)" },
+    { "image": "iris", "size": 1, "copies": 6, "frame": "j", "angle": "j*60+90", "radius": "0.17*open+0.16*(1-idle)-0.15*closing" },
+    { "image": "data", "size": 0.685, "rotate": "time*-7", "opacity": "open*(0.22+0.2*(1-idle))" },
+    { "image": "dome", "size": 0.715 },
+    { "image": "collar", "size": 1.03, "intro": { "time": 0.30, "ease": "quint", "rotate": -70, "scale": 0.8 } },
+    { "shape": "circle", "size": 0.962, "stroke": "cyan/45", "width": 1.2, "opacity": "open*(0.7+0.3*sin(time*1.7))" },
+    { "shape": "arc", "r": 0.826, "from": 195, "to": "195+35*cpu", "stroke": "cyan/30", "width": 6.5 },
+    { "shape": "arc", "r": 0.826, "from": 195, "to": "195+35*cpu", "stroke": "#8FF3FF", "width": 2.6 },
+    { "shape": "arc", "r": 0.826, "from": "165-35*ram", "to": 165, "stroke": "amber/30", "width": 6.5 },
+    { "shape": "arc", "r": 0.826, "from": "165-35*ram", "to": 165, "stroke": "#FFD070", "width": 2.6 },
+    { "image": "spark", "size": 0.16, "angle": "sel", "radius": 0.965, "opacity": "on*(0.8+0.2*sin(time*8))" },
+    { "image": "emitter", "size": 0.19, "angle": "sel", "radius": 0.968, "frame": "round(mod(sel,360)/15)%24", "rotate": "wrap(sel-15*round(sel/15))", "opacity": "open" },
+    { "image": "spark", "size": 0.10, "angle": "sel", "radius": 0.968, "opacity": "on" },
+    { "text": "{time}", "y": -0.05, "px": 27, "font": "hud", "color": "ice", "opacity": "idle*open", "shadow": { "x": 0, "y": 0, "blur": 4, "color": "#00121F/90" } },
+    { "text": "{date}", "y": 0.175, "px": 11.5, "font": "hud", "color": "ice", "upper": true, "tracking": 0.6, "opacity": "idle*open", "shadow": { "x": 0, "y": 0, "blur": 3, "color": "#00121F/95" } },
+    { "text": "{title}", "y": -0.045, "box": [1.10, 0.46], "px": 18, "font": "hud", "color": "ice", "wrap": true, "shadow": { "x": 0, "y": 1, "blur": 3, "color": "#00121F/95" } },
+    { "text": "{sub}", "y": 0.265, "box": [0.90, 0.14], "px": 11.5, "font": "hud", "color": "#7FD9F2", "upper": true, "tracking": 0.6 }
+  ],
+
+  "pinbutton": { "in": "hub", "x": -0.165, "y": 0.555, "size": 11, "layers": [
+    { "shape": "poly", "points": [[0, -1.15], [1, -0.575], [1, 0.575], [0, 1.15], [-1, 0.575], [-1, -0.575]], "closed": true, "fill": "#0A121B/92", "stroke": "#8CA2B3", "width": 1.2 },
+    { "shape": "poly", "points": [[0, -1.15], [1, -0.575], [1, 0.575], [0, 1.15], [-1, 0.575], [-1, -0.575]], "closed": true, "fill": "cyan/30", "stroke": "cyan", "width": 1.4, "opacity": "hot" },
+    { "text": "", "font": "glyphs", "em": 0.98, "color": "ice" }
+  ] },
+  "settingsbutton": { "in": "hub", "x": 0.165, "y": 0.555, "size": 11, "layers": [
+    { "shape": "poly", "points": [[0, -1.15], [1, -0.575], [1, 0.575], [0, 1.15], [-1, 0.575], [-1, -0.575]], "closed": true, "fill": "#0A121B/92", "stroke": "#8CA2B3", "width": 1.2 },
+    { "shape": "poly", "points": [[0, -1.15], [1, -0.575], [1, 0.575], [0, 1.15], [-1, 0.575], [-1, -0.575]], "closed": true, "fill": "cyan/30", "stroke": "cyan", "width": 1.4, "opacity": "hot" },
+    { "text": "", "font": "glyphs", "em": 0.98, "color": "ice" }
+  ] },
+
+  "front": [
+    { "image": "flash", "in": "hub", "size": "0.7+1.5*launch", "when": "launch", "opacity": "1.4*(1-launch)" },
+    { "image": "shock", "size": "0.40+0.85*launch", "when": "launch", "opacity": "1.3*(1-launch*launch)" }
+  ],
+
+  "draw": { "clock": false, "shadow": false, "fan": false },
+  "tabs": { "inset": 2, "text": "#CFEFFA", "fill": "#0A141C/94" },
+
+  // the machined frame, cut in nine; fill and stroke are for panels of other shapes
+  "panel": { "image": "panel", "cut": 64, "scale": 0.42, "pad": 9, "fill": { "type": "linear", "stops": [[0, "#1C2733"], [1, "#0B1118"]] }, "stroke": { "type": "linear", "from": [-1, -1], "to": [1, 1], "stops": [[0, "#9FB4C6"], [0.45, "#3A4957"], [1, "#35E6FF"]] }, "width": 1.6, "corner": 14, "cutcorner": true, "text": "ice" },
+  "tag": { "image": "panel", "cut": 64, "scale": 0.32, "pad": 7, "text": "ice" },
+  "tile": { "image": "panel", "cut": 64, "scale": 0.34, "pad": 3, "text": "ice" },
+  "cursor": { "image": "cursor", "size": 34, "hot": [0.1, 0.06] },
+
+  "onlaunch": [
+    { "image": "spark", "count": 34, "area": "slot", "life": [0.2, 0.55], "size": [5, 13], "speed": [140, 520], "outward": true, "dir": [-80, 80], "drag": 3, "fadein": 0, "fadeout": 0.7, "grow": 0.3 }
+  ],
+  "particles": [
+    { "image": "spark", "rate": 2.2, "max": 12, "area": "hub", "outward": true, "life": [0.9, 1.8], "size": [3, 6], "speed": [10, 34], "dir": [-40, 40], "drag": 0.5, "opacity": 0.6, "fadein": 0.3, "fadeout": 0.6 }
+  ],
+  "sounds": { "open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav" }
+}

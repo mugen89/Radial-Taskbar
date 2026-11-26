@@ -1,0 +1,76 @@
+{
+  "format": 1,
+  "id": "arcade",
+  "name": "Arcade",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "license": "Font Press Start 2P: SIL Open Font License, see OFL.txt",
+  "about": "Lit buttons, running bulbs and a joystick that leans toward the pointer",
+  "tags": ["game", "retro", "bright"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#15121F", "accent": "#FF2E8A", "accent2": "#22D3EE", "text": "#FFFFFF", "border": "#FFC21A", "opacity": 0.98, "corner": 8, "font": "Segoe UI Semibold", "open": "bloom", "speed": 1.1, "hoverGrow": 0, "iconZoom": 1.08, "glow": 0.4, "tilt": 0.3, "pointer": false, "burst": false, "shadow": 0.65, "dim": 0.36},
+  "wheel": {"hub": 92, "thickness": 94, "gap": 4, "ringgap": 10, "rim": 44, "icon": 40, "crowd": 1.48, "area": 1.1, "hubkeep": 0.6},
+  "colors": {"white": "#FFFFFF", "gold": "#FFC21A"},
+  "fonts": {"title": "Segoe UI Black, Segoe UI Semibold, Segoe UI", "pix": {"file": "PressStart2P-Regular.ttf", "family": "Press Start 2P"}},
+  "images": {
+    "ball": {"file": "ball.jpg", "mask": "ball-mask.png"},
+    "base": {"file": "base.jpg", "mask": "base-mask.png"},
+    "bulb": "bulb.png",
+    "bulb_on": {"file": "bulb_on.jpg", "light": true},
+    "buttons": {"file": "buttons.jpg", "mask": "buttons-mask.png", "cols": 6, "rows": 2},
+    "coin": {"file": "coin.png", "cols": 6},
+    "halo": {"file": "halo.jpg", "light": true},
+    "panel": {"file": "panel.jpg", "mask": "panel-mask.png"}
+  },
+  "back": [
+    {"shape": "circle", "x": 0.0, "y": 0.03, "size": 1.08, "fill": {"type": "radial", "stops": [[0, "black/66"], [0.86, "black/56"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "panel", "size": 1, "intro": {"time": 0.26, "ease": "out", "scale": 0.88}},
+    {"image": "bulb", "size": 0.03, "copies": 36, "angle": "(j+0.5)*10", "radius": 0.92},
+    {"image": "bulb_on", "size": 0.095, "copies": 36, "angle": "(j+0.5)*10", "radius": 0.92, "opacity": "smooth(0.35,0.75,wave(j/6-time*1.4))*(0.9+0.4*beat)+(1-smooth(0,0.6,time))*step(0.5,fract(time*9+j*0.5))"}
+  ],
+  "slot": {
+    "intro": {"time": 0.34, "ease": "back", "delay": 0.05, "scale": 0.1, "stagger": 0.02, "order": "both"},
+    "under": [
+      {"image": "halo", "size": 1.75, "opacity": "0.55*hot+launch*2", "tint": "#FFF2C0"},
+      {"image": "buttons", "size": "1.08*(1-0.07*press-0.10*launch)", "frame": "(i+ring*2)%6", "opacity": 1, "detail": 1.04},
+      {"image": "buttons", "size": "1.08*(1-0.07*press-0.10*launch)", "frame": "6+(i+ring*2)%6", "opacity": "sat(hot+launch+0.35*active)", "detail": 1.04}
+    ],
+    "icon": {"size": 0.86, "zoom": 1.1, "shadow": {"y": 2, "blur": 3, "color": "black/55"}},
+    "over": [
+      {"shape": "circle", "y": 0.96, "size": 0.13, "fill": "#22D3EE", "when": "running", "opacity": "active ? 1 : 0.6", "glow": 6, "glowcolor": "#22D3EE"},
+      {"text": "{number}", "x": 0.74, "y": -0.76, "em": 0.24, "font": "pix", "color": "white", "when": "numbers && number<10 && !kid", "outline": {"width": 2, "color": "#15121F"}},
+      {"shape": "poly", "points": [[-0.12, -0.878], [0, -0.98], [0.12, -0.878]], "stroke": "#FFFFFF", "width": 2.2, "caps": true, "when": "group"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "over": [
+    {"shape": "circle", "x": 0.0, "y": 0.05, "size": 1.16, "fill": {"type": "radial", "stops": [[0, "black/66"], [0.8, "black/56"], [1, "black/0"]]}, "opacity": "sat(open)*0.95", "in": "hub"},
+    {"shape": "poly", "in": "hub", "angle": "sel", "radius": 1.1, "turns": true, "points": [[-0.09, 0.06], [0, -0.08], [0.09, 0.06]], "closed": true, "fill": "gold", "opacity": "on", "glow": 5, "glowcolor": "gold"}
+  ],
+  "hub": [
+    {"image": "base", "size": 1.0, "intro": {"time": 0.3, "ease": "back", "scale": 0.5}},
+    {"shape": "circle", "x": "clamp(px*0.34,-0.16,0.16)*0.5", "y": "clamp(py*0.34,-0.16,0.16)*0.5", "size": 0.3, "fill": "#2A2A32"},
+    {"shape": "circle", "x": "clamp(px*0.34,-0.16,0.16)+0.05", "y": "clamp(py*0.34,-0.16,0.16)+0.10", "size": 0.78, "fill": {"type": "radial", "stops": [[0, "black/75"], [0.7, "black/55"], [1, "black/0"]]}},
+    {"image": "ball", "size": 0.66, "x": "clamp(px*0.34,-0.16,0.16)", "y": "clamp(py*0.34,-0.16,0.16)", "intro": {"time": 0.36, "ease": "back", "delay": 0.06, "scale": 0.3}},
+    {"text": "{title}", "y": "clamp(py*0.34,-0.16,0.16)+-0.03", "box": [0.94, 0.4], "px": 15.5, "color": "#FFFFFF", "font": "title", "weight": 700, "wrap": true, "shadow": {"x": 0, "y": 1, "blur": 3, "color": "#4A0008"}, "x": "clamp(px*0.34,-0.16,0.16)"},
+    {"text": "{sub}", "y": "clamp(py*0.34,-0.16,0.16)+0.21", "box": [0.8929999999999999, 0.2], "px": 10, "color": "#FFE08A", "font": "title", "weight": 700, "shadow": {"x": 0, "y": 1, "blur": 3, "color": "#4A0008"}, "x": "clamp(px*0.34,-0.16,0.16)"},
+    {"text": "{hh}:{mm}", "y": "clamp(py*0.34,-0.16,0.16)+-0.05", "box": [0.94, 0.55], "px": 25, "color": "#FFFFFF", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 1, "blur": 3, "color": "#4A0008"}, "x": "clamp(px*0.34,-0.16,0.16)"},
+    {"text": "{date}", "y": "clamp(py*0.34,-0.16,0.16)+0.18", "box": [0.8929999999999999, 0.2], "px": 10, "color": "#FFE08A", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 1, "blur": 3, "color": "#4A0008"}, "x": "clamp(px*0.34,-0.16,0.16)"}
+  ],
+  "pinbutton": {"in": "hub", "x": -0.62, "y": 0.62, "size": 10.5},
+  "settingsbutton": {"in": "hub", "x": 0.62, "y": 0.62, "size": 10.5},
+  "draw": {"clock": false, "shadow": false, "text": "white"},
+  "tabs": {"inset": 26, "text": "white", "fill": "#FFFFFF/14", "on": "#FF2E8A"},
+  "panel": {"fill": {"type": "linear", "stops": [[0, "#241C3A"], [1, "#120E1E"]]}, "stroke": "#FFC21A", "width": 4, "corner": 10, "text": "white"},
+  "tag": {"fill": "#B3122E", "stroke": "#FFC21A", "width": 2, "corner": 7, "text": "white"},
+  "tile": {"fill": {"type": "linear", "stops": [[0, "#3A2A66"], [1, "#15121F"]]}, "stroke": "#22D3EE", "width": 2.4, "corner": 8, "text": "white"},
+  "onlaunch": [
+    {"image": "coin", "count": 12, "area": "slot", "life": [0.5, 0.9], "size": [9, 13], "speed": [200, 460], "dir": [-50, 50], "gravity": 1100, "drag": 0.4, "fadein": 0, "fadeout": 0.2},
+    {"color": "#FF2E8A", "count": 9, "area": "slot", "life": [0.3, 0.6], "size": [3, 6], "speed": [120, 420], "outward": true, "dir": [-90, 90], "drag": 2.2, "fadein": 0, "fadeout": 0.4},
+    {"color": "#22D3EE", "count": 9, "area": "slot", "life": [0.3, 0.6], "size": [3, 6], "speed": [120, 420], "outward": true, "dir": [-90, 90], "drag": 2.2, "fadein": 0, "fadeout": 0.4},
+    {"color": "#FACC15", "count": 9, "area": "slot", "life": [0.3, 0.6], "size": [3, 6], "speed": [120, 420], "outward": true, "dir": [-90, 90], "drag": 2.2, "fadein": 0, "fadeout": 0.4}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"}
+}

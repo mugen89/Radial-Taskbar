@@ -1,0 +1,102 @@
+{
+  "format": 1,
+  "id": "cockpit",
+  "name": "Cockpit",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "about": "An artificial horizon follows the pointer; the gauges show processor, memory, sound and time",
+  "tags": ["aircraft", "technical", "instruments"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#171A1F", "accent": "#FFB020", "accent2": "#37C871", "text": "#EAF0F6", "border": "#5A626C", "opacity": 0.98, "corner": 9, "font": "Bahnschrift", "open": "zoom", "speed": 1.1, "hoverGrow": 2, "iconZoom": 1.08, "glow": 0.3, "tilt": 0.4, "pointer": false, "burst": false, "shadow": 0.7, "dim": 0.36},
+  "wheel": {"hub": 94, "thickness": 92, "gap": 5, "ringgap": 10, "rim": 30, "icon": 40, "crowd": 1.5, "area": 1.24, "hubkeep": 0.6, "shadow": 0.5},
+  "colors": {"white": "#F4F7FA", "amber": "#FFB020", "green": "#37C871"},
+  "fonts": {"title": "Bahnschrift, Segoe UI Semibold", "small": "Bahnschrift, Segoe UI"},
+  "images": {
+    "bezel": {"file": "bezel.jpg", "mask": "bezel-mask.png"},
+    "gauge": {"file": "gauge.jpg", "mask": "gauge-mask.png"},
+    "glass": "glass.png",
+    "halo": {"file": "halo.jpg", "light": true},
+    "horizon": "horizon.jpg",
+    "keys": {"file": "keys.jpg", "mask": "keys-mask.png", "cols": 2},
+    "keyshadow": "keyshadow.png",
+    "lamp": {"file": "lamp.jpg", "light": true},
+    "needle": "needle.png",
+    "panel": {"file": "panel.jpg", "mask": "panel-mask.png"}
+  },
+  "back": [
+    {"shape": "circle", "x": 0.0, "y": 0.025, "size": 1.09, "fill": {"type": "radial", "stops": [[0, "black/66"], [0.86, "black/56"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"shape": "circle", "x": -0.785, "y": 0.8300000000000001, "size": 0.36, "fill": {"type": "radial", "stops": [[0, "black/60"], [0.8, "black/51"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "gauge", "size": 0.33, "x": -0.8, "y": 0.8, "intro": {"time": 0.3, "ease": "back", "delay": 0.08, "scale": 0.5}},
+    {"text": "CPU", "x": -0.8, "y": 0.885, "px": 8.5, "color": "#DDE3EA", "font": "small", "weight": 600, "opacity": "smooth(0.2,0.4,time)"},
+    {"image": "needle", "size": [0.028, 0.14], "x": -0.8, "y": 0.8, "rotate": "-120+240*outcubic(sat(time*1.6))*cpu", "pivot": [0.5, 0.5], "opacity": "smooth(0.1,0.3,time)"},
+    {"shape": "circle", "x": 0.8150000000000001, "y": 0.8300000000000001, "size": 0.36, "fill": {"type": "radial", "stops": [[0, "black/60"], [0.8, "black/51"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "gauge", "size": 0.33, "x": 0.8, "y": 0.8, "intro": {"time": 0.3, "ease": "back", "delay": 0.08, "scale": 0.5}},
+    {"text": "RAM", "x": 0.8, "y": 0.885, "px": 8.5, "color": "#DDE3EA", "font": "small", "weight": 600, "opacity": "smooth(0.2,0.4,time)"},
+    {"image": "needle", "size": [0.028, 0.14], "x": 0.8, "y": 0.8, "rotate": "-120+240*outcubic(sat(time*1.6))*ram", "pivot": [0.5, 0.5], "opacity": "smooth(0.1,0.3,time)"},
+    {"shape": "circle", "x": 0.8150000000000001, "y": -0.77, "size": 0.36, "fill": {"type": "radial", "stops": [[0, "black/60"], [0.8, "black/51"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "gauge", "size": 0.33, "x": 0.8, "y": -0.8, "intro": {"time": 0.3, "ease": "back", "delay": 0.08, "scale": 0.5}},
+    {"text": "SOUND", "x": 0.8, "y": -0.7150000000000001, "px": 8.5, "color": "#DDE3EA", "font": "small", "weight": 600, "opacity": "smooth(0.2,0.4,time)"},
+    {"image": "needle", "size": [0.028, 0.14], "x": 0.8, "y": -0.8, "rotate": "-120+240*outcubic(sat(time*1.6))*sound", "pivot": [0.5, 0.5], "opacity": "smooth(0.1,0.3,time)"},
+    {"shape": "circle", "x": -0.785, "y": -0.77, "size": 0.36, "fill": {"type": "radial", "stops": [[0, "black/60"], [0.8, "black/51"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "gauge", "size": 0.33, "x": -0.8, "y": -0.8, "intro": {"time": 0.3, "ease": "back", "delay": 0.08, "scale": 0.5}},
+    {"text": "{hh}:{mm}", "x": -0.8, "y": -0.7150000000000001, "px": 8.5, "color": "#DDE3EA", "font": "small", "weight": 600, "opacity": "smooth(0.2,0.4,time)"},
+    {"image": "needle", "size": [0.02, 0.115], "x": -0.8, "y": -0.8, "rotate": "minute*6", "pivot": [0.5, 0.5]},
+    {"image": "needle", "size": [0.028, 0.14], "x": -0.8, "y": -0.8, "rotate": "hour*30", "pivot": [0.5, 0.5], "opacity": "smooth(0.1,0.3,time)"},
+    {"image": "panel", "size": 1, "intro": {"time": 0.26, "ease": "out", "scale": 0.9}}
+  ],
+  "ring": [
+    {"shape": "arc", "in": "px", "from": 0, "r": "ringout+4", "to": 360, "stroke": "white/25", "width": 1}
+  ],
+  "slot": {
+    "intro": {"time": 0.24, "ease": "back", "delay": 0.06, "scale": 0.6, "stagger": 0.022, "order": "ring"},
+    "under": [
+      {"image": "halo", "size": 1.8, "opacity": "0.50*hot+launch*1.5"},
+      {"image": "keyshadow", "size": 1.18, "x": 0.03, "y": 0.06},
+      {"image": "keys", "size": "1.12*(1-0.04*press)", "frame": 0, "detail": 1.04},
+      {"image": "keys", "size": "1.12*(1-0.04*press)", "frame": 1, "opacity": "sat(hot)*0.92+launch", "detail": 1.04}
+    ],
+    "icon": {"size": 0.92, "zoom": 1.08, "shadow": {"y": 1, "blur": 2, "color": "black/60"}},
+    "over": [
+      {"shape": "rect", "y": 0.8, "size": [0.36, 0.055], "corner": 1.5, "fill": "#0C2A18", "when": "running"},
+      {"shape": "rect", "y": 0.8, "size": [0.36, 0.055], "corner": 1.5, "fill": "green", "when": "running", "opacity": "active ? 1 : 0.6", "glow": 5, "glowcolor": "green"},
+      {"text": "{number}", "x": -0.66, "y": -0.66, "em": 0.25, "color": "white", "font": "small", "weight": 600, "when": "numbers && number<10 && !kid"},
+      {"shape": "poly", "points": [[0.52, -0.72], [0.72, -0.72], [0.72, -0.52]], "closed": true, "fill": "amber", "when": "group"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "over": [
+    {"shape": "circle", "x": 0.0, "y": 0.05, "size": 1.16, "fill": {"type": "radial", "stops": [[0, "black/66"], [0.82, "black/56"], [1, "black/0"]]}, "opacity": "sat(open)*0.95", "in": "hub"}
+  ],
+  "hub": [
+    {"shape": "circle", "size": 0.78, "fill": {"image": "horizon", "zoom": 1.45, "u": "0", "v": "clamp(py*0.22,-0.22,0.22)", "turn": "clamp(px*26,-32,32)"}},
+    {"shape": "line", "points": [[-0.46, 0.0], [-0.2, 0.0], [-0.13, 0.09]], "stroke": "#FFB020", "width": 3, "caps": true, "opacity": "idle*0.0+0.9", "y": 0.52},
+    {"shape": "line", "points": [[0.46, 0.0], [0.2, 0.0], [0.13, 0.09]], "stroke": "#FFB020", "width": 3, "caps": true, "opacity": 0.9, "y": 0.52},
+    {"shape": "circle", "y": 0.52, "size": 0.05, "fill": "#FFB020"},
+    {"image": "glass", "size": 0.78},
+    {"image": "bezel", "size": 1.04, "intro": {"time": 0.3, "ease": "back", "scale": 0.6}},
+    {"shape": "poly", "angle": "sel", "radius": 0.8, "turns": true, "points": [[-0.075, 0.06], [0, -0.075], [0.075, 0.06]], "closed": true, "fill": "amber", "opacity": "on", "glow": 5, "glowcolor": "amber"},
+    {"shape": "rect", "y": -0.03, "size": [0.64, 0.29], "corner": 6, "fill": "#07090C/72", "stroke": "white/25", "width": 1},
+    {"text": "{title}", "y": -0.1, "box": [1.16, 0.4], "px": 16, "color": "white", "font": "title", "weight": 600, "wrap": true},
+    {"text": "{sub}", "y": 0.17, "box": [1.1019999999999999, 0.2], "px": 10.5, "color": "amber", "font": "title", "weight": 600},
+    {"text": "{hh}:{mm}", "y": -0.09, "box": [1.16, 0.55], "px": 29, "color": "white", "font": "title", "weight": 600, "opacity": "idle"},
+    {"text": "{date}", "y": 0.17, "box": [1.1019999999999999, 0.2], "px": 10.5, "color": "amber", "font": "title", "weight": 600, "opacity": "idle"}
+  ],
+  "front": [
+    {"shape": "circle", "x": -0.13, "y": "-0.955", "size": 0.03, "fill": "#37C871", "glow": 5, "glowcolor": "green", "opacity": "smooth(0.2,0.3,time)"},
+    {"shape": "circle", "x": 0.0, "y": -0.965, "size": 0.03, "fill": "#FFB020", "glow": 5, "glowcolor": "amber", "opacity": "0.25+0.75*on"},
+    {"shape": "circle", "x": 0.13, "y": -0.955, "size": 0.03, "fill": "#E5342C", "glow": 5, "glowcolor": "#E5342C", "opacity": "0.20+0.8*smooth(0.80,0.95,cpu)*step(0.5,fract(time*2))+launch"}
+  ],
+  "pinbutton": {"in": "hub", "x": -0.19, "y": 0.36, "size": 10},
+  "settingsbutton": {"in": "hub", "x": 0.19, "y": 0.36, "size": 10},
+  "draw": {"clock": false, "shadow": false, "text": "white"},
+  "tabs": {"inset": 27, "text": "white", "fill": "#000000/55", "on": "#FFB020/85"},
+  "panel": {"fill": {"type": "linear", "stops": [[0, "#2B3037"], [1, "#171A1F"]]}, "stroke": "#5A626C", "width": 2.4, "corner": 10, "text": "white"},
+  "tag": {"fill": "#0C0D10", "stroke": "#FFB020", "width": 1.4, "corner": 4, "text": "amber"},
+  "tile": {"fill": {"type": "linear", "stops": [[0, "#333941"], [1, "#1B1E23"]]}, "stroke": "#6A737E", "width": 2, "corner": 8, "text": "white"},
+  "onlaunch": [
+    {"color": "#FFB020", "light": true, "count": 34, "area": "slot", "life": [0.2, 0.5], "size": [2, 4], "speed": [200, 640], "outward": true, "dir": [-35, 35], "drag": 2, "stretch": 1, "fadein": 0, "fadeout": 0.6}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"}
+}

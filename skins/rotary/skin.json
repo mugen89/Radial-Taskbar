@@ -1,0 +1,78 @@
+{
+  "format": 1,
+  "id": "rotary",
+  "name": "Rotary",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "about": "An old dial telephone: chrome, cream and mint",
+  "tags": ["retro", "telephone", "chrome"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#F4EBD4", "accent": "#D8352A", "accent2": "#2F6E62", "text": "#2A2C30", "border": "#9AA4A6", "opacity": 0.98, "corner": 12, "font": "Courier New", "open": "spin", "speed": 1, "hoverGrow": 0, "iconZoom": 1.1, "glow": 0, "tilt": 0.4, "pointer": false, "burst": false, "shadow": 0.6, "dim": 0.26},
+  "wheel": {"hub": 92, "thickness": 92, "gap": 5, "ringgap": 14, "rim": 48, "icon": 40, "crowd": 1.5, "area": [1.26, 1.46, 1.26, 1.12], "hubkeep": 0.66},
+  "colors": {"ink": "#2A2C30", "red": "#C22F24", "cream": "#F4EBD4"},
+  "fonts": {"title": "Courier New, Consolas", "digits": "Segoe UI Semibold, Segoe UI"},
+  "images": {
+    "body": {"file": "body.jpg", "mask": "body-mask.png"},
+    "halo": {"file": "halo.jpg", "light": true},
+    "handset": {"file": "handset.jpg", "mask": "handset-mask.png"},
+    "hole": {"file": "hole.jpg", "mask": "hole-mask.png"},
+    "hub": {"file": "hub.jpg", "mask": "hub-mask.png"},
+    "redrim": "redrim.png",
+    "stop": "stop.png",
+    "warm": "warm.png",
+    "wheel": {"file": "wheel.jpg", "mask": "wheel-mask.png"}
+  },
+  "back": [
+    {"shape": "circle", "x": -0.84, "y": -0.88, "size": 0.4, "fill": {"type": "radial", "stops": [[0, "black/55"], [0.6, "black/47"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"shape": "circle", "x": 0.88, "y": -0.88, "size": 0.4, "fill": {"type": "radial", "stops": [[0, "black/55"], [0.6, "black/47"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "handset", "size": [1.2, 0.432], "y": -0.99, "intro": {"time": 0.36, "ease": "bounce", "y": -0.3}},
+    {"shape": "circle", "x": 0.0, "y": 0.03, "size": 1.1, "fill": {"type": "radial", "stops": [[0, "black/64"], [0.86, "black/55"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "body", "size": 1, "intro": {"time": 0.28, "ease": "out", "scale": 0.9}}
+  ],
+  "ring": [
+    {"image": "wheel", "size": "2*(ringout+6)", "in": "px", "rotate": "0", "intro": {"time": 0.3, "ease": "out", "scale": 0.92}}
+  ],
+  "slot": {
+    "intro": {"time": 0.46, "ease": "out", "delay": 0.04, "angle": -150, "scale": 1, "opacity": 0, "stagger": 0.0, "order": "ring"},
+    "under": [
+      {"image": "hole", "size": 1.08},
+      {"image": "warm", "size": 1.0, "opacity": "sat(hot)*0.85"},
+      {"image": "redrim", "size": 1.08, "opacity": "sat(hot*1.4)"}
+    ],
+    "icon": {"size": 0.98, "zoom": 1.12, "shadow": {"x": 1, "y": 2, "blur": 2, "color": "black/40"}},
+    "over": [
+      {"text": "{number}", "y": 0.0, "x": 0, "radius": 1.13, "angle": "a", "em": 0.24, "color": "#3A3E42", "font": "digits", "weight": 700, "when": "!kid", "opacity": 0.8},
+      {"shape": "arc", "r": "1.05+1.1*launch", "from": 0, "to": 360, "stroke": "#D8352A", "width": 3, "opacity": "launch*(1-launch)*3"},
+      {"shape": "arc", "r": "1.0+0.6*launch", "from": 0, "to": 360, "stroke": "#D8352A", "width": 2, "opacity": "launch*(1-launch)*3"},
+      {"shape": "circle", "y": 0.7, "size": 0.15, "fill": "#2F6E62", "when": "running", "opacity": "active ? 1 : 0.75", "glow": 4, "glowcolor": "#9CF0DC"},
+      {"shape": "circle", "y": 0.7, "size": 0.0825, "fill": "#9CF0DC", "when": "running", "opacity": "active ? 1 : 0.35+0.35*wave(time*0.5+seed)"},
+      {"shape": "poly", "points": [[-0.11, -0.6465], [0, -0.74], [0.11, -0.6465]], "stroke": "#2A2C30", "width": 2.2, "caps": true, "when": "group"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "over": [
+    {"shape": "circle", "x": 0.0, "y": 0.05, "size": 1.22, "fill": {"type": "radial", "stops": [[0, "black/60"], [0.78, "black/51"], [1, "black/0"]]}, "opacity": "sat(open)*0.95", "in": "hub"},
+    {"shape": "poly", "in": "hub", "angle": "sel", "radius": 1.08, "turns": true, "points": [[-0.07, 0.05], [0, -0.07], [0.07, 0.05]], "closed": true, "fill": "#D8352A", "opacity": "on"}
+  ],
+  "hub": [
+    {"image": "hub", "size": 1.0, "intro": {"time": 0.34, "ease": "back", "scale": 0.5}},
+    {"text": "{title}", "y": -0.04, "box": [1.14, 0.46], "px": 17, "color": "ink", "font": "title", "weight": 700, "wrap": true},
+    {"text": "{sub}", "y": 0.28, "box": [1.083, 0.2], "px": 11.5, "color": "red", "font": "title", "weight": 700},
+    {"text": "{hh}:{mm}", "y": -0.08, "box": [1.14, 0.55], "px": 30, "color": "ink", "font": "title", "weight": 700, "opacity": "idle"},
+    {"text": "{date}", "y": 0.21, "box": [1.083, 0.2], "px": 11.5, "color": "red", "font": "title", "weight": 700, "opacity": "idle"}
+  ],
+  "front": [
+    {"image": "stop", "size": 46, "in": "px", "angle": 124, "radius": "ringout-6", "rotate": 79, "opacity": "smooth(0.2,0.35,time)*(1-0.0)"}
+  ],
+  "draw": {"clock": false, "shadow": false, "text": "ink"},
+  "tabs": {"inset": 15, "text": "ink", "fill": "#2A2C30/14", "on": "#D8352A"},
+  "panel": {"fill": {"type": "linear", "stops": [[0, "#8FD0C0"], [1, "#5FA596"]]}, "stroke": {"type": "linear", "stops": [[0, "#FFFFFF"], [0.5, "#8C979B"], [1, "#E6ECEE"]]}, "width": 3, "corner": 18, "text": "#14302A"},
+  "tag": {"fill": {"type": "linear", "stops": [[0, "#FBF6E6"], [1, "#EADFC2"]]}, "stroke": "#8C979B", "width": 1.6, "corner": 8, "text": "ink"},
+  "tile": {"fill": {"type": "linear", "stops": [[0, "#FBF6E6"], [1, "#E6DABB"]]}, "stroke": "#2F6E62", "width": 2, "corner": 9, "text": "ink"},
+  "onlaunch": [
+    {"color": "#D8352A", "count": 14, "area": "slot", "life": [0.25, 0.5], "size": [2, 3.5], "speed": [90, 300], "outward": true, "dir": [-80, 80], "drag": 3, "fadein": 0, "fadeout": 0.6}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"}
+}

@@ -1,0 +1,83 @@
+{
+  "format": 1,
+  "id": "synthwave",
+  "name": "Synthwave",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "license": "Fonts Monoton and Russo One: SIL Open Font License, see OFL.txt",
+  "about": "A striped sun, dark hills and a glowing grid that rolls toward you",
+  "tags": ["retro", "neon", "eighties"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#1A0636", "accent": "#FF3FA4", "accent2": "#2FE6FF", "text": "#FFF0FA", "border": "#B05CFF", "opacity": 0.97, "corner": 8, "font": "Russo One", "open": "zoom", "speed": 1.1, "hoverGrow": 3, "iconZoom": 1.12, "glow": 0.8, "tilt": 0.8, "pointer": false, "burst": false, "shadow": 0.7, "dim": 0.4},
+  "wheel": {"hub": 88, "thickness": 94, "gap": 6, "ringgap": 10, "rim": 30, "icon": 44, "crowd": 1.5, "area": 1.12, "hubkeep": 0.8},
+  "colors": {"p": "#FF3FA4", "c": "#2FE6FF", "white": "#FFF6FC"},
+  "fonts": {"title": {"file": "RussoOne-Regular.ttf", "family": "Russo One"}, "neon": {"file": "Monoton-Regular.ttf", "family": "Monoton"}},
+  "images": {
+    "grid": {"file": "grid.jpg", "light": true, "cols": 2, "rows": 4},
+    "halo": {"file": "halo.jpg", "light": true},
+    "rim": {"file": "rim.jpg", "mask": "rim-mask.png"},
+    "rimlight": {"file": "rimlight.jpg", "light": true},
+    "scene": {"file": "scene.jpg", "mask": "scene-mask.png"},
+    "slot": {"file": "slot.jpg", "mask": "slot-mask.png"},
+    "streak": {"file": "streak.jpg", "light": true}
+  },
+  "back": [
+    {"shape": "circle", "x": 0.0, "y": 0.025, "size": 1.09, "fill": {"type": "radial", "stops": [[0, "black/66"], [0.86, "black/56"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "rimlight", "size": 1.3, "tint": "#FF3FA4", "opacity": "0.20+0.30*sound+0.06*wave(time*0.4)"},
+    {"image": "scene", "size": 1.0, "intro": {"time": 0.26, "ease": "out", "scale": 0.86}},
+    {"image": "grid", "size": [1.0, 0.44], "y": 0.56, "frame": "7-floor(time*14)%8", "opacity": "(0.85+0.4*beat)*smooth(0.1,0.35,time)"},
+    {"image": "rim", "size": 1.0, "rotate": "0"}
+  ],
+  "ring": [
+    {"shape": "arc", "in": "px", "from": 0, "r": "(ringin+ringout)/2", "to": "360*outcubic(sat(time*2))", "stroke": "c/30", "width": 1.2}
+  ],
+  "slot": {
+    "intro": {"time": 0.34, "ease": "out", "delay": 0.06, "scale": 0.05, "y": 0.6, "stagger": 0.02, "order": "both"},
+    "under": [
+      {"image": "halo", "size": 1.9, "tint": "#FF3FA4", "opacity": "0.55*hot+launch*2"},
+      {"image": "halo", "size": 1.5, "tint": "#2FE6FF", "opacity": "0.10+0.45*hot"},
+      {"image": "slot", "size": "1.04*(1+0.06*hot-0.04*press)", "detail": 1.06},
+      {"shape": "arc", "r": 0.9, "from": "time*80", "to": "time*80+200", "stroke": "c", "width": 2.4, "opacity": "sat(hot)", "glow": 6, "glowcolor": "c", "caps": true},
+      {"shape": "arc", "r": 0.9, "from": "time*80+200", "to": "time*80+360", "stroke": "p", "width": 2.4, "opacity": "sat(hot)", "glow": 6, "glowcolor": "p", "caps": true}
+    ],
+    "icon": {"size": 1.04, "zoom": 1.16, "shadow": {"y": 2, "blur": 3, "color": "black/60"}},
+    "over": [
+      {"image": "streak", "size": "0.9+0.5*launch", "x": -0.48, "y": -0.58, "opacity": "0.35*wave(time*0.4+seed)+0.8*hot*wave(time*1.1)+launch*2", "rotate": 12},
+      {"shape": "circle", "y": 0.9, "size": 0.15, "fill": "p", "when": "running", "opacity": "active ? 1 : 0.75", "glow": 4, "glowcolor": "#FFD6F0"},
+      {"shape": "circle", "y": 0.9, "size": 0.0825, "fill": "#FFD6F0", "when": "running", "opacity": "active ? 1 : 0.35+0.35*wave(time*0.5+seed)"},
+      {"shape": "circle", "x": 0.7, "y": -0.7, "size": 0.25, "fill": "#1A0636", "when": "numbers && number<10 && !kid", "stroke": "#2FE6FF", "width": 1.2},
+      {"text": "{number}", "x": 0.7, "y": -0.71, "em": 0.3, "color": "white", "font": "title", "weight": 700, "when": "numbers && number<10 && !kid"},
+      {"shape": "poly", "points": [[-0.12, -0.838], [0, -0.94], [0.12, -0.838]], "stroke": "c", "width": 2.2, "caps": true, "when": "group"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "over": [
+    {"shape": "circle", "x": 0.0, "y": 0.04, "size": 1.2, "fill": {"type": "radial", "stops": [[0, "black/70"], [0.78, "black/60"], [1, "black/0"]]}, "opacity": "sat(open)*0.95", "in": "hub"},
+    {"shape": "poly", "in": "hub", "angle": "sel", "radius": 1.1, "turns": true, "points": [[-0.1, 0.07], [0, -0.09], [0.1, 0.07]], "closed": true, "fill": "c", "opacity": "on", "glow": 7, "glowcolor": "c"}
+  ],
+  "hub": [
+    {"shape": "circle", "size": 0.98, "fill": {"type": "linear", "stops": [[0, "#14042E"], [0.55, "#3B0D5E"], [1, "#8A1F74"]]}},
+    {"shape": "arc", "r": 0.965, "from": 0, "to": 360, "stroke": {"type": "linear", "stops": [[0, "#2FE6FF"], [1, "#FF3FA4"]]}, "width": 3, "glow": 7, "glowcolor": "p"},
+    {"shape": "arc", "r": 0.89, "from": "sel-40", "to": "sel+40", "stroke": "c", "width": 2, "opacity": "on", "glow": 4, "glowcolor": "c"},
+    {"shape": "rect", "y": "0.48+0.09*j", "size": ["sqrt(max(0,0.80-(0.48+0.09*j)*(0.48+0.09*j)))*0.92", 0.018], "copies": 5, "fill": "p/55"},
+    {"text": "{title}", "y": -0.1, "box": [1.36, 0.52], "px": 16.5, "color": "white", "font": "title", "weight": 400, "wrap": true, "shadow": {"x": 0, "y": 0, "blur": 6, "color": "#FF3FA4"}},
+    {"text": "{sub}", "y": 0.24, "box": [1.292, 0.2], "px": 11, "color": "#FFB3E0", "font": "title", "weight": 400, "shadow": {"x": 0, "y": 0, "blur": 6, "color": "#FF3FA4"}},
+    {"text": "{hh}:{mm}", "y": -0.1, "box": [1.36, 0.55], "px": 30, "color": "white", "font": "neon", "weight": 400, "opacity": "idle", "shadow": {"x": 0, "y": 0, "blur": 6, "color": "#FF3FA4"}},
+    {"text": "{date}", "y": 0.25, "box": [1.292, 0.2], "px": 11.5, "color": "#FFB3E0", "font": "title", "weight": 400, "opacity": "idle", "shadow": {"x": 0, "y": 0, "blur": 6, "color": "#FF3FA4"}}
+  ],
+  "draw": {"clock": false, "shadow": false, "text": "white"},
+  "tabs": {"inset": 12, "text": "white", "fill": "#2FE6FF/14", "on": "#FF3FA4/85"},
+  "panel": {"fill": {"type": "linear", "stops": [[0, "#14042E"], [0.6, "#3B0D5E"], [1, "#7A1C6E"]]}, "stroke": {"type": "linear", "stops": [[0, "#2FE6FF"], [1, "#FF3FA4"]]}, "width": 2, "corner": 10, "text": "white"},
+  "tag": {"fill": {"type": "linear", "stops": [[0, "#1A0636"], [1, "#3B0D5E"]]}, "stroke": "#FF3FA4", "width": 1.6, "corner": 8, "text": "white"},
+  "tile": {"fill": {"type": "linear", "stops": [[0, "#14042E"], [0.55, "#4A1070"], [1, "#B02A7E"]]}, "stroke": "#2FE6FF", "width": 1.6, "corner": 9, "text": "white"},
+  "particles": [
+    {"color": "#FFD6F0", "light": true, "rate": 2.5, "max": 16, "area": "wheel", "life": [1.2, 2.6], "size": [1, 2], "speed": [2, 8], "dir": [-30, 30], "gravity": -6, "fadein": 0.3, "fadeout": 0.5}
+  ],
+  "onlaunch": [
+    {"color": "#2FE6FF", "light": true, "count": 28, "area": "slot", "life": [0.25, 0.6], "size": [1.5, 3], "speed": [200, 720], "outward": true, "dir": [-90, 90], "drag": 2.5, "stretch": 1, "fadein": 0, "fadeout": 0.6},
+    {"color": "#FF3FA4", "light": true, "count": 28, "area": "slot", "life": [0.25, 0.6], "size": [1.5, 3], "speed": [160, 620], "outward": true, "dir": [-90, 90], "drag": 2.5, "stretch": 1, "fadein": 0, "fadeout": 0.6}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"}
+}

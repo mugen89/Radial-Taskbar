@@ -1,0 +1,86 @@
+{
+  "format": 1,
+  "id": "winter",
+  "name": "Winter Wreath",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "about": "A fir wreath with glass baubles, blinking lights and falling snow",
+  "tags": ["season", "winter", "festive"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#123A22", "accent": "#E5283E", "accent2": "#E0A526", "text": "#FFF8EA", "border": "#E0A526", "opacity": 0.97, "corner": 14, "font": "Palatino Linotype", "open": "bloom", "speed": 1, "hoverGrow": 3, "iconZoom": 1.12, "glow": 0.4, "tilt": 0.5, "pointer": false, "burst": false, "shadow": 0.55, "dim": 0.34},
+  "wheel": {"hub": 90, "thickness": 92, "gap": 5, "ringgap": 12, "rim": 44, "icon": 40, "crowd": 1.5, "area": [1.18, 1.18, 1.18, 1.24], "hubkeep": 0.7},
+  "colors": {"cream": "#FFF8EA", "gold": "#FFD98A"},
+  "fonts": {"title": "Palatino Linotype, Georgia"},
+  "images": {
+    "balls": {"file": "balls.png", "cols": 6},
+    "flake": {"file": "flake.png", "cols": 3},
+    "glow": {"file": "glow.jpg", "light": true},
+    "halo": {"file": "halo.jpg", "light": true},
+    "hub": {"file": "hub.jpg", "mask": "hub-mask.png"},
+    "night": {"file": "night.jpg", "mask": "night-mask.png"},
+    "star": "star.png",
+    "twinkle": {"file": "twinkle.jpg", "light": true},
+    "wreath": {"file": "wreath.jpg", "mask": "wreath-mask.png"}
+  },
+  "back": [
+    {"shape": "circle", "x": 0.0, "y": 0.03, "size": 1.1, "fill": {"type": "radial", "stops": [[0, "black/55"], [0.86, "black/47"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "night", "size": 0.97, "intro": {"time": 0.28, "ease": "out", "scale": 0.7}},
+    {"image": "wreath", "size": 1.16, "rotate": "0", "intro": {"time": 0.36, "ease": "back", "scale": 0.8, "rotate": -12}},
+    {"shape": "circle", "copies": 9, "angle": "j*40+0", "radius": "0.95+0.030*sin(j*2.4+0)", "size": 0.03, "fill": "#FF4A4A"},
+    {"image": "glow", "size": 0.17, "copies": 9, "angle": "j*40+0", "radius": "0.95+0.030*sin(j*2.4+0)", "tint": "#FF4A4A", "opacity": "0.04+0.34*smooth(0.35,0.75,wave(time*0.55+j*0.37+0))"},
+    {"shape": "circle", "copies": 9, "angle": "j*40+10", "radius": "0.95+0.030*sin(j*2.4+1)", "size": 0.03, "fill": "#FFD24A"},
+    {"image": "glow", "size": 0.17, "copies": 9, "angle": "j*40+10", "radius": "0.95+0.030*sin(j*2.4+1)", "tint": "#FFD24A", "opacity": "0.04+0.34*smooth(0.35,0.75,wave(time*0.55+j*0.37+0.25))"},
+    {"shape": "circle", "copies": 9, "angle": "j*40+20", "radius": "0.95+0.030*sin(j*2.4+2)", "size": 0.03, "fill": "#4AFF7A"},
+    {"image": "glow", "size": 0.17, "copies": 9, "angle": "j*40+20", "radius": "0.95+0.030*sin(j*2.4+2)", "tint": "#4AFF7A", "opacity": "0.04+0.34*smooth(0.35,0.75,wave(time*0.55+j*0.37+0.5))"},
+    {"shape": "circle", "copies": 9, "angle": "j*40+30", "radius": "0.95+0.030*sin(j*2.4+3)", "size": 0.03, "fill": "#5AA8FF"},
+    {"image": "glow", "size": 0.17, "copies": 9, "angle": "j*40+30", "radius": "0.95+0.030*sin(j*2.4+3)", "tint": "#5AA8FF", "opacity": "0.04+0.34*smooth(0.35,0.75,wave(time*0.55+j*0.37+0.75))"},
+    {"image": "star", "size": 0.17, "y": -0.955, "rotate": "6*sin(time*1.1)", "intro": {"time": 0.4, "ease": "back", "delay": 0.15, "scale": 0.0}},
+    {"image": "halo", "size": 0.42, "y": -0.955, "opacity": "0.35+0.15*wave(time*0.6)", "tint": "#FFD98A"}
+  ],
+  "slot": {
+    "intro": {"time": 0.42, "ease": "bounce", "delay": 0.08, "scale": 0.2, "y": -0.8, "stagger": 0.02, "order": "both"},
+    "under": [
+      {"image": "halo", "size": 1.9, "opacity": "0.45*hot+launch*1.5", "tint": "#FFE9B0"},
+      {"image": "balls", "size": "1.14*(1+0.04*hot-0.03*press)", "frame": "(i+ring*2)%6", "rotate": "5*sin(time*3.2+seed*6)*sat(hot)", "pivot": [0.5, 0.06], "y": "-1.0*(1+0.04*hot)", "detail": 1.06}
+    ],
+    "icon": {"size": 0.9, "zoom": 1.14, "shadow": {"y": 2, "blur": 3, "color": "black/55"}},
+    "over": [
+      {"image": "twinkle", "size": 0.509, "x": -0.4, "y": -0.46, "opacity": "0.35+0.65*hot", "rotate": "time*20", "scale": "(0.55*wave(time*0.8+seed*3))/0.509"},
+      {"shape": "circle", "y": 0.9, "size": 0.15, "fill": "#FFD98A", "when": "running", "opacity": "active ? 1 : 0.75", "glow": 4, "glowcolor": "#FFFFFF"},
+      {"shape": "circle", "y": 0.9, "size": 0.0825, "fill": "#FFFFFF", "when": "running", "opacity": "active ? 1 : 0.35+0.35*wave(time*0.5+seed)"},
+      {"shape": "circle", "x": 0.7, "y": -0.7, "size": 0.25, "fill": "#123A22", "when": "numbers && number<10 && !kid", "stroke": "#E0A526", "width": 1.2},
+      {"text": "{number}", "x": 0.7, "y": -0.71, "em": 0.3, "color": "cream", "font": "title", "weight": 700, "when": "numbers && number<10 && !kid"},
+      {"shape": "poly", "points": [[-0.12, -0.558], [0, -0.66], [0.12, -0.558]], "stroke": "cream", "width": 2.2, "caps": true, "when": "group"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "over": [
+    {"shape": "circle", "x": 0.0, "y": 0.06, "size": 1.14, "fill": {"type": "radial", "stops": [[0, "black/55"], [0.8, "black/47"], [1, "black/0"]]}, "opacity": "sat(open)*0.95", "in": "hub"},
+    {"image": "star", "size": 0.25, "in": "hub", "angle": "sel", "radius": 1.1, "rotate": "sel+time*20", "opacity": "on", "scale": "0.4+0.6*on"}
+  ],
+  "hub": [
+    {"image": "hub", "size": 1.0, "intro": {"time": 0.42, "ease": "bounce", "scale": 0.4}},
+    {"text": "{title}", "y": -0.06, "box": [1.3, 0.5], "px": 17, "color": "cream", "font": "title", "weight": 700, "wrap": true, "shadow": {"x": 0, "y": 1, "blur": 3, "color": "#3A0410"}},
+    {"text": "{sub}", "y": 0.28, "box": [1.2349999999999999, 0.2], "px": 11.5, "color": "gold", "font": "title", "weight": 700, "shadow": {"x": 0, "y": 1, "blur": 3, "color": "#3A0410"}},
+    {"text": "{hh}:{mm}", "y": -0.08, "box": [1.3, 0.55], "px": 31, "color": "cream", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 1, "blur": 3, "color": "#3A0410"}},
+    {"text": "{date}", "y": 0.21, "box": [1.2349999999999999, 0.2], "px": 12, "color": "gold", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 1, "blur": 3, "color": "#3A0410"}}
+  ],
+  "draw": {"clock": false, "shadow": false, "text": "cream"},
+  "tabs": {"inset": 14, "text": "cream", "fill": "#FFFFFF/16", "on": "#1E7A3E"},
+  "panel": {"fill": {"type": "linear", "stops": [[0, "#1E5A34"], [1, "#0C2E1A"]]}, "stroke": {"type": "linear", "stops": [[0, "#FFE9B0"], [0.5, "#B07A1E"], [1, "#FFD98A"]]}, "width": 3, "corner": 14, "text": "cream"},
+  "tag": {"fill": {"type": "linear", "stops": [[0, "#C8102E"], [1, "#8E0A1E"]]}, "stroke": "#FFD98A", "width": 1.6, "corner": 10, "text": "cream"},
+  "tile": {"fill": {"type": "linear", "stops": [[0, "#C8102E"], [1, "#8E0A1E"]]}, "stroke": "#FFD98A", "width": 2.2, "corner": 10, "text": "cream"},
+  "particles": [
+    {"image": "flake", "rate": 11, "max": 70, "area": "stage", "life": [3, 5.5], "size": [3, 9], "speed": [14, 34], "dir": [165, 195], "sway": 18, "swayhz": 0.4, "spin": [-60, 60], "fadein": 0.2, "fadeout": 0.3, "opacity": 0.85}
+  ],
+  "onhover": [
+    {"image": "flake", "count": 3, "area": "slot", "life": [0.5, 0.9], "size": [3, 6], "speed": [20, 60], "outward": true, "dir": [-90, 90], "gravity": 60, "spin": [-90, 90], "fadein": 0, "fadeout": 0.5}
+  ],
+  "onlaunch": [
+    {"image": "flake", "count": 40, "area": "slot", "life": [0.6, 1.2], "size": [5, 13], "speed": [80, 360], "outward": true, "dir": [-120, 120], "gravity": 140, "drag": 2.2, "sway": 16, "swayhz": 1, "spin": [-160, 160], "fadein": 0, "fadeout": 0.5},
+    {"color": "#FFE9B0", "light": true, "count": 24, "area": "slot", "life": [0.3, 0.8], "size": [1.5, 3.5], "speed": [90, 380], "outward": true, "dir": [-120, 120], "drag": 2.4, "fadein": 0, "fadeout": 0.6}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"}
+}

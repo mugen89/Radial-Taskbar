@@ -1,0 +1,73 @@
+{
+  "format": 1,
+  "id": "zen",
+  "name": "Zen Garden",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "about": "Raked sand, smooth stones and a drifting petal",
+  "tags": ["nature", "calm", "light"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#4A4238", "accent": "#E58BA5", "accent2": "#8FB84E", "text": "#FBF4E6", "border": "#A08A68", "opacity": 0.97, "corner": 10, "font": "Candara", "open": "bloom", "speed": 0.95, "hoverGrow": 3, "iconZoom": 1.12, "glow": 0, "tilt": 0.3, "pointer": false, "burst": false, "shadow": 0.55, "dim": 0.26},
+  "wheel": {"hub": 92, "thickness": 94, "gap": 5, "ringgap": 8, "rim": 36, "icon": 42, "crowd": 1.5, "area": 1.1, "hubkeep": 0.74},
+  "colors": {"pale": "#FBF4E6", "moss": "#C6DB8E", "pink": "#FFD3DF"},
+  "fonts": {"title": "Candara, Segoe UI"},
+  "images": {
+    "blossom": "blossom.png",
+    "boulder": {"file": "boulder.jpg", "mask": "boulder-mask.png"},
+    "garden": {"file": "garden.jpg", "mask": "garden-mask.png"},
+    "leaf": "leaf.png",
+    "petals": {"file": "petals.png", "cols": 4},
+    "ripple": {"file": "ripple.jpg", "mask": "ripple-mask.png"},
+    "stones": {"file": "stones.png", "cols": 4}
+  },
+  "back": [
+    {"shape": "circle", "x": 0.0, "y": 0.025, "size": 1.1, "fill": {"type": "radial", "stops": [[0, "black/60"], [0.86, "black/51"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "garden", "size": 1, "rotate": "(1-open)*10", "intro": {"time": 0.34, "ease": "out", "scale": 0.88}}
+  ],
+  "slot": {
+    "intro": {"time": 0.4, "ease": "out", "delay": 0.08, "scale": 0.4, "stagger": 0.02, "order": "both"},
+    "under": [
+      {"image": "ripple", "size": 1.6, "rotate": "i*40", "opacity": "0.96", "scale": "((1.30+0.30*hot)*(1+0.5*launch))/1.6"},
+      {"image": "ripple", "size": 2.44, "opacity": "hot*0.45*(1-fract(time*0.45))", "when": "hot>0.02", "scale": "(1.30*(1+0.9*fract(time*0.45)))/2.44"},
+      {"image": "stones", "size": "1.0*(1+0.06*hot-0.04*press)", "frame": "(i+ring)%4", "rotate": "0", "detail": 1.06}
+    ],
+    "icon": {"size": 0.98, "zoom": 1.16, "shadow": {"x": 1, "y": 2, "blur": 3, "color": "black/55"}},
+    "over": [
+      {"image": "blossom", "size": 0.5, "x": 0.56, "y": 0.52, "rotate": "seed*70+20*hot", "opacity": "sat(hot*2)", "scale": "(0.50*outback(sat(hot)))/0.5"},
+      {"image": "blossom", "size": 0.3, "x": -0.56, "y": 0.58, "rotate": "seed*70", "when": "running"},
+      {"image": "blossom", "size": "0.40+0.02*sin(time*2)", "x": -0.56, "y": 0.58, "rotate": "time*10", "when": "active"},
+      {"shape": "circle", "x": 0.62, "y": -0.62, "size": 0.25, "fill": "#4A4238", "when": "numbers && number<10 && !kid"},
+      {"text": "{number}", "x": 0.62, "y": -0.63, "em": 0.3, "color": "#FBF4E6", "font": "title", "weight": 700, "when": "numbers && number<10 && !kid"},
+      {"shape": "poly", "points": [[-0.12, -0.6980000000000001], [0, -0.8], [0.12, -0.6980000000000001]], "stroke": "#FBF4E6", "width": 2.2, "caps": true, "when": "group"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "over": [
+    {"shape": "circle", "x": 0.0, "y": 0.06, "size": 1.16, "fill": {"type": "radial", "stops": [[0, "black/55"], [0.78, "black/47"], [1, "black/0"]]}, "opacity": "sat(open)*0.95", "in": "hub"},
+    {"image": "leaf", "size": [0.085, 0.204], "in": "hub", "angle": "sel", "radius": 1.08, "rotate": "sel+8*sin(time*2)", "opacity": "on", "scale": "0.5+0.5*on"}
+  ],
+  "hub": [
+    {"image": "boulder", "size": 1.02, "intro": {"time": 0.38, "ease": "back", "scale": 0.5}},
+    {"text": "{title}", "y": -0.05, "box": [1.22, 0.5], "px": 18, "color": "pale", "font": "title", "weight": 700, "wrap": true, "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/70"}},
+    {"text": "{sub}", "y": 0.28, "box": [1.159, 0.2], "px": 11.5, "color": "moss", "font": "title", "weight": 700, "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/70"}},
+    {"text": "{hh}:{mm}", "y": -0.08, "box": [1.22, 0.55], "px": 31, "color": "pale", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/70"}},
+    {"text": "{date}", "y": 0.21, "box": [1.159, 0.2], "px": 12.5, "color": "moss", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/70"}}
+  ],
+  "draw": {"clock": false, "shadow": false, "text": "pale"},
+  "tabs": {"inset": 13, "text": "pale", "fill": "#FFFFFF/14", "on": "#E58BA5/85"},
+  "panel": {"fill": {"type": "linear", "stops": [[0, "#57503F"], [1, "#3B342A"]]}, "stroke": {"type": "linear", "stops": [[0, "#B58A5A"], [0.5, "#5F3F25"], [1, "#93693F"]]}, "width": 4, "corner": 11, "text": "pale"},
+  "tag": {"fill": {"type": "linear", "stops": [[0, "#5A6064"], [1, "#3A4044"]]}, "stroke": "#2A2E31", "width": 1.4, "corner": 11, "text": "pale"},
+  "tile": {"fill": {"type": "linear", "stops": [[0, "#EBDDC0"], [1, "#D3BF98"]]}, "stroke": "#6E4628", "width": 2.4, "corner": 8, "text": "#3B342A"},
+  "particles": [
+    {"image": "petals", "rate": 0.9, "max": 9, "area": "stage", "life": [3, 5.5], "size": [6, 11], "speed": [6, 16], "dir": [110, 200], "gravity": 6, "spin": [-70, 70], "sway": 24, "swayhz": 0.35, "opacity": 0.95, "fadein": 0.15, "fadeout": 0.3}
+  ],
+  "onhover": [
+    {"color": "#EBDDC0", "count": 6, "area": "slot", "life": [0.25, 0.5], "size": [1, 2.2], "speed": [20, 70], "outward": true, "dir": [-60, 60], "drag": 3, "fadein": 0, "fadeout": 0.7}
+  ],
+  "onlaunch": [
+    {"image": "petals", "count": 34, "area": "slot", "life": [0.6, 1.2], "size": [7, 14], "speed": [80, 320], "outward": true, "dir": [-120, 120], "gravity": 120, "drag": 2.2, "sway": 20, "swayhz": 0.8, "spin": [-260, 260], "fadein": 0, "fadeout": 0.5}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"}
+}

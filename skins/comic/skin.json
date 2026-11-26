@@ -1,0 +1,119 @@
+{
+  "format": 1,
+  "id": "comic",
+  "name": "Comic",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "license": "Artwork free to use with the program. Font Bangers: SIL Open Font License, see OFL.txt",
+  "about": "Pop-art print: fat ink, four colours slightly out of place, and a lot of dots",
+  "tags": ["pop art", "print", "loud"],
+
+  "style": {
+    "shape": "orb", "material": "solid", "base": "#FFF6DC", "accent": "#EE2A1E", "accent2": "#1FA9E2", "text": "#17120F", "border": "#17120F",
+    "opacity": 1, "corner": 6, "borderWidth": 2.5, "borderOpacity": 1, "font": "display", "open": "bloom", "speed": 1, "hoverGrow": 5, "iconZoom": 1.2, "glow": 0,
+    "tilt": 0.5, "pointer": false, "burst": false, "shadow": 0.5, "dim": 0.30
+  },
+  "wheel": { "hub": 94, "thickness": 92, "gap": 6, "ringgap": 36, "rim": 30, "icon": 46, "crowd": 1.42, "area": 1.36, "hubkeep": 0.80 },
+  "colors": { "ink": "#17120F", "paper": "#FFFAEC", "red": "#EE2A1E", "sun": "#FFDF22", "sky": "#1FA9E2" },
+  "fonts": { "display": { "file": "Bangers-Regular.ttf", "family": "Impact, Arial Black", "weight": 400 }, "glyph": "Segoe Fluent Icons, Segoe MDL2 Assets" },
+
+  "images": {
+    "plate": "plate.png", "plate2": "plate2.png", "burst": "burst.png",
+    "bubble": { "file": "bubble.png", "cols": 4, "rows": 1 },
+    "shade": "shade.png",
+    "star": { "file": "star.png", "cols": 3, "rows": 1 },
+    "talk": "talk.png", "tail": "tail.png", "patch": "patch.png",
+    "caption": "caption.png", "num": "num.png",
+    "words": { "file": "words.png", "cols": 3, "rows": 2 },
+    "dot": "dot.png", "bang": "bang.png", "buzz": "buzz.png",
+    "puff": "puff.png", "dash": "dash.png",
+    "bit": { "file": "bit.png", "cols": 4, "rows": 1 },
+    "rush": "rush.png", "tone": "tone.png",
+    "panel": "panel.png", "tag": "tag.png", "tile": "tile.png",
+    "arrow": "arrow.png"
+  },
+
+  "back": [
+    { "image": "burst", "x": 0.020, "y": 0.032, "size": 1.34, "tint": "black/42", "rotate": "1.4*sin(time*0.8)", "intro": { "time": 0.50, "ease": "elastic", "scale": 0.35, "rotate": -28 } },
+    { "image": "burst", "size": 1.34, "rotate": "1.4*sin(time*0.8)", "intro": { "time": 0.50, "ease": "elastic", "scale": 0.35, "rotate": -28 } }
+  ],
+
+  "ring": [
+    { "shape": "circle", "x": 0.014, "y": 0.026, "size": 0.985, "fill": "ink/70", "intro": { "time": 0.30, "ease": "back", "scale": 0.4 } },
+    { "image": "plate", "size": 1, "when": "ring%2==0", "intro": { "time": 0.30, "ease": "back", "scale": 0.4, "rotate": 30 } },
+    { "image": "plate2", "size": 1, "when": "ring%2==1", "intro": { "time": 0.30, "ease": "back", "scale": 0.4, "rotate": -30 } }
+  ],
+
+  "slot": {
+    "intro": { "delay": 0.05, "time": 0.36, "ease": "elastic", "scale": 0, "rotate": -60, "stagger": 0.020, "order": "ring" },
+    "under": [
+      { "image": "shade", "x": 0.26, "y": -0.10, "size": 1.02, "when": "group" },
+      { "image": "bubble", "x": 0.20, "y": -0.20, "size": 1.04, "frame": "i+2", "when": "group" },
+      { "image": "bubble", "x": 0.10, "y": -0.10, "size": 1.04, "frame": "i+1", "when": "group" },
+      { "image": "shade", "x": "0.07+0.08*hot", "y": "0.11+0.10*hot", "size": "1.02+0.06*hot", "opacity": "0.9" },
+      { "image": "buzz", "size": 1.40, "rotate": "floor(time*3+seed*7)%2*7-3", "when": "running", "opacity": "1-sat(hot*3)" },
+      { "image": "bubble", "size": "1.07-0.06*press-0.05*near*(1-sat(hot))", "frame": "i+ring" },
+      { "image": "star", "size": 1.62, "frame": "i", "scale": "max(0,1+(hot-1)*2.4)-0.06*press", "rotate": "(hot-1)*70+3*sin(time*5)*hot", "opacity": "sat(hot*5)", "when": "hot>0.05", "detail": 1.1 }
+    ],
+    "icon": { "size": 1.22, "zoom": 1.24, "tone": "sticker", "hot": "sticker", "ink": "ink", "paper": "white", "rotate": "hot*5*sin(time*6+1)" },
+    "over": [
+      { "image": "dot", "x": 0.64, "y": 0.60, "size": 0.36, "when": "running && !active" },
+      { "text": "{windows}", "x": 0.645, "y": 0.60, "em": 0.42, "font": "display", "color": "white", "outline": { "width": 0.9, "color": "ink" }, "when": "running && !active && windows>1" },
+      { "image": "bang", "x": 0.64, "y": 0.60, "size": 0.56, "rotate": "7*sin(time*4)", "when": "active" },
+      { "image": "num", "x": -0.64, "y": -0.66, "size": 0.42, "when": "numbers && number<10 && !kid" },
+      { "text": "{number}", "x": -0.67, "y": -0.68, "em": 0.50, "font": "display", "color": "ink", "when": "numbers && number<10 && !kid" },
+      { "image": "words", "only": ["flow", "strip", "orbit", "comb", "carousel", "globe", "cards", "corner", "galaxy", "board", "drum"], "size": 1.9, "frame": "selindex+i", "scale": "outback(launch*1.5)", "rotate": -8, "opacity": "launch>0.01 ? 4*hot : 0", "when": "hot>0.5" }
+    ],
+    "marks": false, "chevron": false, "badge": false, "names": 1.06
+  },
+
+  "fan": [
+    { "shape": "ring", "x": 4, "y": 6, "inner": "ringin-5", "outer": "ringout+5", "from": "a-span/2-2", "to": "a+span/2+2", "corner": 14, "fill": "ink/70" },
+    { "shape": "ring", "inner": "ringin-5", "outer": "ringout+5", "from": "a-span/2-2", "to": "a+span/2+2", "corner": 14, "fill": { "image": "tone", "tile": true, "zoom": 24 }, "stroke": "ink", "width": 5 }
+  ],
+
+  "over": [
+    { "shape": "circle", "in": "hub", "x": 0.05, "y": 0.08, "size": 0.97, "fill": "ink/75", "intro": { "delay": 0.04, "time": 0.40, "ease": "elastic", "scale": 0.2 } },
+    { "image": "tail", "in": "hub", "size": 1.28, "rotate": "sel", "scale": "0.70+0.30*outback(on)", "when": "on>0.02", "opacity": "sat(on*4)" },
+    { "image": "talk", "in": "hub", "size": 1.06, "rotate": "2*sin(time*1.1)", "intro": { "delay": 0.04, "time": 0.40, "ease": "elastic", "scale": 0.2, "rotate": 40 } },
+    { "image": "patch", "in": "hub", "size": 1.28, "rotate": "sel", "scale": "0.70+0.30*outback(on)", "when": "on>0.02", "opacity": "sat(on*4)" }
+  ],
+
+  "hub": [
+    { "image": "caption", "y": -0.02, "size": [0.66, 0.33], "opacity": "idle", "scale": "0.6+0.4*outback(idle)", "rotate": "-3+1.2*sin(time*1.3)" },
+    { "text": "{time}", "y": -0.07, "px": 29, "font": "display", "color": "ink", "opacity": "idle", "rotate": "-3+1.2*sin(time*1.3)", "tracking": 1 },
+    { "text": "{date}", "y": 0.17, "px": 11.5, "font": "display", "color": "ink", "opacity": "idle", "rotate": "-3+1.2*sin(time*1.3)", "tracking": 0.6 },
+    { "text": "{title}", "y": -0.05, "box": [1.42, 0.74], "px": 24, "font": "display", "color": "white", "wrap": true, "tracking": 0.5, "outline": { "width": 2, "color": "ink" }, "shadow": { "x": 1.5, "y": 2.5, "blur": 0, "color": "ink" } },
+    { "text": "{sub}", "y": 0.46, "box": [1.2, 0.2], "px": 13, "font": "display", "color": "sun", "tracking": 0.6, "outline": { "width": 1.3, "color": "ink" } }
+  ],
+
+  "front": [
+    { "image": "rush", "size": "0.55+1.0*outcubic(time/0.34)", "opacity": "motion*(1-sat((time-0.10)/0.26))", "rotate": "time*20" },
+    { "image": "words", "angle": "sel", "radius": "0.40-0.10*launch", "size": 0.78, "frame": "selindex", "scale": "outback(launch*1.7)*(1+0.12*launch)", "rotate": "-10+14*launch", "opacity": "launch>0.01 ? 5 : 0" }
+  ],
+
+  "draw": { "clock": false, "shadow": false, "fan": false },
+  "tabs": { "inset": 6, "text": "ink", "fill": "white/82", "on": "profile" },
+
+  "pinbutton": { "in": "hub", "x": -0.19, "y": 0.60, "size": 13, "layers": [
+    { "image": "bubble", "size": "1.1+0.12*hot" }, { "text": "", "em": 0.95, "font": "glyph", "color": "ink" } ] },
+  "settingsbutton": { "in": "hub", "x": 0.19, "y": 0.60, "size": 13, "layers": [
+    { "image": "bubble", "size": "1.1+0.12*hot", "frame": 1 }, { "text": "", "em": 0.95, "font": "glyph", "color": "ink" } ] },
+
+  "panel": { "image": "panel", "cut": [110, 110, 165, 165], "scale": 0.5, "pad": [9, 9, 12, 12], "fill": "paper", "stroke": "ink", "width": 4, "text": "ink" },
+  "tag": { "image": "tag", "cut": 30, "scale": 0.5, "pad": [5, 5, 8, 8], "text": "ink" },
+  "tile": { "image": "tile", "cut": [40, 40, 40, 104], "scale": 0.42, "pad": [3, 3, 5, 5], "text": "ink" },
+
+  "onlaunch": [
+    { "image": "bit", "count": 18, "area": "slot", "outward": true, "dir": [-80, 80], "life": [0.20, 0.40], "size": [10, 22], "speed": [180, 520], "spin": [-500, 500], "drag": 2.5, "fadein": 0, "fadeout": 0.4 },
+    { "image": "puff", "count": 7, "area": "slot", "outward": true, "dir": [-60, 60], "life": [0.22, 0.38], "size": [16, 30], "grow": 1.7, "speed": [60, 220], "drag": 3, "fadein": 0.05, "fadeout": 0.5 }
+  ],
+  "onhover": [
+    { "image": "dash", "count": 7, "area": "slot", "outward": true, "dir": [-12, 12], "life": [0.14, 0.24], "size": [4, 6], "speed": [160, 320], "drag": 5, "stretch": 1, "fadein": 0, "fadeout": 0.5 }
+  ],
+  "onopen": [
+    { "image": "bit", "count": 14, "area": "rim", "outward": true, "dir": [-25, 25], "life": [0.30, 0.55], "size": [10, 20], "speed": [80, 320], "spin": [-400, 400], "drag": 3, "fadein": 0.1, "fadeout": 0.5 }
+  ],
+  "cursor": { "image": "arrow", "size": 34, "hot": [0.09, 0.06] },
+  "sounds": { "open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav" }
+}
