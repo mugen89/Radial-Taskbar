@@ -52,13 +52,15 @@ SceneModel buildModel(const Config& cfg, const WindowList* running) {
   const Profile& p = cfg.profile();
   m.profileName = p.name;
   m.profileColor = p.color;
+  LayoutType shows = cfg.layoutFor(p);
   for (int i = 0; i < (int)cfg.profiles.size(); i++) {
     auto& q = cfg.profiles[(size_t)i];
     if (q.locked && i != cfg.activeProfile) continue;  // locked ones stay out
     if (i == cfg.activeProfile) m.profileIndex = (int)m.tabs.size();
     m.tabs.push_back({q.name, q.color, (int)q.pins.size()});
     m.tabProfile.push_back(i);
-    m.ringFor = std::max(m.ringFor, (int)q.pins.size());
+    // the centre stays one size between profiles that look alike; another arrangement redraws everything anyway
+    if (cfg.layoutFor(q) == shows) m.ringFor = std::max(m.ringFor, (int)q.pins.size());
   }
   m.profileCount = (int)m.tabs.size();
   for (auto& pin : p.pins) m.items.push_back(makeItem(cfg, pin, running, true));
@@ -98,6 +100,7 @@ std::unique_ptr<Layout> makeLayout(LayoutType t) {
 
 void dressLayout(Layout& l, const Config& cfg, bool persistArt) {
   l.cfg = cfg;
+  l.cfg.layout = cfg.layoutNow();  // what this profile shows: skin layers and caches ask the layout's own copy
   l.skin = skins().get(cfg.skinNow());
   skinArt().use(l.skin, cfg.tune(), persistArt);
   l.st = effectiveStyle(cfg);

@@ -57,8 +57,9 @@ centre.
 
 - **Start on** one profile every time, or on the one you used last (Settings > Profiles).
 - **Lock** a profile you only need now and then: the wheel and scrolling skip it until you unlock it. One always stays unlocked.
-- **Skins per profile**: each one uses the main skin, no skin, or one of its own (Settings > Profiles). Layout, sizes and
-  effects stay the same, and the centre keeps its size from one profile to the next.
+- **Skins and arrangements per profile**: each one uses the main skin, no skin, or one of its own, and the main arrangement
+  or one of its own, say a wheel for work and a carousel for games (Settings > Profiles). Sizes and effects stay the same,
+  and the centre keeps its size between profiles that share an arrangement.
 - **Move or copy** an item to another profile from its right-click menu on the Pins page, or drag it onto the profile
   (hold Ctrl to copy).
 - **Groups**: while a group is open on the Pins page, everything you add goes straight into it, and an app that is already
@@ -107,7 +108,7 @@ the same everywhere.
 ## Settings
 
 - **Pins**: profiles, drag to reorder, groups, websites, pictures, arguments, run as administrator, moving and copying between profiles, locks
-- **Profiles**: the main skin, a skin for every profile, the profile the wheel opens on, locks, scrolling direction
+- **Profiles**: the main skin and arrangement, a skin and an arrangement for every profile, the profile the wheel opens on, locks, scrolling direction
 - **Layout**: twelve arrangements, centre of the screen or at the mouse pointer, item
   limit per ring and what happens past it (outer ring, unfold on reach, pages), sizes, profiles around the centre
 - **Skins**: the gallery, importing, sharing and removing skins, hue / saturation / brightness, sounds

@@ -13,6 +13,8 @@ struct Change {
   std::vector<const wchar_t*> lines;
 };
 const Change kChanges[] = {
+    {L"1.2.0", L"November 2026",
+     {L"Every profile can use the main arrangement or one of its own, such as a wheel for work and a carousel for games (Settings > Profiles). Switching profiles switches the arrangement too."}},
     {L"1.1.0", L"November 2026",
      {L"46 new skins, 76 in all: Frost, Dragon Scale, Crypt and Tarot, a space station and a living cell, a vault door and a film reel, pinball, slots and billiards, moonlight, lava and cherry blossom, marble, art deco and ink wash, doughnuts and balloons, and Digital Rain.",
       L"Background motion: while the wheel is open, the darkened desktop comes alive with digital rain, stars, snow, fireflies, embers, bubbles, petals or bats. Each skin brings its own; Settings > Effects turns it off or picks one for every skin.",
@@ -102,7 +104,7 @@ void SettingsWindow::pageProfiles(RectF) {
   };
   float cw = std::min(270.f, c_.w * 0.42f);
 
-  section(L"Main skin", L"Every profile set to Use main shows it. Layout, size and effects are the same for all profiles.");
+  section(L"Main skin", L"Every profile set to Use main shows it. Sizes and effects are the same for all profiles.");
   {
     RectF r = RectF::xywh(c_.x, c_.y, c_.w, 68);
     c_.y += 72;
@@ -124,27 +126,60 @@ void SettingsWindow::pageProfiles(RectF) {
     }
   }
 
-  section(L"Profiles", L"Each can use the main skin, no skin, or one of its own. A locked profile stays off the wheel.");
+  std::vector<std::wstring> arrangements;
+  for (int t = 0; t < kLayoutCount; t++) arrangements.push_back(layoutTitle((LayoutType)t));
+  section(L"Main arrangement", L"Every profile set to Use main is shown this way. Its rings, sizes and edges are set on the Layout page.");
+  {
+    RectF r = RectF::xywh(c_.x, c_.y, c_.w, 56);
+    c_.y += 60;
+    ui.card(r, 8);
+    RectF cb(r.r - 14 - cw, r.cy() - 17, r.r - 14, r.cy() + 17);
+    int users = 0;
+    for (auto& p : k.profiles) users += p.layout < 0;
+    ui.text(RectF(r.l + 16, r.t + 7, cb.l - 12, r.t + 29), layoutTitle(k.layout), 14.f, ui.pal.text, 600);
+    std::wstring sub = users == (int)k.profiles.size() ? L"Used by every profile" : users == 0 ? L"No profile uses it now" : L"Used by " + std::to_wstring(users) + L" of " + std::to_wstring(k.profiles.size()) + L" profiles";
+    ui.text(RectF(r.l + 16, r.t + 29, cb.l - 12, r.b - 7), sub, 12.f, ui.pal.dim);
+    int idx = (int)k.layout;
+    if (ui.combo(ui.id("mainlay"), cb, idx, arrangements) && idx >= 0 && idx < kLayoutCount) {
+      k.layout = (LayoutType)idx;
+      changed();
+    }
+  }
+
+  section(L"Profiles", L"Each can use the main skin and arrangement, or its own. A locked profile stays off the wheel.");
+  float lw = c_.w > 700 ? 92.f : 0.f;  // room for the words Skin and Arrangement beside the lists
   for (int i = 0; i < (int)k.profiles.size(); i++) {
     Profile& p = k.profiles[(size_t)i];
-    RectF r = RectF::xywh(c_.x, c_.y, c_.w, 68);
-    c_.y += 72;
+    RectF r = RectF::xywh(c_.x, c_.y, c_.w, 92);
+    c_.y += 96;
     if (r.b < ui.view.t - 100 || r.t > ui.view.b + 100) continue;
     ui.card(r, 8);
     if (i == k.activeProfile) ui.p->rrect(RectF(r.l, r.t + 12, r.l + 3, r.b - 12), 1.5f, p.color);
-    RectF pic = RectF::xywh(r.l + 10, r.t + 9, 66, 50);
+    RectF pic = RectF::xywh(r.l + 10, r.cy() - 25, 66, 50);
     skinThumb(pic, k.skinFor(p));
-    RectF cb(r.r - 14 - cw, r.cy() - 17, r.r - 14, r.cy() + 17);
-    RectF lock(cb.l - 44, r.cy() - 17, cb.l - 10, r.cy() + 17);
+    RectF cb(r.r - 14 - cw, r.t + 10, r.r - 14, r.t + 42);   // skin
+    RectF cl(r.r - 14 - cw, r.b - 42, r.r - 14, r.b - 10);   // arrangement
+    if (lw > 0) {
+      ui.text(RectF(cb.l - lw, cb.t, cb.l - 10, cb.b), L"Skin", 12.5f, ui.pal.dim, 400, Align::Right);
+      ui.text(RectF(cl.l - lw, cl.t, cl.l - 10, cl.b), L"Arrangement", 12.5f, ui.pal.dim, 400, Align::Right);
+    }
+    std::vector<std::wstring> lopts{L"Use main (" + std::wstring(layoutTitle(k.layout)) + L")"};
+    lopts.insert(lopts.end(), arrangements.begin(), arrangements.end());
+    int lidx = p.layout >= 0 && p.layout < kLayoutCount ? 1 + p.layout : 0;
+    if (ui.combo(ui.id("play", i), cl, lidx, lopts) && lidx >= 0) {
+      p.layout = lidx - 1;
+      changed();
+    }
+    RectF lock(cb.l - lw - 44, r.cy() - 17, cb.l - lw - 10, r.cy() + 17);
     float tx = pic.r + 14;
-    ui.p->circle({tx + 5, r.t + 23}, 5, p.locked ? p.color.withA(0.45f) : p.color);
-    ui.text(RectF(tx + 16, r.t + 12, lock.l - 8, r.t + 34), p.name, 14.f, ui.pal.text, 600);
+    ui.p->circle({tx + 5, r.cy() - 11}, 5, p.locked ? p.color.withA(0.45f) : p.color);
+    ui.text(RectF(tx + 16, r.cy() - 22, lock.l - 8, r.cy()), p.name, 14.f, ui.pal.text, 600);
     size_t items = 0;
     for (auto& q : p.pins) items += q.kind == Pin::Kind::Group ? q.children.size() : 1;
     std::wstring sub = std::to_wstring(items) + (items == 1 ? L" item" : L" items");
     if (p.locked) sub += L"  \x00B7  locked, the wheel skips it";
     if (i == k.activeProfile) sub += L"  \x00B7  in use";
-    ui.text(RectF(tx, r.t + 34, lock.l - 8, r.b - 10), sub, 12.f, ui.pal.dim);
+    ui.text(RectF(tx, r.cy(), lock.l - 8, r.cy() + 22), sub, 12.f, ui.pal.dim);
     bool onlyOpen = !p.locked && k.unlockedCount() < 2;
     if (p.locked) ui.p->rrect(lock, 6, ui.pal.accent.withA(0.16f));
     if (ui.iconButton(ui.id("plk", i), lock, p.locked ? L"\xE72E" : L"\xE785",
@@ -285,7 +320,7 @@ void SettingsWindow::pageHelp(RectF) {
         {L"Профили",
          {L"Всеки профил е отделно колело. Завъртете колелцето на мишката над колелото, натиснете Q и E или кликнете някой от профилите около центъра, за да превключите.",
           L"Заключете профил, който ви трябва само от време на време: с катинара на страниците „Pins“ или „Profiles“. Колелото го пропуска, докато не го отключите.",
-          L"На страницата „Profiles“ всеки профил може да използва основния скин, да е без скин или да има собствен. Там можете да обърнете посоката на превъртане и да изберете профил, с който колелото винаги да се отваря."}},
+          L"На страницата „Profiles“ всеки профил може да използва основния скин, да е без скин или да има собствен, а също основната подредба или своя собствена (например колело за работа и въртележка за игри). Там можете да обърнете посоката на превъртане и да изберете профил, с който колелото винаги да се отваря."}},
         {L"Добавяне и подреждане",
          {L"На страницата „Pins“ изберете инсталирани приложения вдясно или използвайте File, Folder, Website, Group и Taskbar. Можете и да пуснете файлове, преки пътища или връзки върху този прозорец.",
           L"В Explorer кликнете с десния бутон върху файл или папка и изберете „Add to " RT_NAME L"“ (в Windows 11 под „Show more options“). Десен клик върху бутон в лентата на задачите предлага същото.",
@@ -317,7 +352,7 @@ void SettingsWindow::pageHelp(RectF) {
         {L"Profiles",
          {L"Each profile is a wheel of its own. Turn the mouse wheel over the wheel, press Q and E, or click one of the profiles around the centre to switch.",
           L"Lock a profile you only need now and then: the padlock on the Pins or Profiles page. The wheel skips it until you unlock it.",
-          L"On the Profiles page every profile can use the main skin, no skin, or one of its own. The scrolling direction can be reversed there too, and the wheel can always open on the same profile."}},
+          L"On the Profiles page every profile can use the main skin, no skin, or one of its own, and the main arrangement or one of its own (a wheel for work, a carousel for games). The scrolling direction can be reversed there too, and the wheel can always open on the same profile."}},
         {L"Adding and arranging",
          {L"On the Pins page, pick installed apps on the right, or use File, Folder, Website, Group and Taskbar. Dropping files, shortcuts or links on this window adds them as well.",
           L"In Explorer, right-click a file or folder and choose Add to " RT_NAME L" (on Windows 11 under Show more options). Right-clicking a button on the taskbar offers the same.",

@@ -31,12 +31,13 @@ def cfg():
     except Exception: return {}
 
 
-def start(active, reverse=False):
+def start(active, reverse=False, own_layout=None):
     shutil.rmtree(D, ignore_errors=True); shutil.copytree(os.path.join(S, "data3h"), D)
     c = cfg()
     w = os.environ["WINDIR"]
     pin = lambda p, i: {"id": "%s%d" % (p, i), "kind": "file", "name": "N%d" % i, "target": w + "\\System32\\notepad.exe" if i % 2 else w + "\\explorer.exe"}
     c["profiles"] = [{"id": p, "name": p.upper(), "locked": p in "be", "skin": "neon" if p == "c" else "", "pins": [pin(p, i) for i in range(n)]} for p, n in (("a", 3), ("b", 4), ("c", 5), ("d", 6), ("e", 7))]
+    if own_layout: c["profiles"][3]["layout"] = own_layout  # d shows its own arrangement
     c["activeProfile"] = active
     c["skin"] = ""
     c["profileSkins"] = True
@@ -92,6 +93,26 @@ check("reversed: scrolling down goes back", active(3), str(cfg().get("activeProf
 wheel(1)
 check("reversed: scrolling up goes forward", active(0), str(cfg().get("activeProfile")))
 u.PostMessageW(u.FindWindowW(CLS, None), 0x100, 0x1B, 0); time.sleep(0.5)
+L.command("quit\n", HID); p.wait(8)
+
+p = start(0, own_layout="carousel")  # d has an arrangement of its own; the others use the main one (radial)
+check("the wheel opens", opened())
+o = u.FindWindowW(CLS, None)
+u.PostMessageW(o, 0x100, ord("E"), 0); time.sleep(0.8)
+u.PostMessageW(o, 0x100, ord("E"), 0)
+on_d = active(3)
+time.sleep(1.0)
+log = open(os.path.join(D, "log.txt"), errors="replace").read()
+check("the profile with its own arrangement shows it", on_d and "overlay: arrangement carousel" in log, str(cfg().get("activeProfile")))
+L.capture(o, os.path.join(S, "profile_own_layout.png"))
+u.PostMessageW(o, 0x100, ord("E"), 0)
+on_a = active(0)
+time.sleep(0.8)
+log = open(os.path.join(D, "log.txt"), errors="replace").read()
+check("the next one is back on the main arrangement", on_a and "overlay: arrangement radial" in log, str(cfg().get("activeProfile")))
+check("its arrangement stays its own", cfg().get("profiles", [{}] * 4)[3].get("layout") == "carousel" and "layout" not in cfg().get("profiles", [{}])[0])
+L.capture(o, os.path.join(S, "profile_main_layout.png"))
+u.PostMessageW(o, 0x100, 0x1B, 0); time.sleep(0.5)
 L.command("quit\n", HID); p.wait(8)
 
 p = start(1)  # left on a locked one, say after editing it in the settings

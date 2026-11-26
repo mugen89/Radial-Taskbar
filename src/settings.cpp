@@ -80,7 +80,8 @@ void Preview::rebuild(const Config& cfg, int sampleCount, bool settle) {
     for (int i = 0; i < sampleCount; i++) out.push_back(base[(size_t)i % base.size()]);
     c.profile().pins = out;
   }
-  layout_ = makeLayout(c.layout);
+  LayoutType lt = c.layoutNow();  // the profile in use may have an arrangement of its own
+  layout_ = makeLayout(lt);
   dressLayout(*layout_, c, false);
   layout_->model = buildModel(c, nullptr);
   if (!layout_->model.items.empty()) {  // show what running marks look like
@@ -91,7 +92,7 @@ void Preview::rebuild(const Config& cfg, int sampleCount, bool settle) {
   auto& e = layout_->env;
   e.vw = (float)w_;
   e.vh = (float)h_;
-  float fit = c.layout == LayoutType::Radial ? 0.92f : c.layout == LayoutType::Flow ? 0.72f : c.layout == LayoutType::Strip ? 0.60f : c.layout == LayoutType::Corner ? 0.8f : 0.72f;
+  float fit = lt == LayoutType::Radial ? 0.92f : lt == LayoutType::Flow ? 0.72f : lt == LayoutType::Strip ? 0.60f : lt == LayoutType::Corner ? 0.8f : 0.72f;
   e.s = scale_ * c.scale * fit;
   e.work = RectF(0, 0, e.vw, e.vh);
   e.anchor = {e.vw * 0.5f, e.vh * 0.5f};
@@ -254,7 +255,7 @@ void SettingsWindow::paint() {
       L"Updates, and what changed in each version.",
       L"How to use " RT_NAME L", from the first press to your own skins.",
       L"Who makes it, and how to reach us.",
-      L"A skin for every profile, and how you move between them."};
+      L"A skin and an arrangement for every profile, and how you move between them."};
   bool bg = page_ == kHelp && app_.cfg.helpLang == "bg";
   header(RectF(body.l + 28, body.t + 18, body.r - 28, body.t + 82), bg ? L"\x041F\x043E\x043C\x043E\x0449" : titles[page_],
          bg ? L"\x041A\x0430\x043A \x0441\x0435 \x0438\x0437\x043F\x043E\x043B\x0437\x0432\x0430 " RT_NAME L": \x043E\x0442 \x043F\x044A\x0440\x0432\x043E\x0442\x043E \x043D\x0430\x0442\x0438\x0441\x043A\x0430\x043D\x0435 \x0434\x043E \x0441\x043E\x0431\x0441\x0442\x0432\x0435\x043D\x0438\x0442\x0435 \x0432\x0438 \x0441\x043A\x0438\x043D\x043E\x0432\x0435." : subs[page_]);
@@ -603,23 +604,46 @@ void SettingsWindow::layoutThumb(RectF r, int kind, bool on, float hv) {
   }
 }
 
+namespace {
+struct Arrangement { const wchar_t* name; const wchar_t* desc; };
+const Arrangement kArrangements[kLayoutCount] = {{L"Radial wheel", L"Weapon-wheel style"}, {L"Side flow", L"Wave on an edge"}, {L"Line strip", L"A magnifying bar"},
+                                                 {L"Orbit", L"Planets round a sun"}, {L"Honeycomb", L"Cells under a lens"}, {L"Carousel", L"A ring in depth"},
+                                                 {L"Globe", L"A ball that rolls"}, {L"Hand of cards", L"Fanned from below"}, {L"Corner fan", L"A quarter wheel"},
+                                                 {L"Galaxy", L"A turning spiral"}, {L"Board", L"A grid with names"}, {L"Drum", L"A list on a roller"}};
+}  // namespace
+
+const wchar_t* layoutTitle(LayoutType t) { return kArrangements[clampi((int)t, 0, kLayoutCount - 1)].name; }
+
 void SettingsWindow::pageLayout(RectF) {
   Config& k = app_.cfg;
+  LayoutType lay = k.layoutNow();  // the profile in use may have an arrangement of its own
+  const auto& opts = kArrangements;
   section(L"Arrangement");
-  struct L { const wchar_t* name; const wchar_t* desc; };
-  static const L opts[kLayoutCount] = {{L"Radial wheel", L"Weapon-wheel style"}, {L"Side flow", L"Wave on an edge"}, {L"Line strip", L"A magnifying bar"},
-                                       {L"Orbit", L"Planets round a sun"}, {L"Honeycomb", L"Cells under a lens"}, {L"Carousel", L"A ring in depth"},
-                                       {L"Globe", L"A ball that rolls"}, {L"Hand of cards", L"Fanned from below"}, {L"Corner fan", L"A quarter wheel"},
-                                       {L"Galaxy", L"A turning spiral"}, {L"Board", L"A grid with names"}, {L"Drum", L"A list on a roller"}};
+  if (k.profiles.size() > 1) {  // what a click on a tile changes, as on the Skins page
+    Profile& p = k.profile();
+    bool own = p.layout >= 0;
+    std::wstring d = own ? L"A tile you click is for \x201C" + p.name + L"\x201D only" : L"For every profile that uses it";
+    RectF b = row(own ? L"Its own arrangement" : L"The main arrangement", d.c_str(), own ? 236 : 150);
+    if (own) {
+      if (ui.button(ui.id("laymain"), RectF(b.l, b.t, b.l + 110, b.b), L"Use main")) {
+        p.layout = -1;
+        changed();
+      }
+      if (ui.button(ui.id("laytoprof"), RectF(b.l + 118, b.t, b.r, b.b), L"Profiles")) page_ = kProfiles;
+    } else if (ui.button(ui.id("laytoprof"), b, L"Per profile", Btn::Standard, L"\xE77B")) {
+      page_ = kProfiles;
+    }
+    c_.y += 8;
+  }
   float gap = 8, h = 148;
   int cols = c_.w > 620 ? 4 : 3;
   float w = (c_.w - gap * (cols - 1)) / cols, top = c_.y;
   for (int i = 0; i < kLayoutCount; i++) {
     RectF r = RectF::xywh(c_.x + (i % cols) * (w + gap), top + (i / cols) * (h + gap), w, h);
     uint32_t id = ui.id("layout", i);
-    bool on = (int)k.layout == i;
+    bool on = (int)lay == i;
     if (ui.press(id, r) && !on) {
-      k.layout = (LayoutType)i;
+      k.chooseLayout((LayoutType)i);
       changed();
     }
     bool hv = ui.hot(r);
@@ -648,9 +672,9 @@ void SettingsWindow::pageLayout(RectF) {
     RectF r = RectF::xywh(c_.x, c_.y, c_.w, 48);
     c_.y += 52;
     ui.card(r, 8);
-    bool edge = k.layout == LayoutType::Flow || k.layout == LayoutType::Corner, place = k.layout == LayoutType::Strip || k.layout == LayoutType::Cards;
-    const wchar_t* a = k.layout == LayoutType::Flow ? L"On its edge" : k.layout == LayoutType::Corner ? L"In its corner" : place ? L"In its place" : L"Centre of the screen";
-    const wchar_t* b = k.layout == LayoutType::Flow ? L"Edge nearest the mouse" : edge ? L"Corner nearest the mouse" : L"At the mouse pointer";
+    bool edge = lay == LayoutType::Flow || lay == LayoutType::Corner, place = lay == LayoutType::Strip || lay == LayoutType::Cards;
+    const wchar_t* a = lay == LayoutType::Flow ? L"On its edge" : lay == LayoutType::Corner ? L"In its corner" : place ? L"In its place" : L"Centre of the screen";
+    const wchar_t* b = lay == LayoutType::Flow ? L"Edge nearest the mouse" : edge ? L"Corner nearest the mouse" : L"At the mouse pointer";
     float half = (r.w() - 20) / 2;
     if (ui.radio(ui.id("anc", 0), RectF(r.l + 8, r.t + 6, r.l + 8 + half, r.b - 6), a, k.anchor == Anchor::Center) && k.anchor != Anchor::Center) {
       k.anchor = Anchor::Center;
@@ -663,7 +687,7 @@ void SettingsWindow::pageLayout(RectF) {
   }
   if (k.anchor == Anchor::Center) segRow("mon", L"Screen", nullptr, k.monitor, {L"With the mouse", L"Main screen"}, 250);
 
-  if (k.layout == LayoutType::Radial) {
+  if (lay == LayoutType::Radial) {
     section(L"Rings", L"Set how many items fit in one ring and what happens after that.");
     float per = (float)k.perRing;
     if (sliderRow("per", L"Items per ring", per, 3, 20, 1, L"%.0f")) k.perRing = (int)lroundf(per);
@@ -702,7 +726,7 @@ void SettingsWindow::pageLayout(RectF) {
     section(L"Details");
     segRow("hub", L"Centre shows", nullptr, k.hub, {L"Clock", L"Profile", L"Nothing"}, 240);
     toggleRow("hubp", L"Profiles around the centre", L"Click one to switch, or turn the mouse wheel", k.hubProfiles);
-  } else if (k.layout == LayoutType::Flow) {
+  } else if (lay == LayoutType::Flow) {
     section(L"Flow");
     if (k.anchor == Anchor::Center) segRow("side", L"Side", nullptr, k.flowSide, {L"Right", L"Left"}, 200);
     sliderRow("curve", L"Curve", k.flowCurve, 0, 1, 0.05f, L"%.0f%%", 100.f);
@@ -712,8 +736,8 @@ void SettingsWindow::pageLayout(RectF) {
     sliderRow("scale", L"Overall size", k.scale, 0.6f, 2.2f, 0.05f, L"%.0f%%", 100.f);
     sliderRow("icon", L"Icon size", k.iconSize, 24, 96, 2, L"%.0f px");
     section(L"Details");
-  } else if (k.layout != LayoutType::Strip) {
-    LayoutType t = k.layout;
+  } else if (lay != LayoutType::Strip) {
+    LayoutType t = lay;
     section(opts[(int)t].name);
     if (t == LayoutType::Corner && k.anchor == Anchor::Center) {
       RectF f = row(L"Corner", nullptr, clampf(c_.w * 0.62f, 250.f, 350.f));
@@ -1372,9 +1396,9 @@ void SettingsWindow::pageLook(RectF) {
   section(L"Surface");
   sliderRow("op", L"Opacity", s.opacity, 0, 1, 0.02f, L"%.0f%%", 100.f);
   if (s.material == Material::Frosted || s.material == Material::Liquid) sliderRow("blur", L"Blur", s.blur, 0, 60, 1, L"%.0f px");
-  if (s.material == Material::Liquid && k.layout != LayoutType::Flow) sliderRow("refr", L"Edge refraction", s.refraction, 0, 1, 0.05f, L"%.0f%%", 100.f);
+  if (s.material == Material::Liquid && !k.onlyLayout(LayoutType::Flow)) sliderRow("refr", L"Edge refraction", s.refraction, 0, 1, 0.05f, L"%.0f%%", 100.f);
   sliderRow("corner", s.shape == SlotShape::Blade ? L"Corner cut" : L"Corner rounding", s.corner, 0, 40, 1, L"%.0f px");
-  if (k.layout == LayoutType::Radial) sliderRow("gap", L"Gap between slots", s.gap, 0, 30, 1, L"%.0f px");
+  if (k.anyLayout(LayoutType::Radial)) sliderRow("gap", L"Gap between slots", s.gap, 0, 30, 1, L"%.0f px");
   sliderRow("bw", L"Border width", s.borderWidth, 0, 6, 0.2f, L"%.1f px");
   sliderRow("bo", L"Border strength", s.borderOpacity, 0, 1, 0.02f, L"%.0f%%", 100.f);
   sliderRow("shadow", L"Shadow", s.shadow, 0, 1, 0.05f, L"%.0f%%", 100.f);
@@ -1414,7 +1438,7 @@ void SettingsWindow::pageEffects(RectF) {
   if (segRow("open", L"Animation", nullptr, s.open, {L"Bloom", L"Spin", L"Unfold", L"Zoom", L"Fade"}, 320)) preview_.replay();
   if (sliderRow("speed", L"Speed", s.speed, 0.4f, 2.5f, 0.05f, L"%.2fx") && !ui.down) preview_.replay();
   section(L"Focus");
-  bool wheel = k.layout == LayoutType::Radial;  // the other layouts swell with their own magnify setting
+  bool wheel = k.anyLayout(LayoutType::Radial);  // the other layouts swell with their own magnify setting
   if (wheel) sliderRow("grow", L"Extension on focus", s.hoverGrow, 0, 40, 1, L"%.0f px");
   if (wheel) sliderRow("zoom", L"Icon zoom", s.iconZoom, 1, 1.8f, 0.02f, L"%.0f%%", 100.f);
   sliderRow("glow", L"Glow", s.glow, 0, 1, 0.05f, L"%.0f%%", 100.f);

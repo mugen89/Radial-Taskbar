@@ -14,6 +14,8 @@ namespace rt {
 class App;
 struct LogoAsk;
 
+const wchar_t* layoutTitle(LayoutType t);  // "Radial wheel", "Carousel" ...: for the Layout and Profiles pages
+
 // A live, interactive miniature of the launcher over the person's own wallpaper.
 class Preview {
  public:

@@ -97,6 +97,7 @@ struct Profile {
   Color color = Color::hex(0x4CA8FF);
   std::vector<Pin> pins;
   std::string skin;             // empty: the main skin. Config::kNoSkin: none. Otherwise a skin of its own
+  int layout = -1;              // -1: the main arrangement. Otherwise a LayoutType of its own
   bool locked = false;          // kept out of the wheel: scrolling and switching pass it by
 };
 
@@ -153,6 +154,14 @@ struct Config {
 
   Style style;
   std::vector<Look> customLooks;
+
+  // The arrangement works like the skin: the main one (`layout`) is for every profile that uses it, and a profile
+  // can have one of its own. Its settings (rings, sizes, edges ...) are shared by every profile that shows it.
+  LayoutType layoutFor(const Profile& p) const { return p.layout >= 0 && p.layout < kLayoutCount ? (LayoutType)p.layout : layout; }
+  LayoutType layoutNow() const { return layoutFor(profile()); }
+  void chooseLayout(LayoutType t);         // for the profile in use: the main arrangement when it uses that
+  bool anyLayout(LayoutType t) const;      // some profile shows it
+  bool onlyLayout(LayoutType t) const;     // every profile shows it
 
   // A skin replaces the style; hue, saturation and brightness tune its artwork. The main skin is for every profile
   // that uses it; a profile can have one of its own or none. Everything else is the same for all profiles.

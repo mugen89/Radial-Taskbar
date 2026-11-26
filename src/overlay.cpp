@@ -56,7 +56,12 @@ V2 Overlay::cursorLocal() const {
 
 void Overlay::buildScene(bool animate) {
   const Config& cfg = app_.cfg;
-  if (!layout_ || !animate) layout_ = makeLayout(cfg.layout);
+  LayoutType lt = cfg.layoutNow();  // the profile in use may have an arrangement of its own
+  if (layout_ && layout_->cfg.layout != lt) {
+    logf("overlay: arrangement %s", layoutId(lt));
+    animate = false;
+  }
+  if (!layout_ || !animate) layout_ = makeLayout(lt);
   dressLayout(*layout_, cfg, true);
   if (!systemAnimationsEnabled()) layout_->cfg.reduceMotion = true;
   layout_->model = buildModel(cfg, cfg.showRunning || cfg.switchToRunning || cfg.windowsFan ? &wins_ : nullptr);
@@ -72,10 +77,10 @@ void Overlay::buildScene(bool animate) {
   e.anchorIsMouse = cfg.anchor == Anchor::Mouse;
   e.preview = false;
   if (e.anchorIsMouse) e.anchor = {(float)(cursorBefore_.x - mon_.left), (float)(cursorBefore_.y - mon_.top)};
-  else e.anchor = cfg.layout == LayoutType::Radial ? V2{e.vw * 0.5f, e.vh * 0.5f} : V2{e.work.cx(), e.work.cy()};
+  else e.anchor = lt == LayoutType::Radial ? V2{e.vw * 0.5f, e.vh * 0.5f} : V2{e.work.cx(), e.work.cy()};
   layout_->sticky = !holding_;
   layout_->build();
-  if (e.anchorIsMouse && cfg.layout == LayoutType::Radial) {
+  if (e.anchorIsMouse && lt == LayoutType::Radial) {
     float r = layout_->keepInside();
     V2 a = e.anchor;
     a.x = e.vw > r * 2 ? clampf(a.x, r, e.vw - r) : e.vw * 0.5f;
@@ -178,7 +183,7 @@ bool Overlay::tryOpen(bool byHotkey) {
   V2 home = layout_->home();
   if (cfg.warpCursor || cfg.anchor == Anchor::Mouse) {
     POINT want{mon_.left + (LONG)lroundf(home.x), mon_.top + (LONG)lroundf(home.y)};
-    if (cfg.anchor == Anchor::Mouse && cfg.layout != LayoutType::Radial) want = cursorBefore_;
+    if (cfg.anchor == Anchor::Mouse && layout_->cfg.layout != LayoutType::Radial) want = cursorBefore_;
     if (want.x != cursorBefore_.x || want.y != cursorBefore_.y) {
       SetCursorPos(want.x, want.y);
       warped_ = true;

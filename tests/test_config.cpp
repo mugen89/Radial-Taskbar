@@ -238,6 +238,33 @@ int main() {
     check("old per-profile skins: the first one leads", o1.skin == "clockwork" && o1.profiles[0].skin.empty() && o1.profiles[1].skin.empty() && o1.profiles[2].skin == Config::kNoSkin && o1.profiles[3].skin == "zen");
     o2.fromJson(*[] { static Json j; Json::parse(R"({"skin": "neon", "profiles": [{"id": "a", "skin": "clockwork"}, {"id": "b"}]})", j); return &j; }());
     check("old leftovers without per-profile skins are dropped", o2.skin == "neon" && o2.profiles[0].skin.empty() && o2.profiles[1].skin.empty());
+    // arrangements work like skins: the main one, or one of a profile's own
+    Config w;
+    w.profiles.resize(3);
+    for (int i = 0; i < 3; i++) w.profiles[(size_t)i].id = "w" + std::to_string(i);
+    w.layout = LayoutType::Radial;
+    w.profiles[1].layout = (int)LayoutType::Carousel;
+    w.profiles[2].layout = 99;  // damaged
+    w.sanitize();
+    check("a damaged arrangement falls back to the main one", w.profiles[2].layout == -1);
+    Config v;
+    v.fromJson(w.toJson());
+    v.activeProfile = 0;
+    bool mainLay = v.layoutNow() == LayoutType::Radial;
+    v.activeProfile = 1;
+    bool ownLay = v.layoutNow() == LayoutType::Carousel;
+    check("the main arrangement and a profile's own are kept", mainLay && ownLay && v.profiles[0].layout == -1 && v.profiles[2].layout == -1);
+    v.chooseLayout(LayoutType::Globe);
+    bool ownChanged = v.profiles[1].layout == (int)LayoutType::Globe && v.layout == LayoutType::Radial;
+    v.activeProfile = 2;
+    v.chooseLayout(LayoutType::Drum);
+    check("choosing changes the profile's own arrangement, or the main one", ownChanged && v.layout == LayoutType::Drum && v.profiles[2].layout == -1 && v.layoutFor(v.profiles[0]) == LayoutType::Drum);
+    check("which arrangements are on show", v.anyLayout(LayoutType::Globe) && v.anyLayout(LayoutType::Drum) && !v.anyLayout(LayoutType::Radial) && !v.onlyLayout(LayoutType::Drum));
+    v.profiles[1].layout = -1;
+    check("every profile on the main arrangement", v.onlyLayout(LayoutType::Drum));
+    Config u;
+    u.fromJson(*[] { static Json j; Json::parse(R"({"profiles": [{"id": "a", "layout": "orbit"}, {"id": "b", "layout": "nonsense"}, {"id": "c"}]})", j); return &j; }());
+    check("arrangements are read by name; an unknown one means the main", u.profiles[0].layout == (int)LayoutType::Orbit && u.profiles[1].layout == -1 && u.profiles[2].layout == -1);
   }
   check("versions compare by number", Updater::compare(L"1.0.0", L"1.0.0") == 0 && Updater::compare(L"v1.2.10", L"1.2.9") > 0 && Updater::compare(L"1.0", L"1.0.1") < 0 && Updater::compare(L"2", L"1.9.9") > 0);
   {

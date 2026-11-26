@@ -626,6 +626,10 @@ int runSettingsShot(const Args& a) {
   }
   if (int l = a.num(L"--lock", -1); l >= 0 && l < (int)app.cfg.profiles.size()) app.cfg.profiles[(size_t)l].locked = true;
   if (a.has(L"--own-skin") && app.cfg.profiles.size() > 1) app.cfg.profiles[1].skin = narrow(a.get(L"--own-skin"));
+  if (a.has(L"--own-layout") && app.cfg.profiles.size() > 1)
+    for (int t = 0; t < kLayoutCount; t++)
+      if (a.get(L"--own-layout") == widen(layoutId((LayoutType)t))) app.cfg.profiles[1].layout = t;
+  if (int n = a.num(L"--active", -1); n >= 0 && n < (int)app.cfg.profiles.size()) app.cfg.activeProfile = n;
   for (auto& pin : app.cfg.profile().pins) {
     icons().request(IconCache::keyFor(pin));
     for (auto& c : pin.children) icons().request(IconCache::keyFor(c));

@@ -276,6 +276,25 @@ void Config::chooseSkin(const std::string& id) {
   else p.skin = id.empty() ? std::string(kNoSkin) : id;
 }
 
+void Config::chooseLayout(LayoutType t) {
+  Profile& p = profile();
+  if (p.layout < 0) layout = t;
+  else p.layout = (int)t;
+}
+
+bool Config::anyLayout(LayoutType t) const {
+  if (profiles.empty()) return layout == t;
+  for (auto& p : profiles)
+    if (layoutFor(p) == t) return true;
+  return false;
+}
+
+bool Config::onlyLayout(LayoutType t) const {
+  for (auto& p : profiles)
+    if (layoutFor(p) != t) return false;
+  return layout == t || !profiles.empty();
+}
+
 int Config::wheelStep(int from, int dir) const {
   int n = (int)profiles.size();
   for (int k = 1; k < n; k++) {
@@ -406,6 +425,7 @@ Json Config::toJson() const {
     o.set("name", narrow(p.name));
     o.set("color", p.color.str());
     if (!p.skin.empty()) o.set("skin", p.skin);
+    if (p.layout >= 0 && p.layout < kLayoutCount) o.set("layout", layoutId((LayoutType)p.layout));
     if (p.locked) o.set("locked", true);
     Json a = Json::array();
     for (auto& pin : p.pins) a.push(pinToJson(pin));
@@ -519,6 +539,9 @@ void Config::fromJson(const Json& j) {
       readW(e, "name", pr.name);
       readC(e, "color", pr.color);
       pr.skin = e.str("skin").substr(0, 60);
+      std::string lay = e.str("layout");
+      for (int t = 0; t < kLayoutCount; t++)
+        if (lay == kLayout[t]) pr.layout = t;  // anything else: the main arrangement
       readB(e, "locked", pr.locked);
       if (auto a = e.find("pins"); a && a->isArr())
         for (auto& q : a->a)
@@ -563,6 +586,8 @@ void Config::sanitize() {
   sanitizeStyle(style);
   profile();  // guarantees at least one and a valid index
   if (!unlockedCount()) profiles[0].locked = false;
+  for (auto& p : profiles)
+    if (p.layout < -1 || p.layout >= kLayoutCount) p.layout = -1;
 }
 
 Config::Load Config::load(int tries) {
