@@ -1,0 +1,70 @@
+{
+  "format": 1,
+  "id": "western",
+  "name": "Wild West",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "about": "A revolver cylinder of blued steel; apps sit in brass cartridges, sheriff stars ride the outer ring",
+  "tags": ["western", "metal", "warm"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#232933", "accent": "#C8963E", "accent2": "#F0C878", "text": "#F4E6C6", "border": "#C8963E", "opacity": 0.98, "corner": 14, "font": "Rockwell", "open": "spin", "speed": 1.0, "hoverGrow": 3, "iconZoom": 1.12, "glow": 0, "tilt": 0.35, "pointer": false, "burst": false, "shadow": 0.5, "dim": 0.36},
+  "wheel": {"hub": 90, "thickness": 92, "gap": 5, "ringgap": 10, "rim": 32, "icon": 42, "crowd": 1.45, "area": 1.1, "hubkeep": 0.76},
+  "colors": {"text": "#F4E6C6", "sub": "#D2BC8E"},
+  "fonts": {"title": "Rockwell, Georgia"},
+  "images": {
+    "bullet": "bullet.png",
+    "cylinder": {"file": "cylinder.jpg", "mask": "cylinder-mask.png"},
+    "halo": {"file": "halo.jpg", "light": true},
+    "hub": {"file": "hub.jpg", "mask": "hub-mask.png"},
+    "puff": {"file": "puff.jpg", "light": true},
+    "rope": {"file": "rope.jpg", "mask": "rope-mask.png"},
+    "shell": "shell.png",
+    "slots": {"file": "slots.png", "cols": 2}
+  },
+  "back": [
+    {"shape": "circle", "x": 0.0, "y": 0.03, "size": 1.14, "fill": {"type": "radial", "stops": [[0, "black/65"], [0.86, "black/55"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "rope", "size": 1.09, "rotate": "(1-open)*40", "intro": {"time": 0.4, "ease": "out", "scale": 0.9}},
+    {"image": "cylinder", "size": 1.0, "rotate": "(1-open)*-300", "intro": {"time": 0.55, "ease": "out", "scale": 0.86}}
+  ],
+  "slot": {
+    "intro": {"time": 0.42, "ease": "back", "delay": 0.06, "scale": 0.3, "stagger": 0.02, "order": "both"},
+    "under": [
+      {"image": "halo", "size": 1.6, "opacity": "hot*0.7", "when": "hot>0.02", "scale": "(1.6*hot)/1.6"},
+      {"image": "slots", "size": "1.0*(1+0.05*hot-0.05*press)", "frame": "ring>0 ? 1 : 0", "rotate": "ring>0 ? 8*sin(time*2+seed*6)*hot : 0"}
+    ],
+    "icon": {"size": 0.62, "zoom": 1.16, "shadow": {"x": 1, "y": 2, "blur": 3, "color": "black/60"}},
+    "over": [
+      {"shape": "circle", "y": 0.92, "size": 0.15, "fill": "#C8963E", "when": "running", "opacity": "active ? 1 : 0.75", "glow": 4, "glowcolor": "#F0C878"},
+      {"shape": "circle", "y": 0.92, "size": 0.0825, "fill": "#F0C878", "when": "running", "opacity": "active ? 1 : 0.35+0.35*wave(time*0.5+seed)"},
+      {"shape": "circle", "x": 0.64, "y": -0.64, "size": 0.25, "fill": "#C8963E", "when": "numbers && number<10 && !kid"},
+      {"text": "{number}", "x": 0.64, "y": -0.65, "em": 0.3, "color": "#221A10", "font": "title", "weight": 700, "when": "numbers && number<10 && !kid"},
+      {"shape": "poly", "points": [[-0.12, -0.6980000000000001], [0, -0.8], [0.12, -0.6980000000000001]], "stroke": "#F4E6C6", "width": 2.2, "caps": true, "when": "group"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "over": [
+    {"image": "bullet", "size": [0.07, 0.168], "in": "hub", "angle": "sel", "radius": 1.1, "rotate": "sel", "opacity": "on"}
+  ],
+  "hub": [
+    {"image": "hub", "size": 1.0, "rotate": "(1-open)*120", "intro": {"time": 0.45, "ease": "back", "scale": 0.6}},
+    {"text": "{title}", "y": -0.05, "box": [1.26, 0.6], "px": 17, "color": "text", "font": "title", "weight": 700, "wrap": true, "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/70"}},
+    {"text": "{sub}", "y": 0.28, "box": [1.178, 0.2], "px": 11.5, "color": "sub", "font": "title", "weight": 700, "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/70"}},
+    {"text": "{hh}:{mm}", "y": -0.08, "box": [1.24, 0.55], "px": 31, "color": "text", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/70"}},
+    {"text": "{date}", "y": 0.21, "box": [1.178, 0.2], "px": 12, "color": "sub", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/70"}}
+  ],
+  "draw": {"clock": false, "shadow": false, "text": "text"},
+  "tabs": {"inset": 13, "text": "text", "fill": "#F4E6C6/14", "on": "#C8963E/85"},
+  "panel": {"fill": {"type": "linear", "stops": [[0, "#3A3026"], [1, "#221B14"]]}, "stroke": "#B8873A", "width": 3, "corner": 14, "text": "text"},
+  "tag": {"fill": {"type": "linear", "stops": [[0, "#3A3026"], [1, "#221B14"]]}, "stroke": "#B8873A", "width": 2, "corner": 13, "text": "text"},
+  "tile": {"fill": {"type": "linear", "stops": [[0, "#E9D3A8"], [1, "#CDAF78"]]}, "stroke": "#6E4A22", "width": 2.4, "corner": 12, "text": "#2A1E12"},
+  "onhover": [
+    {"color": "#D8C29A", "count": 5, "area": "slot", "life": [0.3, 0.7], "size": [1, 2.5], "speed": [20, 60], "outward": true, "dir": [-70, 70], "gravity": 80, "fadein": 0, "fadeout": 0.6}
+  ],
+  "onlaunch": [
+    {"image": "shell", "count": 3, "area": "slot", "life": [0.7, 1.1], "size": [6, 9], "speed": [160, 300], "outward": true, "dir": [-40, 40], "gravity": 900, "spin": [-720, 720], "fadein": 0, "fadeout": 0.3},
+    {"image": "puff", "count": 10, "area": "slot", "life": [0.6, 1.2], "size": [14, 26], "grow": 2.2, "speed": [20, 80], "outward": true, "dir": [-60, 60], "drag": 2, "opacity": 0.5, "fadein": 0.1, "fadeout": 0.6}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"}
+}

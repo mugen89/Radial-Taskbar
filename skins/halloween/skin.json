@@ -1,0 +1,67 @@
+{
+  "format": 1,
+  "id": "halloween",
+  "name": "Halloween",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "about": "A spider's web across the night, grinning jack-o'-lanterns, a full moon and bats",
+  "tags": ["halloween", "dark", "orange"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#140C18", "accent": "#FF8A1E", "accent2": "#FFD27A", "text": "#2A1A12", "border": "#FF8A1E", "opacity": 0.98, "corner": 14, "font": "Constantia", "open": "bloom", "speed": 1, "hoverGrow": 3, "iconZoom": 1.12, "glow": 0, "tilt": 0.35, "pointer": false, "burst": false, "shadow": 0.5, "dim": 0.6},
+  "wheel": {"hub": 90, "thickness": 92, "gap": 5, "ringgap": 10, "rim": 32, "icon": 42, "crowd": 1.45, "area": 1.1, "hubkeep": 0.76},
+  "colors": {"text": "#2A1A12", "sub": "#5A4030"},
+  "fonts": {"title": "Constantia, Georgia"},
+  "images": {
+    "bat": "bat.png",
+    "corn": "corn.png",
+    "flicker": {"file": "flicker.jpg", "light": true},
+    "halo": {"file": "halo.jpg", "light": true},
+    "lanterns": {"file": "lanterns.png", "cols": 4},
+    "moon": {"file": "moon.jpg", "mask": "moon-mask.png"},
+    "web": {"file": "web.jpg", "mask": "web-mask.png"}
+  },
+  "back": [
+    {"shape": "circle", "x": 0.0, "y": 0.03, "size": 1.08, "fill": {"type": "radial", "stops": [[0, "black/70"], [0.86, "black/60"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "web", "size": 1.0, "rotate": "(1-open)*-15", "intro": {"time": 0.45, "ease": "out", "scale": 0.9}}
+  ],
+  "slot": {
+    "intro": {"time": 0.42, "ease": "back", "delay": 0.06, "scale": 0.3, "stagger": 0.02, "order": "both"},
+    "under": [
+      {"image": "flicker", "size": 1.88, "opacity": "0.45+0.35*hot", "scale": "(1.7*(1+0.08*sin(time*13+seed*9)+0.05*sin(time*7)))/1.88"},
+      {"image": "lanterns", "size": "1.0*(1+0.05*hot-0.04*press)", "frame": "(i+ring)%4", "rotate": "6*sin(time*1.5+seed*6)"}
+    ],
+    "icon": {"size": 0.46, "zoom": 1.2, "shadow": {"x": 0, "y": 0, "blur": 5, "color": "#FFB030/70"}},
+    "over": [
+      {"shape": "circle", "y": 0.92, "size": 0.15, "fill": "#FF8A1E", "when": "running", "opacity": "active ? 1 : 0.75", "glow": 4, "glowcolor": "#FFD27A"},
+      {"shape": "circle", "y": 0.92, "size": 0.0825, "fill": "#FFD27A", "when": "running", "opacity": "active ? 1 : 0.35+0.35*wave(time*0.5+seed)"},
+      {"shape": "circle", "x": 0.64, "y": -0.64, "size": 0.25, "fill": "#FF8A1E", "when": "numbers && number<10 && !kid"},
+      {"text": "{number}", "x": 0.64, "y": -0.65, "em": 0.3, "color": "#140C18", "font": "title", "weight": 700, "when": "numbers && number<10 && !kid"},
+      {"shape": "poly", "points": [[-0.12, -0.6980000000000001], [0, -0.8], [0.12, -0.6980000000000001]], "stroke": "#2A1A12", "width": 2.2, "caps": true, "when": "group"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "over": [
+    {"image": "corn", "size": [0.07, 0.098], "in": "hub", "angle": "sel", "radius": 1.1, "rotate": "sel", "opacity": "on"}
+  ],
+  "hub": [
+    {"image": "halo", "size": 1.35, "opacity": "0.35"},
+    {"image": "moon", "size": 1.0, "intro": {"time": 0.45, "ease": "back", "scale": 0.6}},
+    {"text": "{title}", "y": -0.05, "box": [1.26, 0.6], "px": 17, "color": "text", "font": "title", "weight": 700, "wrap": true, "shadow": {"x": 0, "y": 0, "blur": 3, "color": "#F3E7C2"}},
+    {"text": "{sub}", "y": 0.28, "box": [1.178, 0.2], "px": 11.5, "color": "sub", "font": "title", "weight": 700, "shadow": {"x": 0, "y": 0, "blur": 3, "color": "#F3E7C2"}},
+    {"text": "{hh}:{mm}", "y": -0.08, "box": [1.24, 0.55], "px": 31, "color": "text", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 0, "blur": 3, "color": "#F3E7C2"}},
+    {"text": "{date}", "y": 0.21, "box": [1.178, 0.2], "px": 12, "color": "sub", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 0, "blur": 3, "color": "#F3E7C2"}}
+  ],
+  "draw": {"clock": false, "shadow": false, "text": "text"},
+  "tabs": {"inset": 13, "text": "#FFE7C2", "fill": "#FFFFFF/14", "on": "#FF8A1E/85"},
+  "panel": {"fill": {"type": "linear", "stops": [[0, "#2A1A30"], [1, "#140C18"]]}, "stroke": "#FF8A1E", "width": 3, "corner": 14, "text": "#FFE7C2"},
+  "tag": {"fill": {"type": "linear", "stops": [[0, "#2A1A30"], [1, "#140C18"]]}, "stroke": "#FF8A1E", "width": 2, "corner": 13, "text": "#FFE7C2"},
+  "tile": {"fill": {"type": "linear", "stops": [[0, "#3A2440"], [1, "#1E1228"]]}, "stroke": "#FF8A1E", "width": 2.4, "corner": 12, "text": "#FFE7C2"},
+  "onlaunch": [
+    {"image": "bat", "count": 7, "area": "slot", "life": [0.7, 1.2], "size": [14, 22], "speed": [120, 300], "outward": true, "dir": [-70, 70], "drag": 1.2, "sway": 30, "swayhz": 3, "fadein": 0, "fadeout": 0.4},
+    {"color": "#FF9A30", "count": 16, "area": "slot", "life": [0.4, 0.8], "size": [1.5, 3], "speed": [40, 160], "outward": true, "dir": [-90, 90], "gravity": -40, "fadein": 0, "fadeout": 0.6}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"},
+  "screen": {"effect": "bats", "color": "#120814", "color2": "#2A1230", "density": 1.4, "speed": 1.0, "size": 1.1}
+}

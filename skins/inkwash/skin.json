@@ -1,0 +1,63 @@
+{
+  "format": 1,
+  "id": "inkwash",
+  "name": "Ink Wash",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "about": "Brush strokes and bleeding ink on rice paper: misty mountains, a red seal, apps in brushed circles",
+  "tags": ["ink", "calm", "light"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#F2ECE0", "accent": "#141414", "accent2": "#C8303A", "text": "#141414", "border": "#141414", "opacity": 0.98, "corner": 14, "font": "Ink Free", "open": "fade", "speed": 0.8, "hoverGrow": 3, "iconZoom": 1.12, "glow": 0, "tilt": 0.2, "pointer": false, "burst": false, "shadow": 0.5, "dim": 0.2},
+  "wheel": {"hub": 90, "thickness": 92, "gap": 5, "ringgap": 10, "rim": 32, "icon": 42, "crowd": 1.45, "area": 1.1, "hubkeep": 0.76},
+  "colors": {"text": "#141414", "sub": "#4A4A4A"},
+  "fonts": {"title": "Ink Free, Segoe Print"},
+  "images": {
+    "blot": {"file": "blot.jpg", "light": true},
+    "circles": {"file": "circles.png", "cols": 4},
+    "halo": {"file": "halo.jpg", "light": true},
+    "middle": {"file": "middle.jpg", "mask": "middle-mask.png"},
+    "scroll": {"file": "scroll.jpg", "mask": "scroll-mask.png"},
+    "stroke": "stroke.png"
+  },
+  "back": [
+    {"shape": "circle", "x": 0.0, "y": 0.02, "size": 1.06, "fill": {"type": "radial", "stops": [[0, "black/40"], [0.86, "black/34"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "scroll", "size": 1.0, "intro": {"time": 0.6, "ease": "out", "scale": 0.96}}
+  ],
+  "slot": {
+    "intro": {"time": 0.42, "ease": "back", "delay": 0.06, "scale": 0.3, "stagger": 0.02, "order": "both"},
+    "under": [
+      {"image": "halo", "size": 1.5, "opacity": "hot*0.6", "when": "hot>0.02", "scale": "(1.5*hot)/1.5"},
+      {"image": "circles", "size": "1.04*(1+0.04*hot-0.03*press)", "frame": "(i+ring)%4", "rotate": "seed*360"}
+    ],
+    "icon": {"size": 0.56, "zoom": 1.14, "tone": "ink", "shadow": {"x": 0, "y": 1, "blur": 2, "color": "black/25"}},
+    "over": [
+      {"shape": "circle", "y": 0.92, "size": 0.15, "fill": "#141414", "when": "running", "opacity": "active ? 1 : 0.75", "glow": 4, "glowcolor": "#C8303A"},
+      {"shape": "circle", "y": 0.92, "size": 0.0825, "fill": "#C8303A", "when": "running", "opacity": "active ? 1 : 0.35+0.35*wave(time*0.5+seed)"},
+      {"shape": "circle", "x": 0.64, "y": -0.64, "size": 0.25, "fill": "#C8303A", "when": "numbers && number<10 && !kid"},
+      {"text": "{number}", "x": 0.64, "y": -0.65, "em": 0.3, "color": "#F6F2E8", "font": "title", "weight": 700, "when": "numbers && number<10 && !kid"},
+      {"shape": "poly", "points": [[-0.12, -0.6980000000000001], [0, -0.8], [0.12, -0.6980000000000001]], "stroke": "#141414", "width": 2.2, "caps": true, "when": "group"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "over": [
+    {"image": "stroke", "size": [0.05, 0.08], "in": "hub", "angle": "sel", "radius": 1.1, "rotate": "sel", "opacity": "on"}
+  ],
+  "hub": [
+    {"image": "middle", "size": 1.0, "intro": {"time": 0.5, "ease": "back", "scale": 0.7}},
+    {"text": "{title}", "y": -0.05, "box": [1.26, 0.6], "px": 19, "color": "text", "font": "title", "weight": 700, "wrap": true, "shadow": {"x": 0, "y": 0, "blur": 2, "color": "#F2ECE0"}},
+    {"text": "{sub}", "y": 0.28, "box": [1.1969999999999998, 0.2], "px": 11.5, "color": "sub", "font": "title", "weight": 700, "shadow": {"x": 0, "y": 0, "blur": 2, "color": "#F2ECE0"}},
+    {"text": "{hh}:{mm}", "y": -0.08, "box": [1.26, 0.55], "px": 34, "color": "text", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 0, "blur": 2, "color": "#F2ECE0"}},
+    {"text": "{date}", "y": 0.21, "box": [1.1969999999999998, 0.2], "px": 12, "color": "sub", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 0, "blur": 2, "color": "#F2ECE0"}}
+  ],
+  "draw": {"clock": false, "shadow": false, "text": "text"},
+  "tabs": {"inset": 13, "text": "#141414", "fill": "#00000010", "on": "#C8303A/80"},
+  "panel": {"fill": {"type": "linear", "stops": [[0, "#F6F2E8"], [1, "#E8E0D0"]]}, "stroke": "#141414", "width": 3, "corner": 14, "text": "#141414"},
+  "tag": {"fill": {"type": "linear", "stops": [[0, "#F6F2E8"], [1, "#E8E0D0"]]}, "stroke": "#141414", "width": 2, "corner": 13, "text": "#141414"},
+  "tile": {"fill": {"type": "linear", "stops": [[0, "#F6F2E8"], [1, "#E8E0D0"]]}, "stroke": "#141414", "width": 2.4, "corner": 12, "text": "#141414"},
+  "onlaunch": [
+    {"image": "blot", "count": 10, "area": "slot", "life": [0.6, 1.2], "size": [10, 24], "grow": 1.8, "speed": [20, 90], "outward": true, "dir": [-90, 90], "drag": 2, "opacity": 0.35, "fadein": 0, "fadeout": 0.6}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"}
+}

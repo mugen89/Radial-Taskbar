@@ -1,0 +1,63 @@
+{
+  "format": 1,
+  "id": "balloons",
+  "name": "Balloons",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "about": "Shiny foil balloons against a soft sky; they bob and tug at their strings, confetti on launch",
+  "tags": ["party", "playful", "bright"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#BFE2F6", "accent": "#FF5A8A", "accent2": "#FFD23A", "text": "#2A4A6A", "border": "#FF5A8A", "opacity": 0.98, "corner": 14, "font": "Segoe UI Black", "open": "bloom", "speed": 1.0, "hoverGrow": 3, "iconZoom": 1.12, "glow": 0, "tilt": 0.35, "pointer": false, "burst": false, "shadow": 0.5, "dim": 0.2},
+  "wheel": {"hub": 90, "thickness": 92, "gap": 5, "ringgap": 10, "rim": 32, "icon": 42, "crowd": 1.45, "area": 1.1, "hubkeep": 0.76},
+  "colors": {"text": "#2A4A6A", "sub": "#5A7A9A"},
+  "fonts": {"title": "Segoe UI Black, Segoe UI"},
+  "images": {
+    "confetti": {"file": "confetti.png", "cols": 6},
+    "foils": {"file": "foils.png", "cols": 6},
+    "halo": {"file": "halo.jpg", "light": true},
+    "puff": {"file": "puff.jpg", "mask": "puff-mask.png"},
+    "sky": {"file": "sky.jpg", "mask": "sky-mask.png"}
+  },
+  "back": [
+    {"shape": "circle", "x": 0.0, "y": 0.03, "size": 1.06, "fill": {"type": "radial", "stops": [[0, "black/40"], [0.86, "black/34"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "sky", "size": 1.0, "intro": {"time": 0.45, "ease": "out", "scale": 0.94}}
+  ],
+  "slot": {
+    "intro": {"time": 0.42, "ease": "back", "delay": 0.06, "scale": 0.3, "stagger": 0.02, "order": "both"},
+    "under": [
+      {"image": "halo", "size": 1.5, "opacity": "hot*0.5", "when": "hot>0.02", "scale": "(1.5*hot)/1.5"},
+      {"image": "foils", "size": "1.14*(1+0.05*hot-0.04*press)", "frame": "(i+ring)%6", "y": "0.12+0.04*sin(time*1.6+seed*6)", "rotate": "4*sin(time*1.3+seed*9)"}
+    ],
+    "icon": {"size": 0.52, "zoom": 1.18, "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/30"}},
+    "over": [
+      {"shape": "circle", "y": 0.92, "size": 0.15, "fill": "#FF5A8A", "when": "running", "opacity": "active ? 1 : 0.75", "glow": 4, "glowcolor": "#FFD23A"},
+      {"shape": "circle", "y": 0.92, "size": 0.0825, "fill": "#FFD23A", "when": "running", "opacity": "active ? 1 : 0.35+0.35*wave(time*0.5+seed)"},
+      {"shape": "circle", "x": 0.64, "y": -0.64, "size": 0.25, "fill": "#FF5A8A", "when": "numbers && number<10 && !kid"},
+      {"text": "{number}", "x": 0.64, "y": -0.65, "em": 0.3, "color": "#FFFFFF", "font": "title", "weight": 700, "when": "numbers && number<10 && !kid"},
+      {"shape": "poly", "points": [[-0.12, -0.6980000000000001], [0, -0.8], [0.12, -0.6980000000000001]], "stroke": "#2A4A6A", "width": 2.2, "caps": true, "when": "group"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "over": [
+    {"image": "confetti", "size": [0.04, 0.04], "in": "hub", "frame": "floor(time*3)%6", "angle": "sel", "radius": 1.1, "rotate": "time*120", "opacity": "on"}
+  ],
+  "hub": [
+    {"shape": "circle", "x": 0.0, "y": 0.06, "size": 1.0, "fill": {"type": "radial", "stops": [[0, "black/30"], [0.86, "black/25"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "puff", "size": 1.0, "scale": "1+0.02*sin(time*1.2)", "intro": {"time": 0.45, "ease": "back", "scale": 0.6}},
+    {"text": "{title}", "y": -0.05, "box": [1.26, 0.6], "px": 17, "color": "text", "font": "title", "weight": 700, "wrap": true, "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/70"}},
+    {"text": "{sub}", "y": 0.28, "box": [1.1969999999999998, 0.2], "px": 11.5, "color": "sub", "font": "title", "weight": 700, "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/70"}},
+    {"text": "{hh}:{mm}", "y": -0.08, "box": [1.26, 0.55], "px": 31, "color": "text", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/70"}},
+    {"text": "{date}", "y": 0.21, "box": [1.1969999999999998, 0.2], "px": 12, "color": "sub", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/70"}}
+  ],
+  "draw": {"clock": false, "shadow": false, "text": "text"},
+  "tabs": {"inset": 13, "text": "#2A4A6A", "fill": "#FFFFFF/55", "on": "#FF5A8A/85"},
+  "panel": {"fill": {"type": "linear", "stops": [[0, "#FFFFFF"], [1, "#E6F2FA"]]}, "stroke": "#5AB8FF", "width": 3, "corner": 14, "text": "#2A4A6A"},
+  "tag": {"fill": {"type": "linear", "stops": [[0, "#FFFFFF"], [1, "#E6F2FA"]]}, "stroke": "#5AB8FF", "width": 2, "corner": 13, "text": "#2A4A6A"},
+  "tile": {"fill": {"type": "linear", "stops": [[0, "#FFFFFF"], [1, "#E6F2FA"]]}, "stroke": "#5AB8FF", "width": 2.4, "corner": 12, "text": "#2A4A6A"},
+  "onlaunch": [
+    {"image": "confetti", "count": 40, "area": "slot", "life": [0.7, 1.3], "size": [4, 8], "speed": [150, 400], "outward": true, "dir": [-110, 110], "gravity": 500, "drag": 1.5, "spin": [-600, 600], "sway": 20, "swayhz": 3, "fadein": 0, "fadeout": 0.3}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"}
+}

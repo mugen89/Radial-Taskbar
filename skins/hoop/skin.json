@@ -1,0 +1,62 @@
+{
+  "format": 1,
+  "id": "hoop",
+  "name": "Embroidery Hoop",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "about": "Linen stretched in a wooden hoop; apps sit in cross-stitched rings while a threaded needle points",
+  "tags": ["craft", "light", "cosy"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#EDE4D0", "accent": "#C8303A", "accent2": "#2A5A8A", "text": "#3A2A1E", "border": "#C8303A", "opacity": 0.98, "corner": 14, "font": "Gabriola", "open": "unfold", "speed": 0.9, "hoverGrow": 3, "iconZoom": 1.12, "glow": 0, "tilt": 0.25, "pointer": false, "burst": false, "shadow": 0.5, "dim": 0.25},
+  "wheel": {"hub": 90, "thickness": 92, "gap": 5, "ringgap": 10, "rim": 32, "icon": 42, "crowd": 1.45, "area": 1.1, "hubkeep": 0.76},
+  "colors": {"text": "#3A2A1E", "sub": "#6A5A4A"},
+  "fonts": {"title": "Gabriola, Constantia"},
+  "images": {
+    "centre": {"file": "centre.jpg", "mask": "centre-mask.png"},
+    "cloth": {"file": "cloth.jpg", "mask": "cloth-mask.png"},
+    "halo": {"file": "halo.jpg", "light": true},
+    "needle": "needle.png",
+    "rings": {"file": "rings.png", "cols": 6, "rows": 4}
+  },
+  "back": [
+    {"shape": "circle", "x": 0.0, "y": 0.03, "size": 1.08, "fill": {"type": "radial", "stops": [[0, "black/50"], [0.86, "black/43"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "cloth", "size": 1.0, "intro": {"time": 0.45, "ease": "out", "scale": 0.94}}
+  ],
+  "slot": {
+    "intro": {"time": 0.42, "ease": "back", "delay": 0.06, "scale": 0.3, "stagger": 0.02, "order": "both"},
+    "under": [
+      {"image": "halo", "size": 1.5, "opacity": "hot*0.5", "when": "hot>0.02", "scale": "(1.5*hot)/1.5"},
+      {"image": "rings", "size": "1.0*(1+0.04*hot-0.03*press)", "frame": "((i+ring)%4)*6+min(5,floor(hot*6))", "rotate": "seed*360"}
+    ],
+    "icon": {"size": 0.6, "zoom": 1.14, "shadow": {"x": 0, "y": 1, "blur": 2, "color": "#3A2A1E/40"}},
+    "over": [
+      {"shape": "circle", "y": 0.92, "size": 0.15, "fill": "#C8303A", "when": "running", "opacity": "active ? 1 : 0.75", "glow": 4, "glowcolor": "#2A5A8A"},
+      {"shape": "circle", "y": 0.92, "size": 0.0825, "fill": "#2A5A8A", "when": "running", "opacity": "active ? 1 : 0.35+0.35*wave(time*0.5+seed)"},
+      {"shape": "circle", "x": 0.64, "y": -0.64, "size": 0.25, "fill": "#C8303A", "when": "numbers && number<10 && !kid"},
+      {"text": "{number}", "x": 0.64, "y": -0.65, "em": 0.3, "color": "#F4EEE0", "font": "title", "weight": 700, "when": "numbers && number<10 && !kid"},
+      {"shape": "poly", "points": [[-0.12, -0.6980000000000001], [0, -0.8], [0.12, -0.6980000000000001]], "stroke": "#3A2A1E", "width": 2.2, "caps": true, "when": "group"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "over": [
+    {"image": "needle", "size": [0.04, 0.08], "in": "hub", "angle": "sel", "radius": 1.12, "rotate": "sel+10*sin(time*2)", "opacity": "on"}
+  ],
+  "hub": [
+    {"image": "centre", "size": 1.0, "intro": {"time": 0.45, "ease": "back", "scale": 0.7}},
+    {"text": "{title}", "y": -0.05, "box": [1.26, 0.6], "px": 21, "color": "text", "font": "title", "weight": 700, "wrap": true, "shadow": {"x": 0, "y": 0, "blur": 2, "color": "#F4EEE0"}},
+    {"text": "{sub}", "y": 0.28, "box": [1.1969999999999998, 0.2], "px": 11.5, "color": "sub", "font": "title", "weight": 700, "shadow": {"x": 0, "y": 0, "blur": 2, "color": "#F4EEE0"}},
+    {"text": "{hh}:{mm}", "y": -0.08, "box": [1.26, 0.55], "px": 36, "color": "text", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 0, "blur": 2, "color": "#F4EEE0"}},
+    {"text": "{date}", "y": 0.21, "box": [1.1969999999999998, 0.2], "px": 15, "color": "sub", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 0, "blur": 2, "color": "#F4EEE0"}}
+  ],
+  "draw": {"clock": false, "shadow": false, "text": "text"},
+  "tabs": {"inset": 13, "text": "#3A2A1E", "fill": "#00000012", "on": "#C8303A/80"},
+  "panel": {"fill": {"type": "linear", "stops": [[0, "#F4EEE0"], [1, "#E4D8C0"]]}, "stroke": "#9A7044", "width": 3, "corner": 14, "text": "#3A2A1E"},
+  "tag": {"fill": {"type": "linear", "stops": [[0, "#F4EEE0"], [1, "#E4D8C0"]]}, "stroke": "#9A7044", "width": 2, "corner": 13, "text": "#3A2A1E"},
+  "tile": {"fill": {"type": "linear", "stops": [[0, "#F4EEE0"], [1, "#E4D8C0"]]}, "stroke": "#9A7044", "width": 2.4, "corner": 12, "text": "#3A2A1E"},
+  "onlaunch": [
+    {"color": "#C8303A", "count": 12, "area": "slot", "life": [0.4, 0.8], "size": [1.2, 2.4], "speed": [40, 160], "outward": true, "dir": [-90, 90], "drag": 2, "stretch": 3, "fadein": 0, "fadeout": 0.5}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"}
+}

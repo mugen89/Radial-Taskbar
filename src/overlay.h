@@ -3,6 +3,7 @@
 #include "common.h"
 #include "config.h"
 #include "gfx.h"
+#include "backfx.h"
 #include "scene.h"
 #include "shellutil.h"
 
@@ -86,7 +87,14 @@ class Overlay {
   Pick lastPick_;
 
   ComPtr<IDCompositionTarget> target_;
-  ComPtr<IDCompositionVisual> root_, dimVisual_, sceneVisual_;
+  ComPtr<IDCompositionVisual> root_, dimVisual_, sceneVisual_, fxVisual_;
+  // screensaver-like motion over the darkened desktop
+  ComPtr<IDXGISwapChain1> fxSwap_;
+  ComPtr<ID2D1Bitmap1> fxBack_;
+  BackFx fx_;
+  float fxRes_ = 1.f;
+  void startFx();
+  void stopFx();
   ComPtr<IDCompositionSurface> dimSurface_;
   ComPtr<IDCompositionEffectGroup> dimFx_, sceneFx_;
   ComPtr<IDCompositionMatrixTransform3D> tilt3d_;

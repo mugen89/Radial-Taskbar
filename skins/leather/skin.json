@@ -1,0 +1,63 @@
+{
+  "format": 1,
+  "id": "leather",
+  "name": "Leather Atelier",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "about": "Stitched saddle leather with brass rivets; apps sit on leather patches sewn with cream thread",
+  "tags": ["craft", "warm", "brown"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#3A2414", "accent": "#C8964A", "accent2": "#F2E2C0", "text": "#F6EAD0", "border": "#C8964A", "opacity": 0.98, "corner": 14, "font": "Constantia", "open": "bloom", "speed": 0.9, "hoverGrow": 3, "iconZoom": 1.12, "glow": 0, "tilt": 0.3, "pointer": false, "burst": false, "shadow": 0.5, "dim": 0.36},
+  "wheel": {"hub": 90, "thickness": 92, "gap": 5, "ringgap": 10, "rim": 32, "icon": 42, "crowd": 1.45, "area": 1.1, "hubkeep": 0.76},
+  "colors": {"text": "#F6EAD0", "sub": "#D8C09A"},
+  "fonts": {"title": "Constantia, Georgia"},
+  "images": {
+    "halo": {"file": "halo.jpg", "light": true},
+    "hide": {"file": "hide.jpg", "mask": "hide-mask.png"},
+    "medal": {"file": "medal.jpg", "mask": "medal-mask.png"},
+    "needle": "needle.png",
+    "patches": {"file": "patches.png", "cols": 4}
+  },
+  "back": [
+    {"shape": "circle", "x": 0.0, "y": 0.04, "size": 1.1, "fill": {"type": "radial", "stops": [[0, "black/60"], [0.86, "black/51"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "hide", "size": 1.0, "intro": {"time": 0.45, "ease": "out", "scale": 0.94}}
+  ],
+  "slot": {
+    "intro": {"time": 0.42, "ease": "back", "delay": 0.06, "scale": 0.3, "stagger": 0.02, "order": "both"},
+    "under": [
+      {"image": "halo", "size": 1.5, "opacity": "hot*0.5", "when": "hot>0.02", "scale": "(1.5*hot)/1.5"},
+      {"shape": "circle", "x": 0.0, "y": 0.06, "size": 0.96, "fill": {"type": "radial", "stops": [[0, "black/45"], [0.86, "black/38"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+      {"image": "patches", "size": "1.0*(1+0.04*hot-0.04*press)", "frame": "(i+ring)%4", "rotate": "seed*360"}
+    ],
+    "icon": {"size": 0.56, "zoom": 1.14, "tone": "engrave", "shadow": {"x": 0, "y": 1, "blur": 2, "color": "black/50"}},
+    "over": [
+      {"shape": "circle", "y": 0.92, "size": 0.15, "fill": "#C8964A", "when": "running", "opacity": "active ? 1 : 0.75", "glow": 4, "glowcolor": "#F2E2C0"},
+      {"shape": "circle", "y": 0.92, "size": 0.0825, "fill": "#F2E2C0", "when": "running", "opacity": "active ? 1 : 0.35+0.35*wave(time*0.5+seed)"},
+      {"shape": "circle", "x": 0.64, "y": -0.64, "size": 0.25, "fill": "#C8964A", "when": "numbers && number<10 && !kid"},
+      {"text": "{number}", "x": 0.64, "y": -0.65, "em": 0.3, "color": "#3A2414", "font": "title", "weight": 700, "when": "numbers && number<10 && !kid"},
+      {"shape": "poly", "points": [[-0.12, -0.6980000000000001], [0, -0.8], [0.12, -0.6980000000000001]], "stroke": "#F6EAD0", "width": 2.2, "caps": true, "when": "group"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "over": [
+    {"image": "needle", "size": [0.04, 0.064], "in": "hub", "angle": "sel", "radius": 1.1, "rotate": "sel", "opacity": "on"}
+  ],
+  "hub": [
+    {"image": "medal", "size": 1.0, "intro": {"time": 0.45, "ease": "back", "scale": 0.7}},
+    {"text": "{title}", "y": -0.05, "box": [1.26, 0.6], "px": 17, "color": "text", "font": "title", "weight": 700, "wrap": true, "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/80"}},
+    {"text": "{sub}", "y": 0.28, "box": [1.1969999999999998, 0.2], "px": 11.5, "color": "sub", "font": "title", "weight": 700, "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/80"}},
+    {"text": "{hh}:{mm}", "y": -0.08, "box": [1.26, 0.55], "px": 31, "color": "text", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/80"}},
+    {"text": "{date}", "y": 0.21, "box": [1.1969999999999998, 0.2], "px": 12, "color": "sub", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/80"}}
+  ],
+  "draw": {"clock": false, "shadow": false, "text": "text"},
+  "tabs": {"inset": 13, "text": "text", "fill": "#F6EAD0/14", "on": "#C8964A/85"},
+  "panel": {"fill": {"type": "linear", "stops": [[0, "#5A3A20"], [1, "#3A2414"]]}, "stroke": "#C8964A", "width": 3, "corner": 14, "text": "text"},
+  "tag": {"fill": {"type": "linear", "stops": [[0, "#5A3A20"], [1, "#3A2414"]]}, "stroke": "#C8964A", "width": 2, "corner": 13, "text": "text"},
+  "tile": {"fill": {"type": "linear", "stops": [[0, "#E8D2A8"], [1, "#C8A878"]]}, "stroke": "#8A5A28", "width": 2.4, "corner": 12, "text": "#3A2414"},
+  "onlaunch": [
+    {"color": "#F2E2C0", "count": 14, "area": "slot", "life": [0.4, 0.8], "size": [1.2, 2.4], "speed": [50, 180], "outward": true, "dir": [-90, 90], "drag": 2, "fadein": 0, "fadeout": 0.5}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"}
+}

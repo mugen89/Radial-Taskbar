@@ -1,0 +1,63 @@
+{
+  "format": 1,
+  "id": "console",
+  "name": "Pocket Console",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "about": "A grey handheld with a greenish dot screen in the middle and chunky coloured buttons round it",
+  "tags": ["retro", "game", "pixel"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#C8C4BC", "accent": "#C83A4A", "accent2": "#9CB83E", "text": "#1E2E12", "border": "#C83A4A", "opacity": 0.98, "corner": 14, "font": "VT323", "open": "zoom", "speed": 1.1, "hoverGrow": 3, "iconZoom": 1.12, "glow": 0, "tilt": 0.3, "pointer": false, "burst": false, "shadow": 0.5, "dim": 0.3},
+  "wheel": {"hub": 90, "thickness": 92, "gap": 5, "ringgap": 10, "rim": 32, "icon": 42, "crowd": 1.45, "area": 1.1, "hubkeep": 0.76},
+  "colors": {"text": "#1E2E12", "sub": "#3A5A22"},
+  "fonts": {"title": {"file": "VT323-Regular.ttf", "family": "VT323"}},
+  "images": {
+    "body": {"file": "body.jpg", "mask": "body-mask.png"},
+    "buttons": {"file": "buttons.png", "cols": 4},
+    "halo": {"file": "halo.jpg", "light": true},
+    "pad": "pad.png",
+    "pixel": "pixel.png",
+    "screen": {"file": "screen.jpg", "mask": "screen-mask.png"}
+  },
+  "back": [
+    {"shape": "circle", "x": 0.0, "y": 0.05, "size": 1.1, "fill": {"type": "radial", "stops": [[0, "black/60"], [0.86, "black/51"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "body", "size": 1.0, "intro": {"time": 0.35, "ease": "back", "scale": 0.9}}
+  ],
+  "slot": {
+    "intro": {"time": 0.42, "ease": "back", "delay": 0.06, "scale": 0.3, "stagger": 0.02, "order": "both"},
+    "under": [
+      {"image": "halo", "size": 1.5, "opacity": "hot*0.5", "when": "hot>0.02", "scale": "(1.5*hot)/1.5"},
+      {"image": "buttons", "size": "0.92*(1+0.04*hot-0.10*press)", "frame": "(i+ring)%4"}
+    ],
+    "icon": {"size": 0.58, "zoom": 1.16, "tone": "pixel", "shadow": {"x": 0, "y": 1, "blur": 2, "color": "black/40"}},
+    "over": [
+      {"shape": "circle", "y": 0.92, "size": 0.15, "fill": "#C83A4A", "when": "running", "opacity": "active ? 1 : 0.75", "glow": 4, "glowcolor": "#9CB83E"},
+      {"shape": "circle", "y": 0.92, "size": 0.0825, "fill": "#9CB83E", "when": "running", "opacity": "active ? 1 : 0.35+0.35*wave(time*0.5+seed)"},
+      {"shape": "circle", "x": 0.64, "y": -0.64, "size": 0.25, "fill": "#2A2A30", "when": "numbers && number<10 && !kid"},
+      {"text": "{number}", "x": 0.64, "y": -0.65, "em": 0.3, "color": "#E8E4DC", "font": "title", "weight": 700, "when": "numbers && number<10 && !kid"},
+      {"shape": "poly", "points": [[-0.12, -0.6980000000000001], [0, -0.8], [0.12, -0.6980000000000001]], "stroke": "#1E2E12", "width": 2.2, "caps": true, "when": "group"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "over": [
+    {"image": "pad", "size": [0.09, 0.09], "in": "hub", "angle": "sel", "radius": 1.12, "opacity": "on"}
+  ],
+  "hub": [
+    {"image": "screen", "size": 1.0, "intro": {"time": 0.35, "ease": "back", "scale": 0.6}},
+    {"text": "{title}", "y": -0.05, "box": [1.26, 0.6], "px": 24, "color": "text", "font": "title", "weight": 700, "wrap": true, "shadow": {"x": 1, "y": 1, "blur": 0, "color": "#6A8A2A"}},
+    {"text": "{sub}", "y": 0.28, "box": [1.1969999999999998, 0.2], "px": 16, "color": "sub", "font": "title", "weight": 700, "shadow": {"x": 1, "y": 1, "blur": 0, "color": "#6A8A2A"}},
+    {"text": "{hh}:{mm}", "y": -0.08, "box": [1.26, 0.55], "px": 44, "color": "text", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 1, "y": 1, "blur": 0, "color": "#6A8A2A"}},
+    {"text": "{date}", "y": 0.21, "box": [1.1969999999999998, 0.2], "px": 16, "color": "sub", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 1, "y": 1, "blur": 0, "color": "#6A8A2A"}}
+  ],
+  "draw": {"clock": false, "shadow": false, "text": "text"},
+  "tabs": {"inset": 13, "text": "#2A2A2A", "fill": "#000000/12", "on": "#C83A4A/85"},
+  "panel": {"fill": {"type": "linear", "stops": [[0, "#D8D4CC"], [1, "#B8B4AC"]]}, "stroke": "#7A766E", "width": 3, "corner": 14, "text": "#2A2A2A"},
+  "tag": {"fill": {"type": "linear", "stops": [[0, "#D8D4CC"], [1, "#B8B4AC"]]}, "stroke": "#7A766E", "width": 2, "corner": 13, "text": "#2A2A2A"},
+  "tile": {"fill": {"type": "linear", "stops": [[0, "#E8E4DC"], [1, "#C8C4BC"]]}, "stroke": "#7A766E", "width": 2.4, "corner": 12, "text": "#2A2A2A"},
+  "onlaunch": [
+    {"image": "pixel", "count": 30, "area": "slot", "life": [0.4, 0.8], "size": [3, 6], "speed": [100, 300], "outward": true, "dir": [-90, 90], "gravity": 600, "fadein": 0, "fadeout": 0.3}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"}
+}

@@ -1,0 +1,63 @@
+{
+  "format": 1,
+  "id": "dragon",
+  "name": "Dragon Scale",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "about": "Overlapping scales shimmer from green to bronze; a dragon eye watches from the middle while embers rise",
+  "tags": ["fantasy", "metal", "dark"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#0E1A14", "accent": "#C9A040", "accent2": "#5FD08A", "text": "#F2E6C4", "border": "#C9A040", "opacity": 0.98, "corner": 14, "font": "Cinzel Decorative", "open": "bloom", "speed": 1, "hoverGrow": 3, "iconZoom": 1.12, "glow": 0, "tilt": 0.4, "pointer": false, "burst": false, "shadow": 0.5, "dim": 0.5},
+  "wheel": {"hub": 90, "thickness": 92, "gap": 5, "ringgap": 10, "rim": 32, "icon": 42, "crowd": 1.45, "area": 1.1, "hubkeep": 0.76},
+  "colors": {"text": "#F2E6C4", "sub": "#C9B88A"},
+  "fonts": {"title": {"file": "CinzelDecorative-Bold.ttf", "family": "Cinzel Decorative"}},
+  "images": {
+    "claw": "claw.png",
+    "eye": {"file": "eye.jpg", "mask": "eye-mask.png"},
+    "halo": {"file": "halo.jpg", "light": true},
+    "hide": {"file": "hide.jpg", "mask": "hide-mask.png"},
+    "scales": {"file": "scales.png", "cols": 4}
+  },
+  "back": [
+    {"shape": "circle", "x": 0.0, "y": 0.03, "size": 1.1, "fill": {"type": "radial", "stops": [[0, "black/70"], [0.86, "black/60"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "hide", "size": 1.0, "rotate": "(1-open)*-30", "intro": {"time": 0.45, "ease": "out", "scale": 0.9}}
+  ],
+  "slot": {
+    "intro": {"time": 0.42, "ease": "back", "delay": 0.06, "scale": 0.3, "stagger": 0.02, "order": "both"},
+    "under": [
+      {"image": "halo", "size": 1.6, "opacity": "hot*0.6", "when": "hot>0.02", "scale": "(1.6*hot)/1.6"},
+      {"image": "scales", "size": "1.02*(1+0.06*hot-0.04*press)", "frame": "(i+ring)%4", "rotate": "a"}
+    ],
+    "icon": {"size": 0.6, "zoom": 1.18, "shadow": {"x": 0, "y": 2, "blur": 3, "color": "black/65"}},
+    "over": [
+      {"shape": "circle", "y": 0.92, "size": 0.15, "fill": "#C9A040", "when": "running", "opacity": "active ? 1 : 0.75", "glow": 4, "glowcolor": "#5FD08A"},
+      {"shape": "circle", "y": 0.92, "size": 0.0825, "fill": "#5FD08A", "when": "running", "opacity": "active ? 1 : 0.35+0.35*wave(time*0.5+seed)"},
+      {"shape": "circle", "x": 0.64, "y": -0.64, "size": 0.25, "fill": "#C9A040", "when": "numbers && number<10 && !kid"},
+      {"text": "{number}", "x": 0.64, "y": -0.65, "em": 0.3, "color": "#0E1A14", "font": "title", "weight": 700, "when": "numbers && number<10 && !kid"},
+      {"shape": "poly", "points": [[-0.12, -0.6980000000000001], [0, -0.8], [0.12, -0.6980000000000001]], "stroke": "#F2E6C4", "width": 2.2, "caps": true, "when": "group"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "over": [
+    {"image": "claw", "size": [0.07, 0.112], "in": "hub", "angle": "sel", "radius": 1.1, "rotate": "sel", "opacity": "on"}
+  ],
+  "hub": [
+    {"image": "eye", "size": 1.0, "intro": {"time": 0.5, "ease": "back", "scale": 0.6}},
+    {"text": "{title}", "y": -0.05, "box": [1.26, 0.6], "px": 15, "color": "text", "font": "title", "weight": 700, "wrap": true, "shadow": {"x": 0, "y": 1, "blur": 4, "color": "black/90"}},
+    {"text": "{sub}", "y": 0.28, "box": [1.178, 0.2], "px": 11.5, "color": "sub", "font": "title", "weight": 700, "shadow": {"x": 0, "y": 1, "blur": 4, "color": "black/90"}},
+    {"text": "{hh}:{mm}", "y": -0.08, "box": [1.24, 0.55], "px": 28, "color": "text", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 1, "blur": 4, "color": "black/90"}},
+    {"text": "{date}", "y": 0.21, "box": [1.178, 0.2], "px": 12, "color": "sub", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 1, "blur": 4, "color": "black/90"}}
+  ],
+  "draw": {"clock": false, "shadow": false, "text": "text"},
+  "tabs": {"inset": 13, "text": "text", "fill": "#F2E6C4/14", "on": "#C9A040/85"},
+  "panel": {"fill": {"type": "linear", "stops": [[0, "#1E2A22"], [1, "#0E1A14"]]}, "stroke": "#C9A040", "width": 3, "corner": 14, "text": "text"},
+  "tag": {"fill": {"type": "linear", "stops": [[0, "#1E2A22"], [1, "#0E1A14"]]}, "stroke": "#C9A040", "width": 2, "corner": 13, "text": "text"},
+  "tile": {"fill": {"type": "linear", "stops": [[0, "#E8DCC0"], [1, "#C9B88A"]]}, "stroke": "#8A6A2A", "width": 2.4, "corner": 12, "text": "#0E1A14"},
+  "onlaunch": [
+    {"color": "#FF9A3A", "count": 30, "area": "slot", "life": [0.5, 1.0], "size": [1.5, 3.5], "speed": [80, 300], "outward": true, "dir": [-80, 80], "gravity": -120, "drag": 1.5, "fadein": 0, "fadeout": 0.5}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"},
+  "screen": {"effect": "embers", "color": "#FF6A1A", "color2": "#FFC24A", "density": 0.9, "speed": 0.9, "size": 1.0}
+}

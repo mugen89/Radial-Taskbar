@@ -1,4 +1,5 @@
 #include "settings.h"
+#include "backfx.h"
 
 #include <commdlg.h>
 
@@ -254,7 +255,9 @@ void SettingsWindow::paint() {
       L"How to use " RT_NAME L", from the first press to your own skins.",
       L"Who makes it, and how to reach us.",
       L"A skin for every profile, and how you move between them."};
-  header(RectF(body.l + 28, body.t + 18, body.r - 28, body.t + 82), titles[page_], subs[page_]);
+  bool bg = page_ == kHelp && app_.cfg.helpLang == "bg";
+  header(RectF(body.l + 28, body.t + 18, body.r - 28, body.t + 82), bg ? L"\x041F\x043E\x043C\x043E\x0449" : titles[page_],
+         bg ? L"\x041A\x0430\x043A \x0441\x0435 \x0438\x0437\x043F\x043E\x043B\x0437\x0432\x0430 " RT_NAME L": \x043E\x0442 \x043F\x044A\x0440\x0432\x043E\x0442\x043E \x043D\x0430\x0442\x0438\x0441\x043A\x0430\x043D\x0435 \x0434\x043E \x0441\x043E\x0431\x0441\x0442\x0432\x0435\x043D\x0438\x0442\x0435 \x0432\x0438 \x0441\x043A\x0438\x043D\x043E\x0432\x0435." : subs[page_]);
   RectF area(body.l + 28, body.t + 92, body.r - 20, body.b - 16);
   bool withPreview = page_ == kLayout || page_ == kSkins || page_ == kLook || page_ == kEffects;
   if (withPreview) {
@@ -1427,6 +1430,22 @@ void SettingsWindow::pageEffects(RectF) {
     toggleRow("pulse", L"Radar pulse", nullptr, s.pulse);
   }
   toggleRow("burst", L"Spark burst on launch", nullptr, s.burst);
+  section(L"Background", L"Screensaver-like motion over the darkened desktop while the wheel is open.");
+  toggleRow("bfx", L"Animate the background", nullptr, k.backFx);
+  if (k.backFx) {
+    auto& kinds = backFxKinds();
+    std::vector<std::wstring> opts{L"The skin's own"};
+    int idx = 0;
+    for (size_t i = 0; i < kinds.size(); i++) {
+      opts.push_back(kinds[i].second);
+      if (kinds[i].first == k.backFxKind) idx = (int)i + 1;
+    }
+    RectF r = row(L"Effect", idx == 0 ? L"Shown with skins that have one" : L"With every skin, and without one", 220);
+    if (ui.combo(ui.id("bfxkind"), r, idx, opts) && idx >= 0) {
+      k.backFxKind = idx == 0 ? std::string("skin") : kinds[(size_t)idx - 1].first;
+      changed();
+    }
+  }
   section(L"Sound");
   toggleRow("snd", L"Interface sounds", L"Short ticks while you move and a chime on launch", k.sounds);
   if (k.sounds) sliderRow("vol", L"Volume", k.volume, 0.05f, 1, 0.05f, L"%.0f%%", 100.f);

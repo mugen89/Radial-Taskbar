@@ -392,6 +392,10 @@ Json Config::toJson() const {
   b.set("siteLogos", siteLogos);
   b.set("skinCursor", skinCursor);
   b.set("reverseScroll", reverseScroll);
+  if (!startProfile.empty()) b.set("startProfile", startProfile);
+  b.set("backFx", backFx);
+  b.set("backFxKind", backFxKind);
+  if (!helpLang.empty()) b.set("helpLang", helpLang);
   j.set("behavior", std::move(b));
 
   j.set("activeProfile", activeProfile);
@@ -499,6 +503,10 @@ void Config::fromJson(const Json& j) {
     readB(*b, "siteLogos", siteLogos);
     readB(*b, "skinCursor", skinCursor);
     readB(*b, "reverseScroll", reverseScroll);
+    startProfile = b->str("startProfile").substr(0, 40);
+    readB(*b, "backFx", backFx);
+    backFxKind = b->str("backFxKind", backFxKind).substr(0, 20);
+    helpLang = b->str("helpLang").substr(0, 4);
   }
   activeProfile = (int)j.num("activeProfile", 0);
   profiles.clear();

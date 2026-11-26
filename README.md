@@ -2,7 +2,7 @@
 
 A light, native launcher for people who pin too many things. Press the shortcut and your pins appear as a weapon-wheel
 style radial menu, or in one of eleven other arrangements. **Skins** replace the whole look, artwork, motion, lettering and
-sounds included, and can be made, shared and imported. 30 come with it. [SKINS.md](SKINS.md) is all about them.
+sounds included, and can be made, shared and imported. 76 come with it. [SKINS.md](SKINS.md) is all about them.
 
 - One 2.5 MB program plus one file per skin. No runtime to install, no administrator rights.
 - Measured: 5 to 10 MB of memory when idle, 30 to 60 MB while it is on screen, 0% CPU while idle. The first frame is on screen
@@ -55,6 +55,7 @@ extends outward so you can choose one. Groups extend the same way.
 Every profile is a wheel of its own: work, games, a project. Switch with the mouse wheel, Q and E, or the arcs round the
 centre.
 
+- **Start on** one profile every time, or on the one you used last (Settings > Profiles).
 - **Lock** a profile you only need now and then: the wheel and scrolling skip it until you unlock it. One always stays unlocked.
 - **Skins per profile**: each one uses the main skin, no skin, or one of its own (Settings > Profiles). Layout, sizes and
   effects stay the same, and the centre keeps its size from one profile to the next.
@@ -106,17 +107,18 @@ the same everywhere.
 ## Settings
 
 - **Pins**: profiles, drag to reorder, groups, websites, pictures, arguments, run as administrator, moving and copying between profiles, locks
-- **Profiles**: the main skin, a skin for every profile, locks, scrolling direction
+- **Profiles**: the main skin, a skin for every profile, the profile the wheel opens on, locks, scrolling direction
 - **Layout**: twelve arrangements, centre of the screen or at the mouse pointer, item
   limit per ring and what happens past it (outer ring, unfold on reach, pages), sizes, profiles around the centre
 - **Skins**: the gallery, importing, sharing and removing skins, hue / saturation / brightness, sounds
 - **Look**: 12 styles (stylized, gamey, minimal) plus your own; slot shape, material, colours,
   opacity, blur, refraction, corners, borders, shadow, icon colour, font
 - **Effects**: opening animation, speed, extension on focus, glow, 3D tilt, rim light, particles,
-  HUD ticks, scan lines, radar pulse, launch burst, sounds, reduced motion
+  HUD ticks, scan lines, radar pulse, launch burst, sounds, reduced motion; **background motion** over the darkened
+  desktop (digital rain, stars, snow, fireflies, embers, bubbles, petals, bats; the skin's own or one for all)
 - **Shortcut**: record any combination; free one-handed combinations are checked live on the PC
 - **General**: startup, right-click entries, website logos, switching to open windows, pointer behaviour, backup
-- **News**: updates and what changed. **Help**: how everything works. **About**: version and how to reach the author
+- **News**: updates and what changed. **Help**: how everything works, in English or Bulgarian. **About**: version and how to reach the author
 
 Everything is stored in `%APPDATA%\RadialTaskbar\config.json`, with the previous version kept beside it as
 `config.json.bak`. Export includes the shortcuts and pictures your pins use, so a backup survives a reinstall.

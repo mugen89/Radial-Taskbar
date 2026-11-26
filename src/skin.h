@@ -172,6 +172,14 @@ struct SkinCursor {
   V2 hot;
 };
 
+// Motion over the darkened desktop while the wheel is open (backfx.h): which kind, its colours, how much of it.
+struct BackFxSpec {
+  std::string kind;  // empty: none
+  Color color = Color(1, 1, 1), color2 = Color(1, 1, 1);
+  float density = 1, speed = 1, size = 1;
+  bool on() const { return !kind.empty(); }
+};
+
 struct Skin {
   std::string id;
   std::wstring name, author, version, about, license;
@@ -192,6 +200,7 @@ struct Skin {
   std::vector<SkinParticles> burstLaunch, burstHover, burstOpen;
   std::map<std::string, std::string> sounds;   // open, move, launch, close, profile
   SkinCursor cursor;
+  BackFxSpec screen;              // its own motion over the darkened desktop
   // what the program still draws by itself
   bool ownTitle = true, ownClock = true, ownButtons = true, ownTabs = true, ownShadow = true, ownFan = true;
   float tabInset = 0;              // moves the ring of profiles inward, past an ornate hub rim

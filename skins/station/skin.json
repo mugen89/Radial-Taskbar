@@ -1,0 +1,65 @@
+{
+  "format": 1,
+  "id": "station",
+  "name": "Space Station",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "about": "A hatch with a wide window: a planet turns slowly behind the apps while stars rush past",
+  "tags": ["space", "cool", "clean"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#0A1020", "accent": "#5FB8FF", "accent2": "#FFFFFF", "text": "#EAF4FF", "border": "#5FB8FF", "opacity": 0.98, "corner": 14, "font": "Bahnschrift", "open": "zoom", "speed": 1, "hoverGrow": 3, "iconZoom": 1.12, "glow": 0, "tilt": 0.35, "pointer": false, "burst": false, "shadow": 0.5, "dim": 0.62},
+  "wheel": {"hub": 90, "thickness": 92, "gap": 5, "ringgap": 10, "rim": 32, "icon": 42, "crowd": 1.45, "area": 1.1, "hubkeep": 0.76},
+  "colors": {"text": "#EAF4FF", "sub": "#A8C4E0"},
+  "fonts": {"title": "Bahnschrift, Segoe UI"},
+  "images": {
+    "frame": "frame.png",
+    "halo": {"file": "halo.jpg", "light": true},
+    "hub": {"file": "hub.jpg", "mask": "hub-mask.png"},
+    "marker": "marker.png",
+    "modules": {"file": "modules.png", "cols": 2},
+    "space": {"file": "space.jpg", "mask": "space-mask.png"}
+  },
+  "back": [
+    {"shape": "circle", "x": 0.0, "y": 0.03, "size": 1.08, "fill": {"type": "radial", "stops": [[0, "black/70"], [0.86, "black/60"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "space", "size": 1.0, "rotate": "time*1.5"},
+    {"image": "frame", "size": 1.0, "intro": {"time": 0.4, "ease": "out", "scale": 0.92}}
+  ],
+  "slot": {
+    "intro": {"time": 0.42, "ease": "back", "delay": 0.06, "scale": 0.3, "stagger": 0.02, "order": "both"},
+    "under": [
+      {"image": "halo", "size": 1.6, "opacity": "hot*0.6", "when": "hot>0.02", "scale": "(1.6*hot)/1.6"},
+      {"image": "modules", "size": "0.98*(1+0.05*hot-0.04*press)", "frame": "hot>0.5 ? 1 : 0"}
+    ],
+    "icon": {"size": 0.66, "zoom": 1.16, "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/50"}},
+    "over": [
+      {"shape": "circle", "y": 0.92, "size": 0.15, "fill": "#5FB8FF", "when": "running", "opacity": "active ? 1 : 0.75", "glow": 4, "glowcolor": "#FFFFFF"},
+      {"shape": "circle", "y": 0.92, "size": 0.0825, "fill": "#FFFFFF", "when": "running", "opacity": "active ? 1 : 0.35+0.35*wave(time*0.5+seed)"},
+      {"shape": "circle", "x": 0.64, "y": -0.64, "size": 0.25, "fill": "#5FB8FF", "when": "numbers && number<10 && !kid"},
+      {"text": "{number}", "x": 0.64, "y": -0.65, "em": 0.3, "color": "#0A1020", "font": "title", "weight": 700, "when": "numbers && number<10 && !kid"},
+      {"shape": "poly", "points": [[-0.12, -0.6980000000000001], [0, -0.8], [0.12, -0.6980000000000001]], "stroke": "#EAF4FF", "width": 2.2, "caps": true, "when": "group"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "over": [
+    {"image": "marker", "size": [0.07, 0.084], "in": "hub", "angle": "sel", "radius": 1.1, "rotate": "sel", "opacity": "on"}
+  ],
+  "hub": [
+    {"image": "hub", "size": 1.0, "intro": {"time": 0.4, "ease": "back", "scale": 0.6}},
+    {"text": "{title}", "y": -0.05, "box": [1.26, 0.6], "px": 17, "color": "text", "font": "title", "weight": 700, "wrap": true, "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/70"}},
+    {"text": "{sub}", "y": 0.28, "box": [1.1969999999999998, 0.2], "px": 11.5, "color": "sub", "font": "title", "weight": 700, "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/70"}},
+    {"text": "{hh}:{mm}", "y": -0.08, "box": [1.26, 0.55], "px": 31, "color": "text", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/70"}},
+    {"text": "{date}", "y": 0.21, "box": [1.1969999999999998, 0.2], "px": 12, "color": "sub", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/70"}}
+  ],
+  "draw": {"clock": false, "shadow": false, "text": "text"},
+  "tabs": {"inset": 13, "text": "text", "fill": "#EAF4FF/14", "on": "#5FB8FF/85"},
+  "panel": {"fill": {"type": "linear", "stops": [[0, "#1A2438"], [1, "#0A1020"]]}, "stroke": "#5FB8FF", "width": 3, "corner": 14, "text": "text"},
+  "tag": {"fill": {"type": "linear", "stops": [[0, "#1A2438"], [1, "#0A1020"]]}, "stroke": "#5FB8FF", "width": 2, "corner": 13, "text": "text"},
+  "tile": {"fill": {"type": "linear", "stops": [[0, "#EEF2F6"], [1, "#D0D8E0"]]}, "stroke": "#8A96A4", "width": 2.4, "corner": 12, "text": "#0A1020"},
+  "onlaunch": [
+    {"color": "#9FD4FF", "count": 28, "area": "slot", "life": [0.4, 0.9], "size": [1.5, 3], "speed": [100, 360], "outward": true, "dir": [-90, 90], "drag": 2, "fadein": 0, "fadeout": 0.5}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"},
+  "screen": {"effect": "stars", "color": "#9FC8FF", "color2": "#FFFFFF", "density": 1.0, "speed": 1.0, "size": 1.0}
+}

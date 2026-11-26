@@ -1,0 +1,66 @@
+{
+  "format": 1,
+  "id": "cell",
+  "name": "Living Cell",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "about": "A view down a microscope: breathing vesicles carry the apps, a nucleus in the middle sends pulses outward",
+  "tags": ["science", "organic", "calm"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#0E2A2A", "accent": "#5FD0B0", "accent2": "#E07FB8", "text": "#FFFFFF", "border": "#5FD0B0", "opacity": 0.98, "corner": 14, "font": "Segoe UI", "open": "bloom", "speed": 0.9, "hoverGrow": 3, "iconZoom": 1.12, "glow": 0, "tilt": 0.25, "pointer": false, "burst": false, "shadow": 0.5, "dim": 0.4},
+  "wheel": {"hub": 90, "thickness": 92, "gap": 5, "ringgap": 10, "rim": 32, "icon": 42, "crowd": 1.45, "area": 1.1, "hubkeep": 0.76},
+  "colors": {"text": "#FFFFFF", "sub": "#E8F4F0"},
+  "fonts": {"title": "Segoe UI"},
+  "images": {
+    "dot": "dot.png",
+    "field": {"file": "field.jpg", "mask": "field-mask.png"},
+    "halo": {"file": "halo.jpg", "light": true},
+    "nucleus": {"file": "nucleus.jpg", "mask": "nucleus-mask.png"},
+    "pulse": {"file": "pulse.jpg", "light": true},
+    "vesicles": {"file": "vesicles.png", "cols": 4}
+  },
+  "back": [
+    {"shape": "circle", "x": 0.0, "y": 0.02, "size": 1.06, "fill": {"type": "radial", "stops": [[0, "black/55"], [0.86, "black/47"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "field", "size": 1.0, "intro": {"time": 0.5, "ease": "out", "scale": 0.9}},
+    {"image": "pulse", "size": 1.09, "opacity": "0.7*(1-fract(time*0.35))", "scale": "(0.5+0.6*fract(time*0.35))/1.09"},
+    {"image": "pulse", "size": 1.1, "opacity": "0.7*(1-fract(time*0.35+0.5))", "scale": "(0.5+0.6*fract(time*0.35+0.5))/1.1"}
+  ],
+  "slot": {
+    "intro": {"time": 0.42, "ease": "back", "delay": 0.06, "scale": 0.3, "stagger": 0.02, "order": "both"},
+    "under": [
+      {"image": "halo", "size": 1.6, "opacity": "hot*0.5", "when": "hot>0.02", "scale": "(1.6*hot)/1.6"},
+      {"image": "vesicles", "size": "1.02*(1+0.035*sin(time*2+seed*6))*(1+0.05*hot-0.04*press)", "frame": "(i+ring)%4", "rotate": "time*6+seed*90"}
+    ],
+    "icon": {"size": 0.62, "zoom": 1.16, "shadow": {"x": 0, "y": 1, "blur": 3, "color": "#0E2A2A/40"}},
+    "over": [
+      {"shape": "circle", "y": 0.92, "size": 0.15, "fill": "#5FD0B0", "when": "running", "opacity": "active ? 1 : 0.75", "glow": 4, "glowcolor": "#E07FB8"},
+      {"shape": "circle", "y": 0.92, "size": 0.0825, "fill": "#E07FB8", "when": "running", "opacity": "active ? 1 : 0.35+0.35*wave(time*0.5+seed)"},
+      {"shape": "circle", "x": 0.64, "y": -0.64, "size": 0.25, "fill": "#E07FB8", "when": "numbers && number<10 && !kid"},
+      {"text": "{number}", "x": 0.64, "y": -0.65, "em": 0.3, "color": "#FFFFFF", "font": "title", "weight": 700, "when": "numbers && number<10 && !kid"},
+      {"shape": "poly", "points": [[-0.12, -0.6980000000000001], [0, -0.8], [0.12, -0.6980000000000001]], "stroke": "#FFFFFF", "width": 2.2, "caps": true, "when": "group"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "over": [
+    {"image": "dot", "size": 0.0832, "in": "hub", "angle": "sel", "radius": 1.1, "opacity": "on", "scale": "(0.07*(1+0.2*sin(time*4)))/0.0832"}
+  ],
+  "hub": [
+    {"image": "nucleus", "size": "1.0*(1+0.02*sin(time*1.6))", "intro": {"time": 0.5, "ease": "back", "scale": 0.6}},
+    {"text": "{title}", "y": -0.05, "box": [1.26, 0.6], "px": 17, "color": "text", "font": "title", "weight": 700, "wrap": true, "shadow": {"x": 0, "y": 1, "blur": 4, "color": "#2A0A30"}},
+    {"text": "{sub}", "y": 0.28, "box": [1.1969999999999998, 0.2], "px": 11.5, "color": "sub", "font": "title", "weight": 700, "shadow": {"x": 0, "y": 1, "blur": 4, "color": "#2A0A30"}},
+    {"text": "{hh}:{mm}", "y": -0.08, "box": [1.26, 0.55], "px": 31, "color": "text", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 1, "blur": 4, "color": "#2A0A30"}},
+    {"text": "{date}", "y": 0.21, "box": [1.1969999999999998, 0.2], "px": 12, "color": "sub", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 1, "blur": 4, "color": "#2A0A30"}}
+  ],
+  "draw": {"clock": false, "shadow": false, "text": "text"},
+  "tabs": {"inset": 13, "text": "#0E2A2A", "fill": "#FFFFFF/40", "on": "#5FD0B0/85"},
+  "panel": {"fill": {"type": "linear", "stops": [[0, "#E8F6F2"], [1, "#C8E6DE"]]}, "stroke": "#5FA090", "width": 3, "corner": 14, "text": "#0E2A2A"},
+  "tag": {"fill": {"type": "linear", "stops": [[0, "#E8F6F2"], [1, "#C8E6DE"]]}, "stroke": "#5FA090", "width": 2, "corner": 13, "text": "#0E2A2A"},
+  "tile": {"fill": {"type": "linear", "stops": [[0, "#F4FBF8"], [1, "#D8EEE8"]]}, "stroke": "#5FA090", "width": 2.4, "corner": 12, "text": "#0E2A2A"},
+  "onlaunch": [
+    {"image": "dot", "count": 20, "area": "slot", "life": [0.6, 1.2], "size": [3, 6], "speed": [40, 180], "outward": true, "dir": [-100, 100], "drag": 1.6, "swirl": 60, "fadein": 0, "fadeout": 0.5}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"},
+  "screen": {"effect": "bubbles", "color": "#BFF0E4", "color2": "#FFFFFF", "density": 0.7, "speed": 0.6, "size": 1.0}
+}

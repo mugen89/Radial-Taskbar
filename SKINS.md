@@ -235,6 +235,12 @@ or drawn: `fill`, `stroke`, `width`, `corner`, `cutcorner`. `text` is the colour
 `life`, `size`, `speed`, `dir` (degrees, 0 is up), `spin`: `[least, most]` · `outward` (dir counts from the direction away from the centre) · `gravity`, `drag`, `sway`, `swayhz`, `swirl`,
 `fadein`, `fadeout` (parts of the life), `grow` (size at the end), `stretch`, `opacity`, `when`
 
+### Background motion
+
+`screen`: motion over the darkened desktop while the wheel is open, behind everything else. `effect` is one of `rain`, `stars`, `snow`,
+`fireflies`, `embers`, `bubbles`, `petals`, `bats`; `color` and `color2` colour it, `density`, `speed` and `size` (1 is normal) shape it.
+People can turn it off, or choose another one for every skin, under Settings > Effects.
+
 ### Buttons
 
 `pinbutton` and `settingsbutton`: `in`, `x`, `y`, `size` (radius in pixels), `layers` (with `hot` while the pointer is on it), `hidden`.
@@ -342,34 +348,80 @@ Limits, so that a broken or hostile file cannot do harm: 48 MB per file, 96 MB u
 | Skin | id | What it is |
 |---|---|---|
 | **Alchemist** | `alchemist` | A bench of bubbling flasks that fill up with the colour of what you point at |
+| **Aperture** | `aperture` | The front of a camera lens: coated glass for every app, numbers on the barrel, an iris that opens around the name |
 | **Arcade** | `arcade` | Lit buttons, running bulbs and a joystick that leans toward the pointer |
+| **Art Deco** | `deco` | Black lacquer with brass sunbursts and stepped arcs; apps sit in brass octagons |
+| **Balloons** | `balloons` | Shiny foil balloons against a soft sky; they bob and tug at their strings, confetti on launch |
+| **Beehive** | `beehive` | Wax comb full of honey: apps sit in honey-filled cells and a bee walks to your choice |
+| **Billiards** | `billiards` | Blue cloth in a cherry-wood rail with pockets; polished balls carry the apps, the cue ball sits in the middle |
 | **Blueprint** | `blueprint` | White lines on blue paper; circles and dimensions draw themselves |
+| **Chalkboard** | `chalk` | A slate board in a wooden frame; apps sit in hand-drawn chalk circles |
+| **Cherry Blossom** | `sakura` | A dark branch across a soft spring sky; apps sit in blossoms while pink petals ride the wind |
 | **Clay** | `clay` | Modelling clay with fingerprints, never quite the same from frame to frame |
 | **Clockwork** | `clockwork` | Walnut, brass and porcelain, with a clock that keeps time |
 | **Cockpit** | `cockpit` | An artificial horizon follows the pointer; the gauges show processor, memory, sound and time |
+| **Coffee** | `coffee` | A cosy cup in the middle, small cups of espresso, latte and cappuccino round it, and steam |
 | **Comic** | `comic` | Pop-art print: fat ink, four colours slightly out of place, and a lot of dots |
+| **Compass** | `compass` | A ship's brass compass with its card floating in oil; the needle swings round to your choice |
 | **Coral Reef** | `coral` | Blue water in a ring of corals, small fish, and a pearl in the middle |
+| **Crypt** | `crypt` | Worn flagstones under wrought iron; violet soul flames burn over stone plaques and the gate swings open |
+| **Cyber Alley** | `cyber` | A wet street at night: neon smears across the puddles, apps hang on holographic signs, rain streaks down |
+| **Dartboard** | `darts` | Sisal, wire and numbers: apps sit in wire rings round the bull while a dart points at your choice |
+| **Digital Rain** | `rain` | Green signs pour down the screen behind a dark glass terminal wheel |
+| **Doughnuts** | `donut` | Iced doughnuts with sprinkles on a cake plate; the app sits in the hole and a bite goes on launch |
+| **Dragon Scale** | `dragon` | Overlapping scales shimmer from green to bronze; a dragon eye watches from the middle while embers rise |
+| **Elven Grove** | `elven` | A silver tree spreads over a moonlit grove; apps ride on its leaves while fireflies gather |
+| **Embroidery Hoop** | `hoop` | Linen stretched in a wooden hoop; apps sit in cross-stitched rings while a threaded needle points |
+| **Factory** | `factory` | A conveyor belt runs round a steel floor with hazard stripes; apps ride on crates, a big gear turns in the middle |
+| **Film Reel** | `film` | A metal reel turns behind a strip of film; every app is a frame, and the picture flickers with dust |
+| **Folk Pattern** | `folk` | Red, black and white Balkan cross-stitch in bands and rosettes, inside a carved wooden frame |
+| **Frost** | `frost` | Ice crystals grow in from the rim of a frozen disc; apps rest on clear ice while snow falls outside |
 | **Grimoire** | `grimoire` | An open spellbook by candlelight, with a circle that wakes up |
 | **Gummy** | `gummy` | Glossy jelly sweets on a lollipop; they wobble when you point at them |
+| **Halloween** | `halloween` | A spider's web across the night, grinning jack-o'-lanterns, a full moon and bats |
 | **Hologram** | `hologram` | Thin figures of light above a small projector, with scan lines and glitches |
+| **Ink Wash** | `inkwash` | Brush strokes and bleeding ink on rice paper: misty mountains, a red seal, apps in brushed circles |
 | **Jukebox** | `jukebox` | Chrome, cherry wood and bubbling tubes of coloured light that dance to the sound |
 | **Koi Pond** | `pond` | A quiet garden pond: lily pads, lotus flowers and koi under moving light |
+| **Lacquer Box** | `lacquer` | Deep red and black lacquer sprinkled with gold dust; apps rest on black lacquer framed in gold |
+| **Lava** | `lava` | Cracked black crust over glowing rock; apps rest on basalt veined with fire while embers rise |
+| **Leather Atelier** | `leather` | Stitched saddle leather with brass rivets; apps sit on leather patches sewn with cream thread |
+| **Living Cell** | `cell` | A view down a microscope: breathing vesicles carry the apps, a nucleus in the middle sends pulses outward |
+| **Marble and Gold** | `marble` | Polished white stone with inlaid gold lines and black marble medallions; very quiet |
+| **Moonlight** | `moonlight` | A night sky over a ring of trees; apps sit on the moon's phases while an owl blinks in the dark |
+| **Morning Dew** | `dew` | A web strung with dew in soft morning light; every app is a clear drop that magnifies it |
+| **Mosaic** | `mosaic` | An antique floor of small stone tiles; an app's tile turns over to show glass and gold beneath |
 | **Neon** | `neon` | A bar sign at night: bent glass tubes on a round brick wall |
 | **Nixie** | `nixie` | Glowing glass tubes on walnut and copper |
 | **Origami** | `origami` | Folded patterned paper that opens like a flower; cranes fly off when you launch |
 | **Orrery** | `orrery` | Planets on brass arms round a glowing sun |
 | **Papercut** | `paper` | Layers of cut coloured paper, light and soft |
 | **Phosphor** | `terminal` | A round green terminal that remembers the eighties |
+| **Pinball** | `pinball` | A playfield under glass: pop bumpers carry the apps and flash, a dot display sits in the middle |
+| **Pocket Console** | `console` | A grey handheld with a greenish dot screen in the middle and chunky coloured buttons round it |
+| **Poker Table** | `poker` | Green felt inside a padded rail; chips carry the apps, the dealer button sits in the middle |
 | **Porcelain** | `porcelain` | White glaze, cobalt painting, and cracks mended with gold |
 | **Reactor** | `reactor` | A machined weapon wheel around a plasma core |
 | **Rotary** | `rotary` | An old dial telephone: chrome, cream and mint |
 | **Roulette** | `roulette` | Walnut, brass and felt; the ball rolls to your choice |
 | **Runestone** | `runestone` | A broken stone disc from an old ruin, held together by iron, torchlight and what was carved into it |
+| **Ship's Wheel** | `pirate` | A mahogany helm over the deep sea; apps ride on gold coins, a brass compass sits in the middle |
+| **Silken Caves** | `silk` | Dark blue rock strung with silk threads; apps sit on spools of thread while pale moths glow |
+| **Slot Machine** | `slots` | A red and chrome cabinet with chasing bulbs; every app sits in a reel window and coins burst on a win |
+| **Space Colony** | `colony` | A cut through an asteroid with a colony inside: rock layers, tunnels, lit round rooms and an airlock |
+| **Space Station** | `station` | A hatch with a wide window: a planet turns slowly behind the apps while stars rush past |
+| **Sticker Album** | `stickers` | A scrapbook page with washi tape; every app is a die-cut sticker with a corner curling up |
+| **Sunflower** | `sunflower` | Seeds in a golden spiral and petals that open with the wheel; little flowers carry the apps |
 | **Sushi Belt** | `sushi` | Plates ride round the counter and chopsticks reach for your choice |
 | **Synthwave** | `synthwave` | A striped sun, dark hills and a glowing grid that rolls toward you |
+| **Tarot** | `tarot` | Gold line art on midnight blue; cards turn over when you point at them, a sun shines in the middle |
 | **Terrarium** | `terrarium` | Moss, ferns and log slices under glass, with a ladybird and a butterfly |
 | **Treasure Map** | `treasure` | Burnt parchment, islands and a compass; X marks your choice |
+| **Vampire** | `vampire` | Crimson velvet under black wrought iron; apps rest on garnets set in silver while bats cross the dark |
+| **Vault** | `vault` | A vault door of brushed steel with heavy bolts; the combination dial in the middle turns to your choice |
+| **Viking Shield** | `viking` | A painted round shield of planks with an iron boss and rawhide rim; apps sit on small shields |
 | **Vinyl** | `vinyl` | A hi-fi turntable with a dot-matrix display and meters that dance to your sound |
+| **Wild West** | `western` | A revolver cylinder of blued steel; apps sit in brass cartridges, sheriff stars ride the outer ring |
 | **Zen Garden** | `zen` | Raked sand, smooth stones and a drifting petal |
 
 The artwork of each is made by the script of the same name in `tools/art`.

@@ -1,0 +1,66 @@
+{
+  "format": 1,
+  "id": "silk",
+  "name": "Silken Caves",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "about": "Dark blue rock strung with silk threads; apps sit on spools of thread while pale moths glow",
+  "tags": ["cave", "dark", "calm"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#121826", "accent": "#BFD4F2", "accent2": "#E8C8D2", "text": "#EEF2FA", "border": "#BFD4F2", "opacity": 0.98, "corner": 14, "font": "Gabriola", "open": "fade", "speed": 0.9, "hoverGrow": 3, "iconZoom": 1.12, "glow": 0, "tilt": 0.3, "pointer": false, "burst": false, "shadow": 0.5, "dim": 0.55},
+  "wheel": {"hub": 90, "thickness": 92, "gap": 5, "ringgap": 10, "rim": 32, "icon": 42, "crowd": 1.45, "area": 1.1, "hubkeep": 0.76},
+  "colors": {"text": "#EEF2FA", "sub": "#AEBBD6"},
+  "fonts": {"title": "Gabriola, Constantia"},
+  "images": {
+    "cave": {"file": "cave.jpg", "mask": "cave-mask.png"},
+    "halo": {"file": "halo.jpg", "light": true},
+    "moth": "moth.png",
+    "nest": {"file": "nest.jpg", "mask": "nest-mask.png"},
+    "spools": {"file": "spools.png", "cols": 4}
+  },
+  "back": [
+    {"shape": "circle", "x": 0.0, "y": 0.03, "size": 1.1, "fill": {"type": "radial", "stops": [[0, "black/70"], [0.86, "black/60"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "cave", "size": 1.0, "intro": {"time": 0.45, "ease": "out", "scale": 0.92}}
+  ],
+  "slot": {
+    "intro": {"time": 0.42, "ease": "back", "delay": 0.06, "scale": 0.3, "stagger": 0.02, "order": "both"},
+    "under": [
+      {"image": "halo", "size": 1.6, "opacity": "hot*0.5", "when": "hot>0.02", "scale": "(1.6*hot)/1.6"},
+      {"image": "spools", "size": "1.0*(1+0.05*hot-0.04*press)", "frame": "(i+ring)%4", "rotate": "time*20*hot+seed*90"}
+    ],
+    "icon": {"size": 0.52, "zoom": 1.2, "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/50"}},
+    "over": [
+      {"shape": "circle", "y": 0.92, "size": 0.15, "fill": "#BFD4F2", "when": "running", "opacity": "active ? 1 : 0.75", "glow": 4, "glowcolor": "#E8C8D2"},
+      {"shape": "circle", "y": 0.92, "size": 0.0825, "fill": "#E8C8D2", "when": "running", "opacity": "active ? 1 : 0.35+0.35*wave(time*0.5+seed)"},
+      {"shape": "circle", "x": 0.64, "y": -0.64, "size": 0.25, "fill": "#BFD4F2", "when": "numbers && number<10 && !kid"},
+      {"text": "{number}", "x": 0.64, "y": -0.65, "em": 0.3, "color": "#121826", "font": "title", "weight": 700, "when": "numbers && number<10 && !kid"},
+      {"shape": "poly", "points": [[-0.12, -0.6980000000000001], [0, -0.8], [0.12, -0.6980000000000001]], "stroke": "#EEF2FA", "width": 2.2, "caps": true, "when": "group"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "over": [
+    {"image": "moth", "size": [0.1, 0.1], "in": "hub", "angle": "sel", "radius": 1.12, "rotate": "sel+6*sin(time*14)", "opacity": "on"}
+  ],
+  "hub": [
+    {"image": "nest", "size": 1.0, "intro": {"time": 0.45, "ease": "back", "scale": 0.6}},
+    {"text": "{title}", "y": -0.05, "box": [1.26, 0.6], "px": 20, "color": "text", "font": "title", "weight": 700, "wrap": true, "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/70"}},
+    {"text": "{sub}", "y": 0.28, "box": [1.178, 0.2], "px": 11.5, "color": "sub", "font": "title", "weight": 700, "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/70"}},
+    {"text": "{hh}:{mm}", "y": -0.08, "box": [1.24, 0.55], "px": 34, "color": "text", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/70"}},
+    {"text": "{date}", "y": 0.21, "box": [1.178, 0.2], "px": 14, "color": "sub", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/70"}}
+  ],
+  "draw": {"clock": false, "shadow": false, "text": "text"},
+  "tabs": {"inset": 13, "text": "text", "fill": "#EEF2FA/14", "on": "#BFD4F2/85"},
+  "panel": {"fill": {"type": "linear", "stops": [[0, "#1E2638"], [1, "#101622"]]}, "stroke": "#8A9AB8", "width": 3, "corner": 14, "text": "text"},
+  "tag": {"fill": {"type": "linear", "stops": [[0, "#1E2638"], [1, "#101622"]]}, "stroke": "#8A9AB8", "width": 2, "corner": 13, "text": "text"},
+  "tile": {"fill": {"type": "linear", "stops": [[0, "#E8ECF4"], [1, "#C8D0DE"]]}, "stroke": "#6A7A98", "width": 2.4, "corner": 12, "text": "#121826"},
+  "particles": [
+    {"image": "moth", "rate": 0.4, "max": 3, "area": "stage", "life": [4, 6], "size": [8, 12], "speed": [10, 25], "dir": [-180, 180], "sway": 30, "swayhz": 2.5, "opacity": 0.8, "fadein": 0.2, "fadeout": 0.3}
+  ],
+  "onlaunch": [
+    {"image": "moth", "count": 8, "area": "slot", "life": [0.8, 1.4], "size": [8, 13], "speed": [60, 180], "outward": true, "dir": [-80, 80], "drag": 1.2, "sway": 40, "swayhz": 4, "fadein": 0, "fadeout": 0.4}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"},
+  "screen": {"effect": "fireflies", "color": "#9FC4FF", "color2": "#EEF4FF", "density": 0.9, "speed": 0.6, "size": 0.9}
+}

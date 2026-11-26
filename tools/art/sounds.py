@@ -331,4 +331,38 @@ def make(kind):
         relay = click(6, 1500, 0.007)
         zing = ring(t_(0.45), [(3300, 0.4), (4700, 0.25), (7100, 0.1)], 0.12)
         return {'open': norm(mixat(0.4, [(0, relay), (0.05, relay * 0.7)]) + hum * 0.5, 0.5), 'move': norm(click(8, 2700, 0.004), 0.35), 'launch': norm(mixat(0.45, [(0, relay), (0.01, zing * 0.7)]), 0.5), 'close': norm(mixat(0.12, [(0, relay * 0.8)]), 0.4)}
+    if kind == 'western':
+        tick = click(31, 2400, 0.004)
+        t = t_(0.5)
+        spin = mixat(0.46, [(0.026 * i + 0.0013 * i * i, tick * (0.35 + 0.05 * i)) for i in range(12)])
+        cock = mixat(0.12, [(0, click(33, 1700, 0.006)), (0.05, click(34, 2600, 0.004) * 0.8)])
+        thump = low(noise(t, 35), 300) * env(t, 0.002, 0.08)
+        ric = sine(t_(0.35), 2400, 900) * env(t_(0.35), 0.01, 0.2) * 0.25
+        spur = ring(t_(0.5), [(3100, 0.5), (4400, 0.3), (5900, 0.2)], 0.16)
+        return {'open': norm(spin, 0.55), 'move': norm(tick, 0.4), 'launch': norm(mixat(0.5, [(0, cock), (0.07, thump), (0.09, ric)]), 0.7), 'close': norm(mixat(0.4, [(0, spur), (0.09, spur * 0.6)]), 0.4)}
+    if kind == 'cafe':
+        clink = ring(t_(0.5), [(2100, 0.5), (5300, 0.3), (7900, 0.15)], 0.18)
+        tap = ring(t_(0.2), [(1600, 0.4), (3400, 0.2)], 0.05)
+        t = t_(0.6)
+        pour = band(noise(t, 41), 500, 2500) * (0.6 + 0.4 * np.sin(TAU * 9 * t)) * env(t, 0.08, 0.25)
+        return {'open': norm(mixat(0.6, [(0, pour * 0.6), (0.05, clink * 0.6)]), 0.45), 'move': norm(tap, 0.3), 'launch': norm(clink, 0.55), 'close': norm(mixat(0.3, [(0, tap), (0.06, tap * 0.6)]), 0.35)}
+    if kind == 'shutter':
+        a1, b1 = click(51, 3000, 0.003), click(52, 2200, 0.005)
+        t = t_(0.3)
+        wind = band(noise(t, 53), 800, 3000) * env(t, 0.02, 0.12)
+        return {'open': norm(mixat(0.3, [(0, a1), (0.035, b1), (0.05, wind * 0.4)]), 0.55), 'move': norm(click(54, 2600, 0.003), 0.3),
+                'launch': norm(mixat(0.25, [(0, b1), (0.06, a1)]), 0.6), 'close': norm(mixat(0.2, [(0, a1 * 0.7), (0.03, b1 * 0.5)]), 0.4)}
+    if kind == 'projector':
+        tick = click(61, 2000, 0.004)
+        clatter = mixat(0.5, [(i * 0.042, tick * (0.5 + 0.3 * (i % 2))) for i in range(11)])
+        t = t_(0.5)
+        whir = band(noise(t, 62), 300, 1200) * env(t, 0.08, 0.2) * (0.7 + 0.3 * np.sin(TAU * 24 * t))
+        return {'open': norm(clatter + whir[:len(clatter)] * 0.5, 0.5), 'move': norm(tick, 0.3), 'launch': norm(mixat(0.3, [(0, click(63, 1200, 0.008)), (0.02, tick)]), 0.55),
+                'close': norm(mixat(0.25, [(0, tick), (0.05, tick * 0.6), (0.1, tick * 0.3)]), 0.35)}
+    if kind == 'billiard':
+        clack = mixat(0.12, [(0, ring(t_(0.12), [(3800, 0.6), (5200, 0.3), (7100, 0.15)], 0.02)), (0, click(71, 1800, 0.004) * 0.6)])
+        t = t_(0.3)
+        roll = low(noise(t, 72), 600) * env(t, 0.05, 0.12) * 0.5
+        return {'open': norm(mixat(0.4, [(0, clack), (0.09, clack * 0.7), (0.15, clack * 0.5), (0.05, roll)]), 0.55), 'move': norm(clack * 0.5, 0.3),
+                'launch': norm(mixat(0.3, [(0, clack), (0.04, roll)]), 0.6), 'close': norm(mixat(0.25, [(0, clack * 0.6), (0.08, clack * 0.4)]), 0.4)}
     raise SystemExit('no sounds called ' + kind)

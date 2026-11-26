@@ -1,0 +1,64 @@
+{
+  "format": 1,
+  "id": "tarot",
+  "name": "Tarot",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "about": "Gold line art on midnight blue; cards turn over when you point at them, a sun shines in the middle",
+  "tags": ["mystic", "gold", "dark"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#0E1430", "accent": "#D9B45A", "accent2": "#F2DFA0", "text": "#F6EBCF", "border": "#D9B45A", "opacity": 0.98, "corner": 14, "font": "Cinzel", "open": "fade", "speed": 0.9, "hoverGrow": 3, "iconZoom": 1.12, "glow": 0, "tilt": 0.3, "pointer": false, "burst": false, "shadow": 0.5, "dim": 0.5},
+  "wheel": {"hub": 90, "thickness": 92, "gap": 5, "ringgap": 10, "rim": 32, "icon": 42, "crowd": 1.45, "area": 1.1, "hubkeep": 0.76},
+  "colors": {"text": "#F6EBCF", "sub": "#D9C79A"},
+  "fonts": {"title": {"file": "Cinzel[wght].ttf", "family": "Cinzel"}},
+  "images": {
+    "cards": {"file": "cards.png", "cols": 2},
+    "halo": {"file": "halo.jpg", "light": true},
+    "sky": {"file": "sky.jpg", "mask": "sky-mask.png"},
+    "spark": "spark.png",
+    "sun": {"file": "sun.jpg", "mask": "sun-mask.png"}
+  },
+  "back": [
+    {"shape": "circle", "x": 0.0, "y": 0.03, "size": 1.08, "fill": {"type": "radial", "stops": [[0, "black/60"], [0.86, "black/51"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "sky", "size": 1.0, "rotate": "time*0.6+(1-open)*-30", "intro": {"time": 0.5, "ease": "out", "scale": 0.9}}
+  ],
+  "slot": {
+    "intro": {"time": 0.42, "ease": "back", "delay": 0.06, "scale": 0.3, "stagger": 0.02, "order": "both"},
+    "under": [
+      {"image": "halo", "size": 1.6, "opacity": "hot*0.5", "when": "hot>0.02", "scale": "(1.6*hot)/1.6"},
+      {"shape": "circle", "x": 0.0, "y": 0.06, "size": 0.9, "fill": {"type": "radial", "stops": [[0, "black/45"], [0.86, "black/38"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+      {"image": "cards", "size": "1.02*(1+0.06*hot-0.04*press)", "frame": "hot>0.5 ? 1 : 0", "rotate": "a", "scale": ["max(0.04,abs(cos(sat(hot)*3.14159)))", "1"]}
+    ],
+    "icon": {"size": 0.52, "zoom": 1.12, "opacity": "hot>0.5 ? 1 : 0.9", "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/50"}},
+    "over": [
+      {"shape": "circle", "y": 0.92, "size": 0.15, "fill": "#D9B45A", "when": "running", "opacity": "active ? 1 : 0.75", "glow": 4, "glowcolor": "#F2DFA0"},
+      {"shape": "circle", "y": 0.92, "size": 0.0825, "fill": "#F2DFA0", "when": "running", "opacity": "active ? 1 : 0.35+0.35*wave(time*0.5+seed)"},
+      {"shape": "circle", "x": 0.64, "y": -0.64, "size": 0.25, "fill": "#D9B45A", "when": "numbers && number<10 && !kid"},
+      {"text": "{number}", "x": 0.64, "y": -0.65, "em": 0.3, "color": "#0E1430", "font": "title", "weight": 700, "when": "numbers && number<10 && !kid"},
+      {"shape": "poly", "points": [[-0.12, -0.6980000000000001], [0, -0.8], [0.12, -0.6980000000000001]], "stroke": "#F6EBCF", "width": 2.2, "caps": true, "when": "group"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "over": [
+    {"image": "spark", "size": 0.12, "in": "hub", "angle": "sel", "radius": 1.1, "rotate": "time*40", "opacity": "on", "scale": "(0.10*(1+0.2*sin(time*5)))/0.12"}
+  ],
+  "hub": [
+    {"image": "sun", "size": 1.0, "rotate": "time*-2", "intro": {"time": 0.5, "ease": "back", "scale": 0.6}},
+    {"text": "{title}", "y": -0.05, "box": [1.26, 0.6], "px": 16, "color": "text", "font": "title", "weight": 700, "wrap": true, "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/70"}},
+    {"text": "{sub}", "y": 0.28, "box": [1.178, 0.2], "px": 11.5, "color": "sub", "font": "title", "weight": 700, "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/70"}},
+    {"text": "{hh}:{mm}", "y": -0.08, "box": [1.24, 0.55], "px": 29, "color": "text", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/70"}},
+    {"text": "{date}", "y": 0.21, "box": [1.178, 0.2], "px": 12, "color": "sub", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/70"}}
+  ],
+  "draw": {"clock": false, "shadow": false, "text": "text"},
+  "tabs": {"inset": 13, "text": "text", "fill": "#F6EBCF/14", "on": "#D9B45A/85"},
+  "panel": {"fill": {"type": "linear", "stops": [[0, "#1C2658"], [1, "#0E1434"]]}, "stroke": "#D9B45A", "width": 3, "corner": 14, "text": "text"},
+  "tag": {"fill": {"type": "linear", "stops": [[0, "#1C2658"], [1, "#0E1434"]]}, "stroke": "#D9B45A", "width": 2, "corner": 13, "text": "text"},
+  "tile": {"fill": {"type": "linear", "stops": [[0, "#F4EAD0"], [1, "#E0D0A8"]]}, "stroke": "#8A6A2A", "width": 2.4, "corner": 12, "text": "#0E1430"},
+  "onlaunch": [
+    {"image": "spark", "count": 18, "area": "slot", "life": [0.5, 1.0], "size": [5, 10], "speed": [60, 220], "outward": true, "dir": [-100, 100], "drag": 1.5, "spin": [-200, 200], "fadein": 0, "fadeout": 0.5}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"},
+  "screen": {"effect": "stars", "color": "#F2DFA0", "color2": "#FFFFFF", "density": 0.6, "speed": 0.4, "size": 0.9}
+}

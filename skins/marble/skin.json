@@ -1,0 +1,63 @@
+{
+  "format": 1,
+  "id": "marble",
+  "name": "Marble and Gold",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "about": "Polished white stone with inlaid gold lines and black marble medallions; very quiet",
+  "tags": ["elegant", "light", "gold"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#1A1A1E", "accent": "#D4AF5A", "accent2": "#F4F0E8", "text": "#F4ECD8", "border": "#D4AF5A", "opacity": 0.98, "corner": 14, "font": "Cinzel", "open": "fade", "speed": 0.8, "hoverGrow": 3, "iconZoom": 1.12, "glow": 0, "tilt": 0.25, "pointer": false, "burst": false, "shadow": 0.5, "dim": 0.32},
+  "wheel": {"hub": 90, "thickness": 92, "gap": 5, "ringgap": 10, "rim": 32, "icon": 42, "crowd": 1.45, "area": 1.1, "hubkeep": 0.76},
+  "colors": {"text": "#F4ECD8", "sub": "#C8B88A"},
+  "fonts": {"title": {"file": "Cinzel[wght].ttf", "family": "Cinzel"}},
+  "images": {
+    "centre": {"file": "centre.jpg", "mask": "centre-mask.png"},
+    "gem": "gem.png",
+    "halo": {"file": "halo.jpg", "light": true},
+    "medallions": {"file": "medallions.png", "cols": 2},
+    "slab": {"file": "slab.jpg", "mask": "slab-mask.png"}
+  },
+  "back": [
+    {"shape": "circle", "x": 0.0, "y": 0.03, "size": 1.08, "fill": {"type": "radial", "stops": [[0, "black/55"], [0.86, "black/47"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "slab", "size": 1.0, "intro": {"time": 0.5, "ease": "out", "scale": 0.94}}
+  ],
+  "slot": {
+    "intro": {"time": 0.42, "ease": "back", "delay": 0.06, "scale": 0.3, "stagger": 0.02, "order": "both"},
+    "under": [
+      {"image": "halo", "size": 1.5, "opacity": "hot*0.45", "when": "hot>0.02", "scale": "(1.5*hot)/1.5"},
+      {"shape": "circle", "x": 0.0, "y": 0.05, "size": 0.98, "fill": {"type": "radial", "stops": [[0, "black/40"], [0.86, "black/34"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+      {"image": "medallions", "size": "0.98*(1+0.04*hot-0.03*press)", "frame": "(i+ring)%2", "rotate": "seed*360"}
+    ],
+    "icon": {"size": 0.56, "zoom": 1.14, "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/40"}},
+    "over": [
+      {"shape": "circle", "y": 0.92, "size": 0.15, "fill": "#D4AF5A", "when": "running", "opacity": "active ? 1 : 0.75", "glow": 4, "glowcolor": "#F4F0E8"},
+      {"shape": "circle", "y": 0.92, "size": 0.0825, "fill": "#F4F0E8", "when": "running", "opacity": "active ? 1 : 0.35+0.35*wave(time*0.5+seed)"},
+      {"shape": "circle", "x": 0.64, "y": -0.64, "size": 0.25, "fill": "#D4AF5A", "when": "numbers && number<10 && !kid"},
+      {"text": "{number}", "x": 0.64, "y": -0.65, "em": 0.3, "color": "#1A1A1E", "font": "title", "weight": 700, "when": "numbers && number<10 && !kid"},
+      {"shape": "poly", "points": [[-0.12, -0.6980000000000001], [0, -0.8], [0.12, -0.6980000000000001]], "stroke": "#F4ECD8", "width": 2.2, "caps": true, "when": "group"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "over": [
+    {"image": "gem", "size": [0.05, 0.05], "in": "hub", "angle": "sel", "radius": 1.1, "rotate": "sel+45", "opacity": "on"}
+  ],
+  "hub": [
+    {"image": "centre", "size": 1.0, "intro": {"time": 0.5, "ease": "back", "scale": 0.7}},
+    {"text": "{title}", "y": -0.05, "box": [1.26, 0.6], "px": 16, "color": "text", "font": "title", "weight": 700, "wrap": true, "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/70"}},
+    {"text": "{sub}", "y": 0.28, "box": [1.1969999999999998, 0.2], "px": 11.5, "color": "sub", "font": "title", "weight": 700, "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/70"}},
+    {"text": "{hh}:{mm}", "y": -0.08, "box": [1.26, 0.55], "px": 29, "color": "text", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/70"}},
+    {"text": "{date}", "y": 0.21, "box": [1.1969999999999998, 0.2], "px": 12, "color": "sub", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/70"}}
+  ],
+  "draw": {"clock": false, "shadow": false, "text": "text"},
+  "tabs": {"inset": 13, "text": "#3A3A40", "fill": "#00000012", "on": "#D4AF5A/85"},
+  "panel": {"fill": {"type": "linear", "stops": [[0, "#26262C"], [1, "#121216"]]}, "stroke": "#D4AF5A", "width": 3, "corner": 14, "text": "text"},
+  "tag": {"fill": {"type": "linear", "stops": [[0, "#26262C"], [1, "#121216"]]}, "stroke": "#D4AF5A", "width": 2, "corner": 13, "text": "text"},
+  "tile": {"fill": {"type": "linear", "stops": [[0, "#F4F2EE"], [1, "#E0DCD4"]]}, "stroke": "#B8964A", "width": 2.4, "corner": 12, "text": "#1A1A1E"},
+  "onlaunch": [
+    {"color": "#F2D88A", "count": 16, "area": "slot", "life": [0.4, 0.9], "size": [1.2, 2.6], "speed": [40, 160], "outward": true, "dir": [-90, 90], "drag": 2, "fadein": 0, "fadeout": 0.5}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"}
+}

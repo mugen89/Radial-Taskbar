@@ -1,0 +1,68 @@
+{
+  "format": 1,
+  "id": "chalk",
+  "name": "Chalkboard",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "about": "A slate board in a wooden frame; apps sit in hand-drawn chalk circles",
+  "tags": ["school", "handmade", "dark"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#1E2A24", "accent": "#F4F1E6", "accent2": "#F7E27A", "text": "#F4F1E6", "border": "#F4F1E6", "opacity": 0.98, "corner": 14, "font": "Segoe Print", "open": "fade", "speed": 1, "hoverGrow": 3, "iconZoom": 1.12, "glow": 0, "tilt": 0.25, "pointer": false, "burst": false, "shadow": 0.5, "dim": 0.32},
+  "wheel": {"hub": 90, "thickness": 92, "gap": 5, "ringgap": 10, "rim": 32, "icon": 42, "crowd": 1.45, "area": 1.1, "hubkeep": 0.76},
+  "colors": {"text": "#F4F1E6", "sub": "#C9D6C8"},
+  "fonts": {"title": "Segoe Print, Ink Free"},
+  "images": {
+    "arrow": "arrow.png",
+    "board": {"file": "board.jpg", "mask": "board-mask.png"},
+    "circles": {"file": "circles.png", "cols": 4},
+    "dust": {"file": "dust.jpg", "light": true},
+    "halo": {"file": "halo.jpg", "light": true},
+    "hub": {"file": "hub.jpg", "mask": "hub-mask.png"},
+    "ledge": "ledge.png"
+  },
+  "back": [
+    {"shape": "circle", "x": 0.0, "y": 0.03, "size": 1.08, "fill": {"type": "radial", "stops": [[0, "black/65"], [0.86, "black/55"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "board", "size": 1.0, "intro": {"time": 0.35, "ease": "out", "scale": 0.92}},
+    {"image": "ledge", "size": [0.62, 0.0992], "y": 1.02, "intro": {"time": 0.35, "ease": "out", "delay": 0.05, "y": 0.2}}
+  ],
+  "slot": {
+    "intro": {"time": 0.42, "ease": "back", "delay": 0.06, "scale": 0.3, "stagger": 0.02, "order": "both"},
+    "under": [
+      {"image": "halo", "size": 1.5, "opacity": "hot*0.35", "when": "hot>0.02", "scale": "(1.5*hot)/1.5"},
+      {"image": "circles", "size": "1.05*(1+0.06*hot-0.04*press)", "frame": "(i+ring)%4", "rotate": "seed*360+20*hot"}
+    ],
+    "icon": {"size": 0.8, "zoom": 1.14, "shadow": {"x": 1, "y": 2, "blur": 2, "color": "black/50"}},
+    "over": [
+      {"shape": "circle", "y": 0.92, "size": 0.15, "fill": "#F4F1E6", "when": "running", "opacity": "active ? 1 : 0.75", "glow": 4, "glowcolor": "#F7E27A"},
+      {"shape": "circle", "y": 0.92, "size": 0.0825, "fill": "#F7E27A", "when": "running", "opacity": "active ? 1 : 0.35+0.35*wave(time*0.5+seed)"},
+      {"shape": "circle", "x": 0.64, "y": -0.64, "size": 0.25, "fill": "#F7E27A", "when": "numbers && number<10 && !kid"},
+      {"text": "{number}", "x": 0.64, "y": -0.65, "em": 0.3, "color": "#1E2A24", "font": "title", "weight": 700, "when": "numbers && number<10 && !kid"},
+      {"shape": "poly", "points": [[-0.12, -0.6980000000000001], [0, -0.8], [0.12, -0.6980000000000001]], "stroke": "#F4F1E6", "width": 2.2, "caps": true, "when": "group"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "over": [
+    {"image": "arrow", "size": [0.1, 0.16], "in": "hub", "angle": "sel", "radius": 1.14, "rotate": "sel", "opacity": "on"}
+  ],
+  "hub": [
+    {"image": "hub", "size": 1.0, "intro": {"time": 0.35, "ease": "back", "scale": 0.6}},
+    {"text": "{title}", "y": -0.05, "box": [1.26, 0.6], "px": 18, "color": "text", "font": "title", "weight": 700, "wrap": true, "shadow": {"x": 0, "y": 0, "blur": 2, "color": "black/40"}},
+    {"text": "{sub}", "y": 0.28, "box": [1.178, 0.2], "px": 11.5, "color": "sub", "font": "title", "weight": 700, "shadow": {"x": 0, "y": 0, "blur": 2, "color": "black/40"}},
+    {"text": "{hh}:{mm}", "y": -0.08, "box": [1.24, 0.55], "px": 32, "color": "text", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 0, "blur": 2, "color": "black/40"}},
+    {"text": "{date}", "y": 0.21, "box": [1.178, 0.2], "px": 12, "color": "sub", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 0, "blur": 2, "color": "black/40"}}
+  ],
+  "draw": {"clock": false, "shadow": false, "text": "text"},
+  "tabs": {"inset": 13, "text": "text", "fill": "#F4F1E6/14", "on": "#F4F1E6/85"},
+  "panel": {"fill": {"type": "linear", "stops": [[0, "#26342D"], [1, "#1A241F"]]}, "stroke": "#8A6238", "width": 3, "corner": 14, "text": "text"},
+  "tag": {"fill": {"type": "linear", "stops": [[0, "#26342D"], [1, "#1A241F"]]}, "stroke": "#8A6238", "width": 2, "corner": 13, "text": "text"},
+  "tile": {"fill": {"type": "linear", "stops": [[0, "#2E3E35"], [1, "#1E2A24"]]}, "stroke": "#A0703E", "width": 2.4, "corner": 12, "text": "#F4F1E6"},
+  "onhover": [
+    {"image": "dust", "count": 4, "area": "slot", "life": [0.4, 0.8], "size": [3, 6], "speed": [10, 40], "dir": [150, 210], "gravity": 40, "opacity": 0.5, "fadein": 0, "fadeout": 0.6}
+  ],
+  "onlaunch": [
+    {"image": "dust", "count": 30, "area": "slot", "life": [0.5, 1.2], "size": [6, 14], "grow": 1.8, "speed": [30, 160], "outward": true, "dir": [-120, 120], "gravity": 60, "drag": 2.4, "opacity": 0.6, "fadein": 0, "fadeout": 0.6}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"}
+}

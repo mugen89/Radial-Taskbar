@@ -1,5 +1,7 @@
 #include "skin.h"
 
+#include "backfx.h"
+
 #include <set>
 
 #include "install.h"
@@ -667,7 +669,7 @@ struct Reader {
 
   void all(const Json& j) {
     known(j, {"format", "id", "name", "author", "version", "about", "license", "tags", "style", "wheel", "colors", "images", "fonts", "back", "ring", "fan", "over", "hub", "front", "slot", "kid",
-              "pinbutton", "settingsbutton", "panel", "tag", "tile", "particles", "onlaunch", "onhover", "onopen", "sounds", "cursor", "draw", "tabs", "preview"});
+              "pinbutton", "settingsbutton", "panel", "tag", "tile", "particles", "onlaunch", "onhover", "onopen", "sounds", "cursor", "draw", "tabs", "preview", "screen"});
     if ((int)j.num("format", 1) > 1) problem("this skin was made for a newer version of the program");
     std::string s;
     text(j, "name", t.name, 60);
@@ -811,6 +813,36 @@ struct Reader {
       image(*c, "image", t.cursor.image);
       real(*c, "size", t.cursor.size, 8, 96);
       pair(*c, "hot", t.cursor.hot.x, t.cursor.hot.y, 0, 1);
+    }
+    if (auto d = j.find("screen"); d && d->isObj()) {
+      Scope sc(*this, "screen");
+      known(*d, {"effect", "color", "color2", "density", "speed", "size"});
+      std::string k = d->str("effect");
+      if (!backFxKnown(k)) {
+        std::string all;
+        for (auto& e : backFxKinds()) all += (all.empty() ? "" : ", ") + e.first;
+        problem("effect can be " + all);
+      } else {
+        t.screen.kind = k;
+        backFxDefaults(t.screen);
+        auto take = [&](const char* key, Color& out) {
+          SkinColor c;
+          if (!color(*d, key, c)) return;
+          const Style& st = t.style;
+          Color base = c.from == SkinColor::From::Accent || c.from == SkinColor::From::Profile || c.from == SkinColor::From::Item ? st.accent
+                       : c.from == SkinColor::From::Accent2                                                                   ? st.accent2
+                       : c.from == SkinColor::From::Text                                                                      ? st.text
+                       : c.from == SkinColor::From::Base                                                                      ? st.base
+                       : c.from == SkinColor::From::Border                                                                    ? st.border
+                                                                                                                              : c.c;
+          out = base.withA(c.a);
+        };
+        take("color", t.screen.color);
+        take("color2", t.screen.color2);
+        real(*d, "density", t.screen.density, 0.1f, 4);
+        real(*d, "speed", t.screen.speed, 0.1f, 4);
+        real(*d, "size", t.screen.size, 0.3f, 3);
+      }
     }
     if (auto d = j.find("draw"); d && d->isObj()) {
       Scope sc(*this, "draw");

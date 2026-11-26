@@ -1,0 +1,64 @@
+{
+  "format": 1,
+  "id": "donut",
+  "name": "Doughnuts",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "about": "Iced doughnuts with sprinkles on a cake plate; the app sits in the hole and a bite goes on launch",
+  "tags": ["sweet", "playful", "pastel"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#F6E8EE", "accent": "#FF6A9A", "accent2": "#7AD8E8", "text": "#5A2A3A", "border": "#FF6A9A", "opacity": 0.98, "corner": 14, "font": "Segoe UI Black", "open": "bloom", "speed": 1.05, "hoverGrow": 3, "iconZoom": 1.12, "glow": 0, "tilt": 0.35, "pointer": false, "burst": false, "shadow": 0.5, "dim": 0.22},
+  "wheel": {"hub": 90, "thickness": 92, "gap": 5, "ringgap": 10, "rim": 32, "icon": 42, "crowd": 1.45, "area": 1.1, "hubkeep": 0.76},
+  "colors": {"text": "#5A2A3A", "sub": "#8A5A6A"},
+  "fonts": {"title": "Segoe UI Black, Segoe UI"},
+  "images": {
+    "donuts": {"file": "donuts.png", "cols": 8},
+    "halo": {"file": "halo.jpg", "light": true},
+    "lid": {"file": "lid.jpg", "mask": "lid-mask.png"},
+    "plate": {"file": "plate.jpg", "mask": "plate-mask.png"},
+    "sprinkles": {"file": "sprinkles.png", "cols": 6}
+  },
+  "back": [
+    {"shape": "circle", "x": 0.0, "y": 0.04, "size": 1.08, "fill": {"type": "radial", "stops": [[0, "black/45"], [0.86, "black/38"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "plate", "size": 1.0, "intro": {"time": 0.4, "ease": "back", "scale": 0.9}}
+  ],
+  "slot": {
+    "intro": {"time": 0.42, "ease": "back", "delay": 0.06, "scale": 0.3, "stagger": 0.02, "order": "both"},
+    "under": [
+      {"image": "halo", "size": 1.5, "opacity": "hot*0.5", "when": "hot>0.02", "scale": "(1.5*hot)/1.5"},
+      {"shape": "circle", "x": 0.0, "y": 0.06, "size": 1.0, "fill": {"type": "radial", "stops": [[0, "black/40"], [0.86, "black/34"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+      {"image": "donuts", "size": "1.04*(1+0.05*hot-0.06*press)", "frame": "launch>0.02 ? 4+(i+ring)%4 : (i+ring)%4", "rotate": "seed*360+6*sin(time*5)*hot"}
+    ],
+    "icon": {"size": 0.4, "zoom": 1.26, "shadow": {"x": 0, "y": 1, "blur": 2, "color": "black/35"}},
+    "over": [
+      {"shape": "circle", "y": 0.92, "size": 0.15, "fill": "#FF6A9A", "when": "running", "opacity": "active ? 1 : 0.75", "glow": 4, "glowcolor": "#7AD8E8"},
+      {"shape": "circle", "y": 0.92, "size": 0.0825, "fill": "#7AD8E8", "when": "running", "opacity": "active ? 1 : 0.35+0.35*wave(time*0.5+seed)"},
+      {"shape": "circle", "x": 0.64, "y": -0.64, "size": 0.25, "fill": "#FF6A9A", "when": "numbers && number<10 && !kid"},
+      {"text": "{number}", "x": 0.64, "y": -0.65, "em": 0.3, "color": "#FFFFFF", "font": "title", "weight": 700, "when": "numbers && number<10 && !kid"},
+      {"shape": "poly", "points": [[-0.12, -0.6980000000000001], [0, -0.8], [0.12, -0.6980000000000001]], "stroke": "#5A2A3A", "width": 2.2, "caps": true, "when": "group"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "over": [
+    {"image": "sprinkles", "size": [0.05, 0.05], "in": "hub", "frame": "floor(time*2)%6", "angle": "sel", "radius": 1.1, "rotate": "time*90", "opacity": "on"}
+  ],
+  "hub": [
+    {"shape": "circle", "x": 0.0, "y": 0.05, "size": 1.0, "fill": {"type": "radial", "stops": [[0, "black/35"], [0.86, "black/30"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "lid", "size": 1.0, "intro": {"time": 0.45, "ease": "back", "scale": 0.6}},
+    {"text": "{title}", "y": -0.05, "box": [1.26, 0.6], "px": 17, "color": "text", "font": "title", "weight": 700, "wrap": true, "shadow": {"x": 0, "y": 0, "blur": 2, "color": "#FFFFFF"}},
+    {"text": "{sub}", "y": 0.28, "box": [1.1969999999999998, 0.2], "px": 11.5, "color": "sub", "font": "title", "weight": 700, "shadow": {"x": 0, "y": 0, "blur": 2, "color": "#FFFFFF"}},
+    {"text": "{hh}:{mm}", "y": -0.08, "box": [1.26, 0.55], "px": 31, "color": "text", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 0, "blur": 2, "color": "#FFFFFF"}},
+    {"text": "{date}", "y": 0.21, "box": [1.1969999999999998, 0.2], "px": 12, "color": "sub", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 0, "blur": 2, "color": "#FFFFFF"}}
+  ],
+  "draw": {"clock": false, "shadow": false, "text": "text"},
+  "tabs": {"inset": 13, "text": "#5A2A3A", "fill": "#FFFFFF/55", "on": "#FF6A9A/85"},
+  "panel": {"fill": {"type": "linear", "stops": [[0, "#FFF4F8"], [1, "#FFE0EC"]]}, "stroke": "#FF6A9A", "width": 3, "corner": 14, "text": "#5A2A3A"},
+  "tag": {"fill": {"type": "linear", "stops": [[0, "#FFF4F8"], [1, "#FFE0EC"]]}, "stroke": "#FF6A9A", "width": 2, "corner": 13, "text": "#5A2A3A"},
+  "tile": {"fill": {"type": "linear", "stops": [[0, "#FFFFFF"], [1, "#F2F6FA"]]}, "stroke": "#8AD8E8", "width": 2.4, "corner": 12, "text": "#5A2A3A"},
+  "onlaunch": [
+    {"image": "sprinkles", "count": 36, "area": "slot", "life": [0.5, 1.0], "size": [4, 7], "speed": [120, 360], "outward": true, "dir": [-100, 100], "gravity": 800, "spin": [-500, 500], "fadein": 0, "fadeout": 0.3}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"}
+}

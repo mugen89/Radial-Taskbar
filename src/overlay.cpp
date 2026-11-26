@@ -131,6 +131,9 @@ bool Overlay::tryOpen(bool byHotkey) {
   moved_ = pressed_ = false;
   wheelAcc_ = 0;
   lastPick_ = {};
+  if (!cfg.startProfile.empty())  // always the same one to begin with
+    for (int i = 0; i < (int)cfg.profiles.size(); i++)
+      if (cfg.profiles[(size_t)i].id == cfg.startProfile && i != cfg.activeProfile) app_.setProfile(i);
   if (cfg.profile().locked) app_.setProfile(cfg.wheelIndex());  // it was being edited; the wheel never shows it
   buildScene(false);
   double t1 = nowSec();
@@ -146,6 +149,7 @@ bool Overlay::tryOpen(bool byHotkey) {
     return false;
   }
   warmArt(back_.Get());
+  startFx();
   layout_->beginOpen();
   tiltX_.snap(0);
   tiltY_.snap(0);
@@ -304,6 +308,10 @@ bool Overlay::createSurfaces() {
     root_.Reset();
     dimVisual_.Reset();
     sceneVisual_.Reset();
+    fxVisual_.Reset();
+    fxSwap_.Reset();
+    fxBack_.Reset();
+    fx_.end();
     dimSurface_.Reset();
     dimFx_.Reset();
     sceneFx_.Reset();
@@ -316,6 +324,7 @@ bool Overlay::createSurfaces() {
     if (SUCCEEDED(hr)) hr = g.dcomp->CreateVisual(&root_);
     if (SUCCEEDED(hr)) hr = g.dcomp->CreateVisual(&dimVisual_);
     if (SUCCEEDED(hr)) hr = g.dcomp->CreateVisual(&sceneVisual_);
+    if (SUCCEEDED(hr)) hr = g.dcomp->CreateVisual(&fxVisual_);
     if (SUCCEEDED(hr)) hr = g.dcomp->CreateEffectGroup(&dimFx_);
     if (SUCCEEDED(hr)) hr = g.dcomp->CreateEffectGroup(&sceneFx_);
     if (SUCCEEDED(hr)) hr = g.dcomp->CreateMatrixTransform3D(&tilt3d_);
@@ -346,7 +355,8 @@ bool Overlay::createSurfaces() {
       dimVisual_->SetBitmapInterpolationMode(DCOMPOSITION_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR);
       dimVisual_->SetEffect(dimFx_.Get());
       root_->AddVisual(dimVisual_.Get(), FALSE, nullptr);
-      root_->AddVisual(sceneVisual_.Get(), TRUE, dimVisual_.Get());
+      root_->AddVisual(fxVisual_.Get(), TRUE, dimVisual_.Get());
+      root_->AddVisual(sceneVisual_.Get(), TRUE, fxVisual_.Get());
       target_->SetRoot(root_.Get());
     }
     if (FAILED(hr)) {
@@ -455,6 +465,20 @@ void Overlay::frame() {
     return;
   }
   ID2D1DeviceContext* dc = g.dc.Get();
+  if (fx_.active() && fxBack_) {
+    fx_.step(dt);
+    dc->SetTarget(fxBack_.Get());
+    dc->SetDpi(96, 96);
+    dc->BeginDraw();
+    dc->SetTransform(D2D1::Matrix3x2F::Identity());
+    dc->Clear(D2D1::ColorF(0, 0, 0, 0));
+    fx_.draw(dc, layout_->fade());
+    HRESULT fh = dc->EndDraw();
+    dc->SetTarget(nullptr);
+    if (SUCCEEDED(fh)) fxSwap_->Present(0, 0);
+    else stopFx();  // never worth losing the wheel over
+    moving = true;
+  }
   dc->SetTarget(back_.Get());
   dc->SetDpi(96, 96);
   dc->BeginDraw();
@@ -498,7 +522,43 @@ void Overlay::frame() {
   busy_ = moving || holding_;  // keep polling the held keys
 }
 
+void Overlay::startFx() {
+  BackFxSpec spec = backFxFor(app_.cfg, layout_ ? layout_->skin.get() : nullptr);
+  if (!spec.on() || !fxVisual_ || !layout_) {
+    stopFx();
+    return;
+  }
+  auto& g = gfx();
+  fxRes_ = spec.kind == "rain" ? 1.f : 0.5f;  // soft things look the same at half the pixels
+  int w = std::max(16, (int)((mon_.right - mon_.left) * fxRes_)), h = std::max(16, (int)((mon_.bottom - mon_.top) * fxRes_));
+  DXGI_SWAP_CHAIN_DESC1 d{};
+  if (!fxSwap_ || FAILED(fxSwap_->GetDesc1(&d)) || (int)d.Width != w || (int)d.Height != h) {
+    fxBack_.Reset();
+    fxSwap_ = g.compositionSwapChain(w, h);
+    fxBack_ = fxSwap_ ? g.backBuffer(fxSwap_.Get()) : nullptr;
+    if (!fxBack_) {
+      stopFx();
+      return;
+    }
+    fxVisual_->SetContent(fxSwap_.Get());
+    fxVisual_->SetTransform(D2D1::Matrix3x2F::Scale(1.f / fxRes_, 1.f / fxRes_));
+    fxVisual_->SetBitmapInterpolationMode(DCOMPOSITION_BITMAP_INTERPOLATION_MODE_LINEAR);
+  }
+  V2 c = layout_->env.anchor;
+  float s = layout_->env.s / std::max(0.5f, app_.cfg.scale);  // the screen's own scale, not the wheel's size
+  if (!fx_.begin(spec, w, h, s * fxRes_, {c.x * fxRes_, c.y * fxRes_})) stopFx();
+}
+
+void Overlay::stopFx() {
+  fx_.end();
+  fxBack_.Reset();
+  fxSwap_.Reset();
+  if (fxVisual_) fxVisual_->SetContent(nullptr);
+}
+
 void Overlay::dropDevice() {
+  stopFx();
+  fxVisual_.Reset();
   backdrop_ = {};
   back_.Reset();
   swap_.Reset();
@@ -543,6 +603,7 @@ void Overlay::hideNow() {
   logf("overlay: %d frames, %.2f ms average, %.1f ms worst", frames_, frames_ ? frameSum_ / frames_ : 0.0, frameMax_);
   ShowWindow(hwnd_, SW_HIDE);
   if (sceneVisual_) sceneVisual_->SetContent(nullptr);
+  stopFx();
   if (gfx().dcomp) gfx().dcomp->Commit();
   live().rest();
   skinArt().rest();
@@ -724,6 +785,7 @@ void Overlay::reload(int slide) {
     }
   }
   warmArt(back_.Get());
+  if (fx_.spec().kind != backFxFor(app_.cfg, layout_->skin.get()).kind) startFx();  // another profile may have another skin
   layout_->beginOpen();
   layout_->tabs = tabs;
   layout_->tabsHold = slide ? 1.1f : hold;

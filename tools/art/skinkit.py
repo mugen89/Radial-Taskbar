@@ -67,7 +67,7 @@ class Kit(Pack):
             images[n] = f if list(d) == ['file'] else d
         j = dict(self.meta)
         order = ['style', 'wheel', 'colors', 'fonts', 'images', 'back', 'ring', 'slot', 'kid', 'over', 'hub', 'front', 'fan', 'pinbutton', 'settingsbutton', 'draw', 'tabs', 'panel', 'tag', 'tile',
-                 'particles', 'onopen', 'onhover', 'onlaunch', 'sounds', 'cursor']
+                 'particles', 'onopen', 'onhover', 'onlaunch', 'sounds', 'cursor', 'screen']
         parts['images'] = images
         parts.setdefault('sounds', {k: k + '.wav' for k in ('open', 'move', 'launch', 'close') if os.path.exists(os.path.join(self.dir, k + '.wav'))})
         for k in parts:

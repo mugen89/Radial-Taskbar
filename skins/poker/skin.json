@@ -1,0 +1,64 @@
+{
+  "format": 1,
+  "id": "poker",
+  "name": "Poker Table",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "about": "Green felt inside a padded rail; chips carry the apps, the dealer button sits in the middle",
+  "tags": ["casino", "green", "game"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#0A3A22", "accent": "#D9B45A", "accent2": "#FFFFFF", "text": "#1A1A1E", "border": "#D9B45A", "opacity": 0.98, "corner": 14, "font": "Bahnschrift", "open": "bloom", "speed": 1, "hoverGrow": 3, "iconZoom": 1.12, "glow": 0, "tilt": 0.3, "pointer": false, "burst": false, "shadow": 0.5, "dim": 0.38},
+  "wheel": {"hub": 90, "thickness": 92, "gap": 5, "ringgap": 10, "rim": 32, "icon": 42, "crowd": 1.45, "area": 1.1, "hubkeep": 0.76},
+  "colors": {"text": "#1A1A1E", "sub": "#4A4A4E"},
+  "fonts": {"title": "Bahnschrift, Segoe UI"},
+  "images": {
+    "arrow": "arrow.png",
+    "card": "card.png",
+    "chips": {"file": "chips.png", "cols": 4},
+    "dealer": {"file": "dealer.jpg", "mask": "dealer-mask.png"},
+    "halo": {"file": "halo.jpg", "light": true},
+    "table": {"file": "table.jpg", "mask": "table-mask.png"}
+  },
+  "back": [
+    {"shape": "circle", "x": 0.0, "y": 0.04, "size": 1.1, "fill": {"type": "radial", "stops": [[0, "black/65"], [0.86, "black/55"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "table", "size": 1.0, "intro": {"time": 0.35, "ease": "out", "scale": 0.94}}
+  ],
+  "slot": {
+    "intro": {"time": 0.42, "ease": "back", "delay": 0.06, "scale": 0.3, "stagger": 0.02, "order": "both"},
+    "under": [
+      {"image": "halo", "size": 1.6, "opacity": "hot*0.5", "when": "hot>0.02", "scale": "(1.6*hot)/1.6"},
+      {"shape": "circle", "x": 0.0, "y": 0.07, "size": 0.98, "fill": {"type": "radial", "stops": [[0, "black/45"], [0.86, "black/38"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+      {"image": "chips", "size": "0.98*(1+0.05*hot-0.06*press)", "frame": "(i+ring)%4", "rotate": "seed*360+time*40*hot"}
+    ],
+    "icon": {"size": 0.52, "zoom": 1.18, "shadow": {"x": 0, "y": 1, "blur": 2, "color": "black/40"}},
+    "over": [
+      {"shape": "circle", "y": 0.92, "size": 0.15, "fill": "#D9B45A", "when": "running", "opacity": "active ? 1 : 0.75", "glow": 4, "glowcolor": "#FFFFFF"},
+      {"shape": "circle", "y": 0.92, "size": 0.0825, "fill": "#FFFFFF", "when": "running", "opacity": "active ? 1 : 0.35+0.35*wave(time*0.5+seed)"},
+      {"shape": "circle", "x": 0.64, "y": -0.64, "size": 0.25, "fill": "#D9B45A", "when": "numbers && number<10 && !kid"},
+      {"text": "{number}", "x": 0.64, "y": -0.65, "em": 0.3, "color": "#08361E", "font": "title", "weight": 700, "when": "numbers && number<10 && !kid"},
+      {"shape": "poly", "points": [[-0.12, -0.6980000000000001], [0, -0.8], [0.12, -0.6980000000000001]], "stroke": "#1A1A1E", "width": 2.2, "caps": true, "when": "group"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "over": [
+    {"image": "arrow", "size": [0.06, 0.078], "in": "hub", "angle": "sel", "radius": 1.12, "rotate": "sel", "opacity": "on"}
+  ],
+  "hub": [
+    {"image": "dealer", "size": 1.0, "intro": {"time": 0.4, "ease": "back", "scale": 0.6}},
+    {"text": "{title}", "y": -0.05, "box": [1.26, 0.6], "px": 17, "color": "text", "font": "title", "weight": 700, "wrap": true, "shadow": {"x": 0, "y": 0, "blur": 2, "color": "#F6F4EE"}},
+    {"text": "{sub}", "y": 0.28, "box": [1.1969999999999998, 0.2], "px": 11.5, "color": "sub", "font": "title", "weight": 700, "shadow": {"x": 0, "y": 0, "blur": 2, "color": "#F6F4EE"}},
+    {"text": "{hh}:{mm}", "y": -0.08, "box": [1.26, 0.55], "px": 31, "color": "text", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 0, "blur": 2, "color": "#F6F4EE"}},
+    {"text": "{date}", "y": 0.21, "box": [1.1969999999999998, 0.2], "px": 12, "color": "sub", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 0, "blur": 2, "color": "#F6F4EE"}}
+  ],
+  "draw": {"clock": false, "shadow": false, "text": "text"},
+  "tabs": {"inset": 13, "text": "#F6F4EE", "fill": "#FFFFFF/12", "on": "#D9B45A/85"},
+  "panel": {"fill": {"type": "linear", "stops": [[0, "#0E5A34"], [1, "#08361E"]]}, "stroke": "#D9B45A", "width": 3, "corner": 14, "text": "#F6F4EE"},
+  "tag": {"fill": {"type": "linear", "stops": [[0, "#0E5A34"], [1, "#08361E"]]}, "stroke": "#D9B45A", "width": 2, "corner": 13, "text": "#F6F4EE"},
+  "tile": {"fill": {"type": "linear", "stops": [[0, "#F6F4EE"], [1, "#DCD8CC"]]}, "stroke": "#8A6A2A", "width": 2.4, "corner": 12, "text": "#1A1A1E"},
+  "onlaunch": [
+    {"image": "card", "count": 5, "area": "slot", "life": [0.6, 1.0], "size": [16, 22], "speed": [200, 420], "outward": true, "dir": [-50, 50], "drag": 2.2, "spin": [-260, 260], "fadein": 0, "fadeout": 0.35}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"}
+}

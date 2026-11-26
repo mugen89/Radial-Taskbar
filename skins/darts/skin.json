@@ -1,0 +1,63 @@
+{
+  "format": 1,
+  "id": "darts",
+  "name": "Dartboard",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "about": "Sisal, wire and numbers: apps sit in wire rings round the bull while a dart points at your choice",
+  "tags": ["game", "pub", "bold"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#141412", "accent": "#C8282A", "accent2": "#1E7A3A", "text": "#FFFFFF", "border": "#C8282A", "opacity": 0.98, "corner": 14, "font": "Bahnschrift", "open": "spin", "speed": 1, "hoverGrow": 3, "iconZoom": 1.12, "glow": 0, "tilt": 0.3, "pointer": false, "burst": false, "shadow": 0.5, "dim": 0.38},
+  "wheel": {"hub": 90, "thickness": 92, "gap": 5, "ringgap": 10, "rim": 32, "icon": 42, "crowd": 1.45, "area": 1.1, "hubkeep": 0.76},
+  "colors": {"text": "#FFFFFF", "sub": "#E8DCB8"},
+  "fonts": {"title": "Bahnschrift, Segoe UI"},
+  "images": {
+    "board": {"file": "board.jpg", "mask": "board-mask.png"},
+    "bull": {"file": "bull.jpg", "mask": "bull-mask.png"},
+    "dart": "dart.png",
+    "halo": {"file": "halo.jpg", "light": true},
+    "rings": {"file": "rings.png", "cols": 2},
+    "thud": {"file": "thud.jpg", "light": true}
+  },
+  "back": [
+    {"shape": "circle", "x": 0.0, "y": 0.03, "size": 1.08, "fill": {"type": "radial", "stops": [[0, "black/70"], [0.86, "black/60"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "board", "size": 1.0, "rotate": "(1-open)*-90", "intro": {"time": 0.4, "ease": "out", "scale": 0.92}}
+  ],
+  "slot": {
+    "intro": {"time": 0.42, "ease": "back", "delay": 0.06, "scale": 0.3, "stagger": 0.02, "order": "both"},
+    "under": [
+      {"image": "thud", "size": "1.5*(1+0.8*launch)", "opacity": "0.4*hot+launch"},
+      {"image": "rings", "size": "0.96*(1+0.04*hot-0.04*press)", "frame": "hot>0.5 ? 1 : 0"}
+    ],
+    "icon": {"size": 0.62, "zoom": 1.16, "shadow": {"x": 0, "y": 1, "blur": 2, "color": "black/50"}},
+    "over": [
+      {"shape": "circle", "y": 0.92, "size": 0.15, "fill": "#C8282A", "when": "running", "opacity": "active ? 1 : 0.75", "glow": 4, "glowcolor": "#1E7A3A"},
+      {"shape": "circle", "y": 0.92, "size": 0.0825, "fill": "#1E7A3A", "when": "running", "opacity": "active ? 1 : 0.35+0.35*wave(time*0.5+seed)"},
+      {"shape": "circle", "x": 0.64, "y": -0.64, "size": 0.25, "fill": "#E8DCB8", "when": "numbers && number<10 && !kid"},
+      {"text": "{number}", "x": 0.64, "y": -0.65, "em": 0.3, "color": "#141412", "font": "title", "weight": 700, "when": "numbers && number<10 && !kid"},
+      {"shape": "poly", "points": [[-0.12, -0.6980000000000001], [0, -0.8], [0.12, -0.6980000000000001]], "stroke": "#FFFFFF", "width": 2.2, "caps": true, "when": "group"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "over": [
+    {"image": "dart", "size": [0.05, 0.17], "in": "hub", "angle": "sel", "radius": 1.18, "rotate": "sel+180", "opacity": "on"}
+  ],
+  "hub": [
+    {"image": "bull", "size": 1.0, "intro": {"time": 0.4, "ease": "back", "scale": 0.6}},
+    {"text": "{title}", "y": -0.05, "box": [1.26, 0.6], "px": 17, "color": "text", "font": "title", "weight": 700, "wrap": true, "shadow": {"x": 0, "y": 1, "blur": 4, "color": "black/90"}},
+    {"text": "{sub}", "y": 0.28, "box": [1.1969999999999998, 0.2], "px": 11.5, "color": "sub", "font": "title", "weight": 700, "shadow": {"x": 0, "y": 1, "blur": 4, "color": "black/90"}},
+    {"text": "{hh}:{mm}", "y": -0.08, "box": [1.26, 0.55], "px": 31, "color": "text", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 1, "blur": 4, "color": "black/90"}},
+    {"text": "{date}", "y": 0.21, "box": [1.1969999999999998, 0.2], "px": 12, "color": "sub", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 1, "blur": 4, "color": "black/90"}}
+  ],
+  "draw": {"clock": false, "shadow": false, "text": "text"},
+  "tabs": {"inset": 13, "text": "text", "fill": "#FFFFFF/14", "on": "#C8282A/85"},
+  "panel": {"fill": {"type": "linear", "stops": [[0, "#2A2A26"], [1, "#141412"]]}, "stroke": "#A8AEB8", "width": 3, "corner": 14, "text": "text"},
+  "tag": {"fill": {"type": "linear", "stops": [[0, "#2A2A26"], [1, "#141412"]]}, "stroke": "#A8AEB8", "width": 2, "corner": 13, "text": "text"},
+  "tile": {"fill": {"type": "linear", "stops": [[0, "#E8DCB8"], [1, "#C8BC98"]]}, "stroke": "#6A6458", "width": 2.4, "corner": 12, "text": "#141412"},
+  "onlaunch": [
+    {"color": "#E8DCB8", "count": 16, "area": "slot", "life": [0.3, 0.6], "size": [1, 2.4], "speed": [60, 200], "outward": true, "dir": [-90, 90], "gravity": 400, "fadein": 0, "fadeout": 0.5}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"}
+}

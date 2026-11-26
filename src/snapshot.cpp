@@ -1,4 +1,5 @@
 #include "snapshot.h"
+#include "backfx.h"
 #include "update.h"
 
 #include "app.h"
@@ -325,15 +326,26 @@ int runSnapshot(const Args& a) {
     }
     logf("bench %.2f ms average, %.2f worst", sum / n, worst);
   }
+  BackFx fx;
+  BackFxSpec spec = L->skin ? L->skin->screen : BackFxSpec{};
+  if (a.has(L"--backfx")) {
+    spec = {};
+    spec.kind = narrow(a.get(L"--backfx"));
+    backFxDefaults(spec);
+  }
+  if (spec.on() && fx.begin(spec, W, H, 1.f, L->env.anchor))
+    for (int i = 0; i < 80; i++) fx.step(0.05f);  // a few seconds in, so the screen is full
   dc->BeginDraw();
   dc->DrawBitmap(wall.Get());
   Painter& p = painter();
   p.attach(dc);
   auto dimBr = p.solid(Color(0, 0, 0, L->st.dim * L->fade()));
   dc->FillRectangle(D2D1::RectF(0, 0, (float)W, (float)H), dimBr);
+  if (fx.active()) fx.draw(dc, 1.f);
   double t0 = nowSec();
   L->draw(p, bd.bmp ? &bd : nullptr);
   HRESULT hr = dc->EndDraw();
+  fx.end();
   logf("draw %.1f ms hr=%08lx", (nowSec() - t0) * 1000.0, hr);
   dc->SetTarget(nullptr);
   return SUCCEEDED(hr) && savePng(frame.Get(), out) ? 0 : 4;
@@ -582,6 +594,7 @@ int runSettingsShot(const Args& a) {
   for (int i = 0; i < kLayoutCount; i++)
     if (lay == widen(layoutId((LayoutType)i))) app.cfg.layout = (LayoutType)i;
   app.cfg.skin = narrow(a.get(L"--skin"));
+  app.cfg.helpLang = narrow(a.get(L"--lang"));
   live().staged = true;
   Profile p;
   p.name = L"Work";

@@ -1,0 +1,63 @@
+{
+  "format": 1,
+  "id": "viking",
+  "name": "Viking Shield",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "about": "A painted round shield of planks with an iron boss and rawhide rim; apps sit on small shields",
+  "tags": ["nordic", "wood", "warm"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#2A1E16", "accent": "#B8322A", "accent2": "#E8D2A0", "text": "#F2E6CC", "border": "#B8322A", "opacity": 0.98, "corner": 14, "font": "MedievalSharp", "open": "spin", "speed": 1, "hoverGrow": 3, "iconZoom": 1.12, "glow": 0, "tilt": 0.35, "pointer": false, "burst": false, "shadow": 0.5, "dim": 0.36},
+  "wheel": {"hub": 90, "thickness": 92, "gap": 5, "ringgap": 10, "rim": 32, "icon": 42, "crowd": 1.45, "area": 1.1, "hubkeep": 0.76},
+  "colors": {"text": "#F2E6CC", "sub": "#D2BC94"},
+  "fonts": {"title": {"file": "MedievalSharp.ttf", "family": "MedievalSharp"}},
+  "images": {
+    "arrowhead": "arrowhead.png",
+    "boss": {"file": "boss.jpg", "mask": "boss-mask.png"},
+    "bucklers": {"file": "bucklers.png", "cols": 4},
+    "halo": {"file": "halo.jpg", "light": true},
+    "shield": {"file": "shield.jpg", "mask": "shield-mask.png"},
+    "splinter": "splinter.png"
+  },
+  "back": [
+    {"shape": "circle", "x": 0.0, "y": 0.04, "size": 1.1, "fill": {"type": "radial", "stops": [[0, "black/65"], [0.86, "black/55"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "shield", "size": 1.0, "rotate": "(1-open)*-25", "intro": {"time": 0.4, "ease": "back", "scale": 0.85}}
+  ],
+  "slot": {
+    "intro": {"time": 0.42, "ease": "back", "delay": 0.06, "scale": 0.3, "stagger": 0.02, "order": "both"},
+    "under": [
+      {"image": "halo", "size": 1.6, "opacity": "hot*0.6", "when": "hot>0.02", "scale": "(1.6*hot)/1.6"},
+      {"image": "bucklers", "size": "0.98*(1+0.05*hot-0.04*press)", "frame": "(i+ring)%4", "rotate": "seed*360"}
+    ],
+    "icon": {"size": 0.58, "zoom": 1.16, "shadow": {"x": 1, "y": 2, "blur": 3, "color": "black/60"}},
+    "over": [
+      {"shape": "circle", "y": 0.92, "size": 0.15, "fill": "#B8322A", "when": "running", "opacity": "active ? 1 : 0.75", "glow": 4, "glowcolor": "#E8D2A0"},
+      {"shape": "circle", "y": 0.92, "size": 0.0825, "fill": "#E8D2A0", "when": "running", "opacity": "active ? 1 : 0.35+0.35*wave(time*0.5+seed)"},
+      {"shape": "circle", "x": 0.64, "y": -0.64, "size": 0.25, "fill": "#D8A23A", "when": "numbers && number<10 && !kid"},
+      {"text": "{number}", "x": 0.64, "y": -0.65, "em": 0.3, "color": "#2A1E16", "font": "title", "weight": 700, "when": "numbers && number<10 && !kid"},
+      {"shape": "poly", "points": [[-0.12, -0.6980000000000001], [0, -0.8], [0.12, -0.6980000000000001]], "stroke": "#F2E6CC", "width": 2.2, "caps": true, "when": "group"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "over": [
+    {"image": "arrowhead", "size": [0.06, 0.156], "in": "hub", "angle": "sel", "radius": 1.14, "rotate": "sel", "opacity": "on"}
+  ],
+  "hub": [
+    {"image": "boss", "size": 1.0, "intro": {"time": 0.4, "ease": "back", "scale": 0.6}},
+    {"text": "{title}", "y": -0.05, "box": [1.26, 0.6], "px": 18, "color": "text", "font": "title", "weight": 700, "wrap": true, "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/90"}},
+    {"text": "{sub}", "y": 0.28, "box": [1.178, 0.2], "px": 11.5, "color": "sub", "font": "title", "weight": 700, "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/90"}},
+    {"text": "{hh}:{mm}", "y": -0.08, "box": [1.24, 0.55], "px": 32, "color": "text", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/90"}},
+    {"text": "{date}", "y": 0.21, "box": [1.178, 0.2], "px": 12, "color": "sub", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/90"}}
+  ],
+  "draw": {"clock": false, "shadow": false, "text": "text"},
+  "tabs": {"inset": 13, "text": "text", "fill": "#F2E6CC/14", "on": "#B8322A/85"},
+  "panel": {"fill": {"type": "linear", "stops": [[0, "#4A3020"], [1, "#2A1E16"]]}, "stroke": "#8A6A44", "width": 3, "corner": 14, "text": "text"},
+  "tag": {"fill": {"type": "linear", "stops": [[0, "#4A3020"], [1, "#2A1E16"]]}, "stroke": "#8A6A44", "width": 2, "corner": 13, "text": "text"},
+  "tile": {"fill": {"type": "linear", "stops": [[0, "#E8D8B4"], [1, "#C8B48A"]]}, "stroke": "#6A4A2A", "width": 2.4, "corner": 12, "text": "#2A1E16"},
+  "onlaunch": [
+    {"image": "splinter", "count": 16, "area": "slot", "life": [0.5, 0.9], "size": [6, 10], "speed": [120, 340], "outward": true, "dir": [-80, 80], "gravity": 800, "spin": [-500, 500], "fadein": 0, "fadeout": 0.3}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"}
+}

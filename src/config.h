@@ -189,6 +189,10 @@ struct Config {
   bool taskbarMenu = true;      // offer "Add to Radial Taskbar" beside the menu of a taskbar button
   bool siteLogos = true;        // ask a website for its logo when it is added
   bool reverseScroll = false;   // scrolling down goes to the previous profile
+  std::string startProfile;     // the wheel always opens on this one; empty: the one used last
+  bool backFx = true;           // motion over the darkened desktop
+  std::string backFxKind = "skin";  // "skin": the skin's own, or one of backFxKinds()
+  std::string helpLang;         // the Help page in another language: "bg"
 
   int activeProfile = 0;
   std::vector<Profile> profiles;

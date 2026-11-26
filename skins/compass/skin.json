@@ -1,0 +1,64 @@
+{
+  "format": 1,
+  "id": "compass",
+  "name": "Compass",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "about": "A ship's brass compass with its card floating in oil; the needle swings round to your choice",
+  "tags": ["sea", "brass", "precise"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#2A1E12", "accent": "#C8964A", "accent2": "#B8202A", "text": "#2A1E12", "border": "#C8964A", "opacity": 0.98, "corner": 14, "font": "Georgia", "open": "spin", "speed": 0.9, "hoverGrow": 3, "iconZoom": 1.12, "glow": 0, "tilt": 0.3, "pointer": false, "burst": false, "shadow": 0.5, "dim": 0.3},
+  "wheel": {"hub": 90, "thickness": 92, "gap": 5, "ringgap": 10, "rim": 32, "icon": 42, "crowd": 1.45, "area": 1.1, "hubkeep": 0.76},
+  "colors": {"text": "#2A1E12", "sub": "#5A4A32"},
+  "fonts": {"title": "Georgia"},
+  "images": {
+    "bowl": {"file": "bowl.jpg", "mask": "bowl-mask.png"},
+    "cap": {"file": "cap.jpg", "mask": "cap-mask.png"},
+    "chips": {"file": "chips.png", "cols": 2},
+    "dome": "dome.png",
+    "halo": {"file": "halo.jpg", "light": true},
+    "needle": "needle.png"
+  },
+  "back": [
+    {"shape": "circle", "x": 0.0, "y": 0.03, "size": 1.08, "fill": {"type": "radial", "stops": [[0, "black/60"], [0.86, "black/51"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "bowl", "size": 1.0, "rotate": "(1-open)*-30", "intro": {"time": 0.45, "ease": "out", "scale": 0.94}},
+    {"image": "needle", "size": [0.07, 0.7], "rotate": "sel+6*sin(time*2.2)*exp(-0.0*time)", "opacity": "sat(open)"}
+  ],
+  "slot": {
+    "intro": {"time": 0.42, "ease": "back", "delay": 0.06, "scale": 0.3, "stagger": 0.02, "order": "both"},
+    "under": [
+      {"image": "halo", "size": 1.5, "opacity": "hot*0.5", "when": "hot>0.02", "scale": "(1.5*hot)/1.5"},
+      {"image": "chips", "size": "0.96*(1+0.04*hot-0.03*press)", "frame": "hot>0.5 ? 1 : 0"}
+    ],
+    "icon": {"size": 0.58, "zoom": 1.14, "shadow": {"x": 0, "y": 1, "blur": 2, "color": "black/35"}},
+    "over": [
+      {"shape": "circle", "y": 0.92, "size": 0.15, "fill": "#C8964A", "when": "running", "opacity": "active ? 1 : 0.75", "glow": 4, "glowcolor": "#B8202A"},
+      {"shape": "circle", "y": 0.92, "size": 0.0825, "fill": "#B8202A", "when": "running", "opacity": "active ? 1 : 0.35+0.35*wave(time*0.5+seed)"},
+      {"shape": "circle", "x": 0.64, "y": -0.64, "size": 0.25, "fill": "#B8202A", "when": "numbers && number<10 && !kid"},
+      {"text": "{number}", "x": 0.64, "y": -0.65, "em": 0.3, "color": "#F6F0E0", "font": "title", "weight": 700, "when": "numbers && number<10 && !kid"},
+      {"shape": "poly", "points": [[-0.12, -0.6980000000000001], [0, -0.8], [0.12, -0.6980000000000001]], "stroke": "#2A1E12", "width": 2.2, "caps": true, "when": "group"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "hub": [
+    {"image": "cap", "size": 1.0, "intro": {"time": 0.45, "ease": "back", "scale": 0.7}},
+    {"text": "{title}", "y": -0.05, "box": [1.26, 0.6], "px": 17, "color": "text", "font": "title", "weight": 700, "wrap": true, "shadow": {"x": 0, "y": 0, "blur": 2, "color": "#F6F0E0"}},
+    {"text": "{sub}", "y": 0.28, "box": [1.1969999999999998, 0.2], "px": 11.5, "color": "sub", "font": "title", "weight": 700, "shadow": {"x": 0, "y": 0, "blur": 2, "color": "#F6F0E0"}},
+    {"text": "{hh}:{mm}", "y": -0.08, "box": [1.26, 0.55], "px": 31, "color": "text", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 0, "blur": 2, "color": "#F6F0E0"}},
+    {"text": "{date}", "y": 0.21, "box": [1.1969999999999998, 0.2], "px": 12, "color": "sub", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 0, "blur": 2, "color": "#F6F0E0"}}
+  ],
+  "front": [
+    {"image": "dome", "size": 1.0, "opacity": "0.8*sat(open)"}
+  ],
+  "draw": {"clock": false, "shadow": false, "text": "text"},
+  "tabs": {"inset": 13, "text": "#F6F0E0", "fill": "#00000030", "on": "#C8964A/85"},
+  "panel": {"fill": {"type": "linear", "stops": [[0, "#F2E8D0"], [1, "#E0D2B0"]]}, "stroke": "#C8964A", "width": 3, "corner": 14, "text": "#2A1E12"},
+  "tag": {"fill": {"type": "linear", "stops": [[0, "#F2E8D0"], [1, "#E0D2B0"]]}, "stroke": "#C8964A", "width": 2, "corner": 13, "text": "#2A1E12"},
+  "tile": {"fill": {"type": "linear", "stops": [[0, "#F6F0E0"], [1, "#E4D8BC"]]}, "stroke": "#8A6A32", "width": 2.4, "corner": 12, "text": "#2A1E12"},
+  "onlaunch": [
+    {"color": "#F2D88A", "count": 14, "area": "slot", "life": [0.4, 0.8], "size": [1.2, 2.4], "speed": [50, 180], "outward": true, "dir": [-90, 90], "drag": 2, "fadein": 0, "fadeout": 0.5}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"}
+}

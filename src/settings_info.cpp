@@ -13,6 +13,11 @@ struct Change {
   std::vector<const wchar_t*> lines;
 };
 const Change kChanges[] = {
+    {L"1.1.0", L"November 2026",
+     {L"46 new skins, 76 in all: Frost, Dragon Scale, Crypt and Tarot, a space station and a living cell, a vault door and a film reel, pinball, slots and billiards, moonlight, lava and cherry blossom, marble, art deco and ink wash, doughnuts and balloons, and Digital Rain.",
+      L"Background motion: while the wheel is open, the darkened desktop comes alive with digital rain, stars, snow, fireflies, embers, bubbles, petals or bats. Each skin brings its own; Settings > Effects turns it off or picks one for every skin.",
+      L"The wheel can always open on the same profile (Settings > Profiles).",
+      L"Help can be read in English or Bulgarian."}},
     {L"1.0.0", L"November 2026",
      {L"The first public version, and the first with skins: 30 come with it, each with its own artwork, motion, lettering and sounds. More can be imported as .rskin files, tuned in hue, saturation and brightness, and removed again.",
       L"Every profile can use the main skin, no skin, or a skin of its own. Layout, size and effects stay the same for all of them, and the centre keeps its size from one profile to the next.",
@@ -155,6 +160,19 @@ void SettingsWindow::pageProfiles(RectF) {
   }
 
   section(L"Switching");
+  {
+    std::vector<std::wstring> opts{L"The one used last"};
+    int idx = 0;
+    for (size_t i = 0; i < k.profiles.size(); i++) {
+      opts.push_back(k.profiles[i].name + (k.profiles[i].locked ? L"  (locked)" : L""));
+      if (k.profiles[i].id == k.startProfile) idx = (int)i + 1;
+    }
+    RectF r = row(L"The wheel opens on", L"Always the same profile, or the one you used last", 240);
+    if (ui.combo(ui.id("startprof"), r, idx, opts) && idx >= 0) {
+      k.startProfile = idx == 0 ? std::string() : k.profiles[(size_t)idx - 1].id;
+      changed();
+    }
+  }
   toggleRow("revscroll", L"Reverse scroll direction", L"Turning the mouse wheel down goes back a profile instead of forward", k.reverseScroll);
   toggleRow("hubp2", L"Profiles around the centre", L"Click one to switch to it. Q and E switch too", k.hubProfiles);
 }
@@ -238,42 +256,87 @@ void SettingsWindow::pageNews(RectF) {
 // ---------------------------------------------------------------- help
 void SettingsWindow::pageHelp(RectF) {
   std::wstring key = hotkeyText(app_.cfg.hotkey);
+  {  // only this page comes in another language
+    int lang = app_.cfg.helpLang == "bg" ? 1 : 0;
+    RectF r = RectF::xywh(c_.x, c_.y + 4, std::min(300.f, c_.w), 32);
+    c_.y += 44;
+    if (ui.segmented(ui.id("helplang"), r, lang, {L"English", L"\x0411\x044A\x043B\x0433\x0430\x0440\x0441\x043A\x0438"})) {
+      app_.cfg.helpLang = lang ? "bg" : "";
+      changed();
+    }
+  }
   struct Part {
-    const wchar_t* title;
+    std::wstring title;
     std::vector<std::wstring> lines;
   };
-  std::vector<Part> parts = {
-      {L"Opening it",
-       {L"Press " + key + L" (you can choose another shortcut on the Shortcut page). The wheel opens at the mouse pointer; the Layout page can put it in the middle of the screen instead.",
-        L"Tap the shortcut and the wheel stays open until you click something. Or hold it, flick the mouse toward an item and let go: that opens it right away. The Shortcut page has the other ways to open it.",
-        L"Open it now (bottom left here) and the tray icon open it too."}},
-      {L"Opening apps",
-       {L"Point at an item, or just move the mouse toward it: the nearest one lights up. Click to open it.",
-        L"With the keyboard: A and D (or the arrow keys) turn, W and S reach out and back in, Space or F opens, 1 to 9 open by number, Esc closes.",
-        L"Hold Shift while opening, or click with the middle button, to start a new window even when the app is running already.",
-        L"Running apps carry a mark. Point at one with several windows and they fan out, so you can pick the window you want.",
-        L"Right-click an item for more: run as administrator, open the file location, unpin. The same menu switches profiles and skins."}},
-      {L"Profiles",
-       {L"Each profile is a wheel of its own. Turn the mouse wheel over the wheel, press Q and E, or click one of the profiles around the centre to switch.",
-        L"Lock a profile you only need now and then: the padlock on the Pins or Profiles page. The wheel skips it until you unlock it.",
-        L"On the Profiles page every profile can use the main skin, no skin, or one of its own. The scrolling direction can be reversed there too."}},
-      {L"Adding and arranging",
-       {L"On the Pins page, pick installed apps on the right, or use File, Folder, Website, Group and Taskbar. Dropping files, shortcuts or links on this window adds them as well.",
-        L"In Explorer, right-click a file or folder and choose Add to " RT_NAME L" (on Windows 11 under Show more options). Right-clicking a button on the taskbar offers the same.",
-        L"Drag items in the list to change their order. Drop one on a group to put it inside, or on another profile at the top to move it there; hold Ctrl to copy instead. Right-click an item for the same choices.",
-        L"A group shows its items when you point at it on the wheel. While a group is open on the right, everything you add goes straight into it.",
-        L"Click an item to change its name, its picture, or how it starts."}},
-      {L"Skins and looks",
-       {L"A skin replaces the whole look: artwork, motion, lettering and sounds. Choose one on the Skins page. Import skin adds .rskin files, and double-clicking one does the same.",
-        L"Under the gallery, hue, saturation and brightness tune the skin you chose. The bin on a card removes a skin: the ones you added go to the recycle bin, the others can be brought back.",
-        L"Without a skin, the Look and Effects pages shape everything yourself, and the Layout page chooses the arrangement.",
-        L"To make your own skin, copy one to edit on the Skins page. The guide SKINS.md in the program folder explains every part of it."}},
-      {L"Your data",
-       {L"Everything is saved as you go. General > Your data makes a backup file and reads one back.",
-        L"News looks for a newer version when you ask. To uninstall, use Settings > Apps in Windows, or Uninstall.exe in the program folder."}},
-  };
+  std::vector<Part> parts;
+  if (app_.cfg.helpLang == "bg") {
+    parts = {
+        {L"Отваряне",
+         {L"Натиснете " + key + L" (на страницата „Shortcut“ можете да изберете друга комбинация). Колелото се отваря при показалеца на мишката; на страницата „Layout“ можете да го поставите в средата на екрана.",
+          L"Натиснете комбинацията за кратко и колелото остава отворено, докато не кликнете нещо. Или я задръжте, махнете с мишката към елемент и пуснете: той се отваря веднага. Страницата „Shortcut“ показва и другите начини.",
+          L"Бутонът „Open it now“ (долу вляво тук) и иконата в областта за уведомления също го отварят."}},
+        {L"Отваряне на приложения",
+         {L"Посочете елемент или просто движете мишката към него: най-близкият светва. Кликнете, за да го отворите.",
+          L"С клавиатурата: A и D (или стрелките) въртят, W и S посягат навън и обратно навътре, Space или F отваря, от 1 до 9 отварят по номер, Esc затваря.",
+          L"Задръжте Shift, докато отваряте, или кликнете със средния бутон, за да стартирате нов прозорец, дори ако приложението вече работи.",
+          L"Работещите приложения имат знак. Посочете такова с няколко прозореца и те се разгръщат като ветрило, за да изберете нужния.",
+          L"Десен клик върху елемент дава още възможности: стартиране като администратор, отваряне на мястото на файла, премахване. От същото меню се сменят профили и скинове."}},
+        {L"Профили",
+         {L"Всеки профил е отделно колело. Завъртете колелцето на мишката над колелото, натиснете Q и E или кликнете някой от профилите около центъра, за да превключите.",
+          L"Заключете профил, който ви трябва само от време на време: с катинара на страниците „Pins“ или „Profiles“. Колелото го пропуска, докато не го отключите.",
+          L"На страницата „Profiles“ всеки профил може да използва основния скин, да е без скин или да има собствен. Там можете да обърнете посоката на превъртане и да изберете профил, с който колелото винаги да се отваря."}},
+        {L"Добавяне и подреждане",
+         {L"На страницата „Pins“ изберете инсталирани приложения вдясно или използвайте File, Folder, Website, Group и Taskbar. Можете и да пуснете файлове, преки пътища или връзки върху този прозорец.",
+          L"В Explorer кликнете с десния бутон върху файл или папка и изберете „Add to " RT_NAME L"“ (в Windows 11 под „Show more options“). Десен клик върху бутон в лентата на задачите предлага същото.",
+          L"Плъзгайте елементите в списъка, за да промените реда им. Пуснете елемент върху група, за да го сложите в нея, или върху друг профил горе, за да го преместите там; задръжте Ctrl, за да го копирате. Десният клик върху елемент дава същите възможности.",
+          L"Групата показва елементите си, когато я посочите в колелото. Докато група е отворена вдясно, всичко, което добавяте, отива направо в нея.",
+          L"Кликнете елемент, за да промените името, картинката му или начина, по който се стартира."}},
+        {L"Скинове и облик",
+         {L"Скинът сменя целия облик: графика, движение, надписи и звуци. Изберете го на страницата „Skins“. „Import skin“ добавя файлове .rskin, а двоен клик върху такъв файл прави същото.",
+          L"Под галерията оттенъкът, наситеността и яркостта настройват избрания скин. Кошчето върху карта премахва скин: добавените от вас отиват в кошчето на Windows, а останалите могат да бъдат върнати.",
+          L"Анимиран фон зад колелото (дигитален дъжд, звезди, сняг и други) се включва и избира на страницата „Effects“.",
+          L"Без скин страниците „Look“ и „Effects“ ви позволяват сами да оформите всичко, а страницата „Layout“ избира подредбата.",
+          L"За да направите собствен скин, копирайте някой за редактиране на страницата „Skins“. Ръководството SKINS.md в папката на програмата обяснява всяка негова част."}},
+        {L"Вашите данни",
+         {L"Всичко се запазва автоматично. „General > Your data“ прави файл с резервно копие и го зарежда обратно.",
+          L"„News“ проверява за нова версия, когато поискате. За премахване на програмата използвайте „Settings > Apps“ в Windows или Uninstall.exe в папката на програмата."}},
+    };
+  } else {
+    parts = {
+        {L"Opening it",
+         {L"Press " + key + L" (you can choose another shortcut on the Shortcut page). The wheel opens at the mouse pointer; the Layout page can put it in the middle of the screen instead.",
+          L"Tap the shortcut and the wheel stays open until you click something. Or hold it, flick the mouse toward an item and let go: that opens it right away. The Shortcut page has the other ways to open it.",
+          L"Open it now (bottom left here) and the tray icon open it too."}},
+        {L"Opening apps",
+         {L"Point at an item, or just move the mouse toward it: the nearest one lights up. Click to open it.",
+          L"With the keyboard: A and D (or the arrow keys) turn, W and S reach out and back in, Space or F opens, 1 to 9 open by number, Esc closes.",
+          L"Hold Shift while opening, or click with the middle button, to start a new window even when the app is running already.",
+          L"Running apps carry a mark. Point at one with several windows and they fan out, so you can pick the window you want.",
+          L"Right-click an item for more: run as administrator, open the file location, unpin. The same menu switches profiles and skins."}},
+        {L"Profiles",
+         {L"Each profile is a wheel of its own. Turn the mouse wheel over the wheel, press Q and E, or click one of the profiles around the centre to switch.",
+          L"Lock a profile you only need now and then: the padlock on the Pins or Profiles page. The wheel skips it until you unlock it.",
+          L"On the Profiles page every profile can use the main skin, no skin, or one of its own. The scrolling direction can be reversed there too, and the wheel can always open on the same profile."}},
+        {L"Adding and arranging",
+         {L"On the Pins page, pick installed apps on the right, or use File, Folder, Website, Group and Taskbar. Dropping files, shortcuts or links on this window adds them as well.",
+          L"In Explorer, right-click a file or folder and choose Add to " RT_NAME L" (on Windows 11 under Show more options). Right-clicking a button on the taskbar offers the same.",
+          L"Drag items in the list to change their order. Drop one on a group to put it inside, or on another profile at the top to move it there; hold Ctrl to copy instead. Right-click an item for the same choices.",
+          L"A group shows its items when you point at it on the wheel. While a group is open on the right, everything you add goes straight into it.",
+          L"Click an item to change its name, its picture, or how it starts."}},
+        {L"Skins and looks",
+         {L"A skin replaces the whole look: artwork, motion, lettering and sounds. Choose one on the Skins page. Import skin adds .rskin files, and double-clicking one does the same.",
+          L"Under the gallery, hue, saturation and brightness tune the skin you chose. The bin on a card removes a skin: the ones you added go to the recycle bin, the others can be brought back.",
+          L"An animated background behind the wheel (digital rain, stars, snow and more) is switched on and chosen on the Effects page.",
+          L"Without a skin, the Look and Effects pages shape everything yourself, and the Layout page chooses the arrangement.",
+          L"To make your own skin, copy one to edit on the Skins page. The guide SKINS.md in the program folder explains every part of it."}},
+        {L"Your data",
+         {L"Everything is saved as you go. General > Your data makes a backup file and reads one back.",
+          L"News looks for a newer version when you ask. To uninstall, use Settings > Apps in Windows, or Uninstall.exe in the program folder."}},
+    };
+  }
   for (auto& p : parts) {
-    section(p.title);
+    section(p.title.c_str());
     for (auto& l : p.lines) {
       ui.text(RectF::xywh(c_.x + 6, c_.y, 12, 20), L"\x2022", 13.f, ui.pal.accent, 600);
       para(l, 13.f, 400, 16);

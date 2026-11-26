@@ -1,0 +1,67 @@
+{
+  "format": 1,
+  "id": "sakura",
+  "name": "Cherry Blossom",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "about": "A dark branch across a soft spring sky; apps sit in blossoms while pink petals ride the wind",
+  "tags": ["nature", "spring", "pink"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#3A2A34", "accent": "#F2A6C0", "accent2": "#FFE6EE", "text": "#3A2A34", "border": "#F2A6C0", "opacity": 0.98, "corner": 14, "font": "Gabriola", "open": "bloom", "speed": 0.9, "hoverGrow": 3, "iconZoom": 1.12, "glow": 0, "tilt": 0.3, "pointer": false, "burst": false, "shadow": 0.5, "dim": 0.22},
+  "wheel": {"hub": 90, "thickness": 92, "gap": 5, "ringgap": 10, "rim": 32, "icon": 42, "crowd": 1.45, "area": 1.1, "hubkeep": 0.76},
+  "colors": {"text": "#3A2A34", "sub": "#6A4A5A"},
+  "fonts": {"title": "Gabriola, Constantia"},
+  "images": {
+    "flowers": {"file": "flowers.png", "cols": 2},
+    "halo": {"file": "halo.jpg", "light": true},
+    "paper": {"file": "paper.jpg", "mask": "paper-mask.png"},
+    "petals": {"file": "petals.png", "cols": 4},
+    "sky": {"file": "sky.jpg", "mask": "sky-mask.png"}
+  },
+  "back": [
+    {"shape": "circle", "x": 0.0, "y": 0.02, "size": 1.06, "fill": {"type": "radial", "stops": [[0, "black/40"], [0.86, "black/34"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "sky", "size": 1.0, "intro": {"time": 0.5, "ease": "out", "scale": 0.92}}
+  ],
+  "slot": {
+    "intro": {"time": 0.42, "ease": "back", "delay": 0.06, "scale": 0.3, "stagger": 0.02, "order": "both"},
+    "under": [
+      {"image": "halo", "size": 1.5, "opacity": "hot*0.5", "when": "hot>0.02", "scale": "(1.5*hot)/1.5"},
+      {"image": "flowers", "size": "1.22*(1+0.06*hot-0.04*press)", "frame": "hot>0.5 ? 1 : 0", "rotate": "seed*72+4*sin(time*1.5+seed*6)"}
+    ],
+    "icon": {"size": 0.44, "zoom": 1.22, "shadow": {"x": 0, "y": 1, "blur": 2, "color": "#3A2A34/40"}},
+    "over": [
+      {"shape": "circle", "y": 0.92, "size": 0.15, "fill": "#F2A6C0", "when": "running", "opacity": "active ? 1 : 0.75", "glow": 4, "glowcolor": "#FFE6EE"},
+      {"shape": "circle", "y": 0.92, "size": 0.0825, "fill": "#FFE6EE", "when": "running", "opacity": "active ? 1 : 0.35+0.35*wave(time*0.5+seed)"},
+      {"shape": "circle", "x": 0.64, "y": -0.64, "size": 0.25, "fill": "#C8303A", "when": "numbers && number<10 && !kid"},
+      {"text": "{number}", "x": 0.64, "y": -0.65, "em": 0.3, "color": "#FBF4EA", "font": "title", "weight": 700, "when": "numbers && number<10 && !kid"},
+      {"shape": "poly", "points": [[-0.12, -0.6980000000000001], [0, -0.8], [0.12, -0.6980000000000001]], "stroke": "#3A2A34", "width": 2.2, "caps": true, "when": "group"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "over": [
+    {"image": "petals", "size": [0.08, 0.08], "in": "hub", "frame": "0", "angle": "sel", "radius": 1.1, "rotate": "sel+10*sin(time*3)", "opacity": "on"}
+  ],
+  "hub": [
+    {"shape": "circle", "x": 0.0, "y": 0.05, "size": 1.0, "fill": {"type": "radial", "stops": [[0, "black/35"], [0.86, "black/30"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "paper", "size": 1.0, "intro": {"time": 0.5, "ease": "back", "scale": 0.6}},
+    {"text": "{title}", "y": -0.05, "box": [1.26, 0.6], "px": 20, "color": "text", "font": "title", "weight": 700, "wrap": true, "shadow": {"x": 0, "y": 0, "blur": 2, "color": "#FFFFFF"}},
+    {"text": "{sub}", "y": 0.28, "box": [1.1969999999999998, 0.2], "px": 11.5, "color": "sub", "font": "title", "weight": 700, "shadow": {"x": 0, "y": 0, "blur": 2, "color": "#FFFFFF"}},
+    {"text": "{hh}:{mm}", "y": -0.08, "box": [1.26, 0.55], "px": 34, "color": "text", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 0, "blur": 2, "color": "#FFFFFF"}},
+    {"text": "{date}", "y": 0.21, "box": [1.1969999999999998, 0.2], "px": 14, "color": "sub", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 0, "blur": 2, "color": "#FFFFFF"}}
+  ],
+  "draw": {"clock": false, "shadow": false, "text": "text"},
+  "tabs": {"inset": 13, "text": "#3A2A34", "fill": "#FFFFFF/45", "on": "#F2A6C0/85"},
+  "panel": {"fill": {"type": "linear", "stops": [[0, "#FBF4EA"], [1, "#F0E2D8"]]}, "stroke": "#C8303A", "width": 3, "corner": 14, "text": "#3A2A34"},
+  "tag": {"fill": {"type": "linear", "stops": [[0, "#FBF4EA"], [1, "#F0E2D8"]]}, "stroke": "#C8303A", "width": 2, "corner": 13, "text": "#3A2A34"},
+  "tile": {"fill": {"type": "linear", "stops": [[0, "#FBF4EA"], [1, "#F0E2D8"]]}, "stroke": "#C89AA8", "width": 2.4, "corner": 12, "text": "#3A2A34"},
+  "particles": [
+    {"image": "petals", "rate": 1.2, "max": 10, "area": "stage", "life": [3, 5.5], "size": [6, 11], "speed": [8, 18], "dir": [110, 200], "gravity": 6, "spin": [-70, 70], "sway": 24, "swayhz": 0.35, "opacity": 0.95, "fadein": 0.15, "fadeout": 0.3}
+  ],
+  "onlaunch": [
+    {"image": "petals", "count": 30, "area": "slot", "life": [0.6, 1.2], "size": [7, 14], "speed": [80, 300], "outward": true, "dir": [-120, 120], "gravity": 120, "drag": 2.2, "sway": 20, "swayhz": 0.8, "spin": [-260, 260], "fadein": 0, "fadeout": 0.5}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"},
+  "screen": {"effect": "petals", "color": "#F2A6C0", "color2": "#FFE6EE", "density": 1.0, "speed": 0.8, "size": 1.0}
+}

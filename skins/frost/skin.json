@@ -1,0 +1,65 @@
+{
+  "format": 1,
+  "id": "frost",
+  "name": "Frost",
+  "author": "Radial Taskbar",
+  "version": "1.0",
+  "about": "Ice crystals grow in from the rim of a frozen disc; apps rest on clear ice while snow falls outside",
+  "tags": ["winter", "cool", "calm"],
+  "preview": "preview.jpg",
+  "style": {"shape": "orb", "material": "solid", "base": "#0E2236", "accent": "#9FD8FF", "accent2": "#FFFFFF", "text": "#F2FAFF", "border": "#9FD8FF", "opacity": 0.98, "corner": 14, "font": "Candara", "open": "zoom", "speed": 0.9, "hoverGrow": 3, "iconZoom": 1.12, "glow": 0, "tilt": 0.3, "pointer": false, "burst": false, "shadow": 0.5, "dim": 0.45},
+  "wheel": {"hub": 90, "thickness": 92, "gap": 5, "ringgap": 10, "rim": 32, "icon": 42, "crowd": 1.45, "area": 1.1, "hubkeep": 0.76},
+  "colors": {"text": "#F2FAFF", "sub": "#B8D8F0"},
+  "fonts": {"title": "Candara, Segoe UI"},
+  "images": {
+    "crystal": "crystal.png",
+    "halo": {"file": "halo.jpg", "light": true},
+    "ice": {"file": "ice.jpg", "mask": "ice-mask.png"},
+    "lake": {"file": "lake.jpg", "mask": "lake-mask.png"},
+    "mist": {"file": "mist.jpg", "light": true},
+    "tiles": {"file": "tiles.png", "cols": 2}
+  },
+  "back": [
+    {"shape": "circle", "x": 0.0, "y": 0.03, "size": 1.08, "fill": {"type": "radial", "stops": [[0, "black/60"], [0.86, "black/51"], [1, "black/0"]]}, "opacity": "sat(open)*0.95"},
+    {"image": "ice", "size": 1.0, "intro": {"time": 0.45, "ease": "out", "scale": 0.9}}
+  ],
+  "slot": {
+    "intro": {"time": 0.42, "ease": "back", "delay": 0.06, "scale": 0.3, "stagger": 0.02, "order": "both"},
+    "under": [
+      {"image": "halo", "size": 1.6, "opacity": "hot*0.6", "when": "hot>0.02", "scale": "(1.6*hot)/1.6"},
+      {"image": "tiles", "size": "1.0*(1+0.05*hot-0.04*press)", "frame": "hot>0.5 ? 1 : 0", "rotate": "a"}
+    ],
+    "icon": {"size": 0.66, "zoom": 1.16, "shadow": {"x": 0, "y": 1, "blur": 4, "color": "#0A2236/60"}},
+    "over": [
+      {"shape": "circle", "y": 0.92, "size": 0.15, "fill": "#9FD8FF", "when": "running", "opacity": "active ? 1 : 0.75", "glow": 4, "glowcolor": "#FFFFFF"},
+      {"shape": "circle", "y": 0.92, "size": 0.0825, "fill": "#FFFFFF", "when": "running", "opacity": "active ? 1 : 0.35+0.35*wave(time*0.5+seed)"},
+      {"shape": "circle", "x": 0.64, "y": -0.64, "size": 0.25, "fill": "#9FD8FF", "when": "numbers && number<10 && !kid"},
+      {"text": "{number}", "x": 0.64, "y": -0.65, "em": 0.3, "color": "#0E2236", "font": "title", "weight": 700, "when": "numbers && number<10 && !kid"},
+      {"shape": "poly", "points": [[-0.12, -0.6980000000000001], [0, -0.8], [0.12, -0.6980000000000001]], "stroke": "#F2FAFF", "width": 2.2, "caps": true, "when": "group"}
+    ],
+    "marks": false,
+    "chevron": false,
+    "badge": false
+  },
+  "over": [
+    {"image": "crystal", "size": [0.09, 0.09], "in": "hub", "angle": "sel", "radius": 1.1, "rotate": "sel", "opacity": "on"}
+  ],
+  "hub": [
+    {"image": "lake", "size": 1.0, "intro": {"time": 0.45, "ease": "back", "scale": 0.6}},
+    {"text": "{title}", "y": -0.05, "box": [1.26, 0.6], "px": 17, "color": "text", "font": "title", "weight": 700, "wrap": true, "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/70"}},
+    {"text": "{sub}", "y": 0.28, "box": [1.178, 0.2], "px": 11.5, "color": "sub", "font": "title", "weight": 700, "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/70"}},
+    {"text": "{hh}:{mm}", "y": -0.08, "box": [1.24, 0.55], "px": 31, "color": "text", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/70"}},
+    {"text": "{date}", "y": 0.21, "box": [1.178, 0.2], "px": 12, "color": "sub", "font": "title", "weight": 700, "opacity": "idle", "shadow": {"x": 0, "y": 1, "blur": 3, "color": "black/70"}}
+  ],
+  "draw": {"clock": false, "shadow": false, "text": "text"},
+  "tabs": {"inset": 13, "text": "text", "fill": "#F2FAFF/14", "on": "#9FD8FF/85"},
+  "panel": {"fill": {"type": "linear", "stops": [[0, "#1C3A56"], [1, "#0E2236"]]}, "stroke": "#9FD8FF", "width": 3, "corner": 14, "text": "text"},
+  "tag": {"fill": {"type": "linear", "stops": [[0, "#1C3A56"], [1, "#0E2236"]]}, "stroke": "#9FD8FF", "width": 2, "corner": 13, "text": "text"},
+  "tile": {"fill": {"type": "linear", "stops": [[0, "#EAF6FF"], [1, "#C8E4F6"]]}, "stroke": "#7FB8E0", "width": 2.4, "corner": 12, "text": "#0E2236"},
+  "onlaunch": [
+    {"image": "mist", "count": 14, "area": "slot", "life": [0.6, 1.3], "size": [18, 34], "grow": 2, "speed": [20, 90], "outward": true, "dir": [-60, 60], "drag": 1.5, "opacity": 0.45, "fadein": 0.1, "fadeout": 0.6},
+    {"color": "#FFFFFF", "count": 20, "area": "slot", "life": [0.4, 0.9], "size": [1.2, 2.6], "speed": [60, 220], "outward": true, "dir": [-90, 90], "drag": 2, "fadein": 0, "fadeout": 0.5}
+  ],
+  "sounds": {"open": "open.wav", "move": "move.wav", "launch": "launch.wav", "close": "close.wav"},
+  "screen": {"effect": "snow", "color": "#FFFFFF", "color2": "#CFE8FF", "density": 1.0, "speed": 0.8, "size": 1.0}
+}

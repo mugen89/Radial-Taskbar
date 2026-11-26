@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(RadialTaskbar VERSION 1.0.0 LANGUAGES CXX RC)
+project(RadialTaskbar VERSION 1.1.0 LANGUAGES CXX RC)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -79,7 +79,7 @@ if(RT_TESTS)
   add_executable(test_config tests/test_config.cpp src/common.cpp src/config.cpp src/json.cpp src/shellutil.cpp src/update.cpp)
   add_executable(test_picture tests/test_picture.cpp src/common.cpp src/config.cpp src/json.cpp src/gfx.cpp src/icons.cpp
     src/picture.cpp src/sitelogo.cpp src/shellutil.cpp src/icontone.cpp)
-  add_executable(test_skin tests/test_skin.cpp src/common.cpp src/config.cpp src/json.cpp src/gfx.cpp src/expr.cpp src/zip.cpp src/skin.cpp src/looks.cpp)
+  add_executable(test_skin tests/test_skin.cpp src/common.cpp src/config.cpp src/json.cpp src/gfx.cpp src/expr.cpp src/zip.cpp src/skin.cpp src/looks.cpp src/backfx.cpp)
   foreach(t test_hook test_config test_picture test_skin)
     target_include_directories(${t} PRIVATE $<$<COMPILE_LANGUAGE:CXX>:${CMAKE_SOURCE_DIR}/src>)
     target_link_options(${t} PRIVATE -static)
